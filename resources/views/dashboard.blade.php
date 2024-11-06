@@ -6,15 +6,17 @@
     border: none !important;
     }   
 
-  
-   
+    #text{
+        padding-bottom: 50px;
+    }
+    
 </style>
-<div class="col-12 text-center mb-3">
+<div class="col-12 text-center mb-3" id="text">
     <h2><b>Dashboard Kompen JTI</b></h2>
 </div>
 
-<div class="card card-outline ">
-    <div class="card-body">
+<div class="card card-outline" id="card-outline-id">
+    <div class="card-body" id="card-body-id">
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif

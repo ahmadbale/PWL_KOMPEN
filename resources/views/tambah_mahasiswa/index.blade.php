@@ -1,8 +1,12 @@
 
 @extends('layouts.template')
-
+<style>
+     #text{
+        padding-top: 50px;
+    }
+</style>
 @section('content')
-<div class="col-12 text-left mb-3">
+<div class="col-12 text-left mb-3" id="text">
     <h2><b>Tambah Data Mahasiswa</b></h2>
 </div>
 

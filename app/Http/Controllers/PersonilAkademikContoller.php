@@ -21,38 +21,38 @@ class PersonilAkademikContoller extends Controller
         ];
 
         $activeMenu = 'personilakademik'; // set menu yang sedang aktif
-        // $level = LevelModel::all(); //ambil data level untuk filter level
+        $level = LevelModel::all(); //ambil data level untuk filter level
         return view('personilakademik.index', ['breadcrumb' => $breadcrumb, 
-        // 'page' => $page,
-        // 'level' => $level,
-        // 'activeMenu' => $activeMenu
+        'page' => $page,
+        'level' => $level,
+        'activeMenu' => $activeMenu
         ]);
     }
 
     public function list(Request $request)
     {
-        $user = PersonilAkademikModel::select('id_personil', 'username', 'nama', 'id_level')
+        $personil = PersonilAkademikModel::select('id_personil','nomor_induk', 'username', 'nama', 'id_level')
             ->with('level');
 
         if ($request->id_level){
-            $user->where('id_level',$request->id_level);
+            $personil->where('id_level',$request->id_level);
         }
-        return DataTables::of($user)
+        return DataTables::of($personil)
             // Ambil data user dalam bentuk json untuk datables
             // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
             ->addIndexColumn()
-            ->addColumn('aksi', function ($user) { // menambahkan kolom aksi
-                $btn = '<a href="' . url('/personil/' . $user->id_personil) . '" class="btn btn-info btnsm">Detail</a> ';
-                $btn .= '<a href="' . url('/personil/' . $user->id_personil . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
+            ->addColumn('aksi', function ($personil) { 
+                $btn = '<a href="' . url('/personilakademik/' . $personil->id_personil) . '" class="btn btn-info btnsm">Detail</a> ';
+                $btn .= '<a href="' . url('/personilakademik/' . $personil->id_personil . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
                 $btn .= '<form class="d-inline-block" method="POST" action="' .
-                    url('/personil/' . $user->id_personil) . '">'
+                    url('/personilakademik/' . $personil->id_personil) . '">'
                     . csrf_field() . method_field('DELETE') .
                     '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakit menghapus data ini?\');">Hapus</button></form>';
-                $btn = '<button onclick="modalAction(\'' . url('/user/' . $user->id_personil .
+                $btn = '<button onclick="modalAction(\'' . url('/user/' . $personil->id_personil .
                     '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
-                $btn .= '<button onclick="modalAction(\'' . url('/user/' . $user->id_personil .
+                $btn .= '<button onclick="modalAction(\'' . url('/user/' . $personil->id_personil .
                     '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
-                $btn .= '<button onclick="modalAction(\'' . url('/user/' . $user->id_personil .
+                $btn .= '<button onclick="modalAction(\'' . url('/user/' . $personil->id_personil .
                     '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
                 return $btn;
             })

@@ -27,12 +27,12 @@
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Filter:</label>
                     <div class="col-3">
-                        {{-- <select class="form-control" id="id_level" name="id_level" required>
+                        <select class="form-control" id="id_level" name="id_level" required>
                             <option value="">- Semua -</option>
                             @foreach ($level as $item)
                                 <option value="{{ $item->id_level }}">{{ $item->level_nama }}</option>
                             @endforeach
-                        </select> --}}
+                        </select>
                     </div>
                     <small class="form-text text-muted">Level Personil</small>
                 </div>
@@ -69,7 +69,7 @@
 
         var dataUser;
         $(document).ready(function() {
-            dataUser = $('#table_user').DataTable({
+            dataUser = $('#table_personil_akademik').DataTable({
                 // serverSide: true, jika ingin menggunakan server side processing
                 serverSide: true,
                 ajax: {
@@ -86,6 +86,13 @@
                     className: "text-center",
                     orderable: false,
                     searchable: false
+                },{
+                    data: "id_personil",
+                    className: "",
+                    // orderable: true, jika ingin kolom ini bisa diurutkan
+                    orderable: true,
+                    // searchable: true, jika ingin kolom ini bisa dicari
+                    searchable: true 
                 },{
                     data: "no_induk",
                     className: "",
@@ -109,13 +116,13 @@
                     // mengambil data level hasil dari ORM berelasi
                     data: "level.level_nama",
                     className: "",
-                    orderable: false,
-                    searchable: false
+                    orderable: true,
+                    searchable: true
                 }, {
                     data: "no_telp",
                     className: "",
-                    orderable: false,
-                    searchable: false
+                    orderable: true,
+                    searchable: true
                 }, {
                     data: "aksi",
                     className: "",

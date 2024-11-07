@@ -72,7 +72,7 @@ class LevelController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
                 'kode_level' => 'required|string|min:3|unique:level,kode_level',
-                'nama_level' => 'required|string|max:255'
+                'nama_level' => 'required|string|max:250'
             ];
 
             $validator = Validator::make($request->all(), $rules);

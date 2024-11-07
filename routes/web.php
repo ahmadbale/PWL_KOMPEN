@@ -40,6 +40,11 @@ Route::get('/pengaturan', [PengaturanController::class, 'index']);
 Route::get('/verifikasitugas', [VerifikasiTugasController::class, 'index']);
 Route::get('/verifikasi', [VerifikasiController::class, 'index']);
 Route::get('/tambahdosen', [DosenController::class, 'index']);
-Route::get('/tambahmahasiswa', [MahasiswaController::class, 'index']);
 Route::get('/tambahtendik', [TendikController::class, 'index']);
 Route::get('/kategori', [KategoriController::class, 'index']);
+
+Route::group(['prefix' => 'mahasiswa'], function () {
+Route::get('/', [MahasiswaController::class, 'index']);
+Route::get('/create_ajax', [MahasiswaController::class, 'create_ajax']);
+Route::get('/ajax', [MahasiswaController::class, 'store_ajax']);
+});

@@ -12,7 +12,8 @@
 </div>
 
 <div class="card-tools">
-    <button onclick="modalAction('{{ url('mahasiswa/create_ajax') }}')" class="btn btn-success"><i class="fas fa-plus-circle"></i> Tambah Data</button> 
+    <button onclick="modalAction('{{ url('/mahasiswa/create_ajax') }}')" class="btn btn-success"><i class="fas fa-plus-circle"></i> Tambah Data
+    </button> 
     <button onclick="modalAction('{{ url('/') }}')" class="btn btn-success"><i class="fas fa-plus-circle"></i> Import Data</button> 
     <a href="{{ url('/') }}" class="btn btn-success"><i class="fas fa-plus-circle"></i> Export Data</a>
 </div>
@@ -26,13 +27,17 @@
             <div class="alert alert-danger">{{ session('error') }}</div>
         @endif
        
-        <table class="table table-striped table-hover table-sm mt-3 no-border" id="table_user">
+        <table class="table table-striped table-hover table-sm mt-3 no-border" id="table_mahasiswa">
             <thead>
                 <tr>
                     <th>ID Mahasiswa</th>
+                    <th>Nomor Induk</th>
                     <th>Nama Lengkap</th>
-                    <th>Kelas</th>
-                    <th>NIM</th>
+                    <th>Semester</th>
+                    <th>Jam Alpha</th>
+                    <th>Jam Kompen</th>
+                    <th>Jam Kompen Selesai</th>
+                    <th>Prodi</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -45,6 +50,10 @@
 <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" databackdrop="static" data-keyboard="false" data-width="75%" aria-hidden="true"></div>
 @endsection
 
+@push('css')
+@endpush
+    
+@endpush
 
 @push('js')
 <script>
@@ -58,7 +67,7 @@ function modalAction(url = ''){
         dataMahasiswa = $('#table_mahasiswa').DataTable({
             serverSide:true,
             ajax: {
-                "url": "{{ url('user/list') }}",
+                "url": "{{ url('mahasiswa/list') }}",
                 "dataType": "json",
                 "type" : "POST",
                 "data" : function (d){

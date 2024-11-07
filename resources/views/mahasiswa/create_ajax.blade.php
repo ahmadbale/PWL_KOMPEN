@@ -7,29 +7,29 @@
             </div>
             <div class="modal-body">
                
-                <div class="form-group"> <label>Nomor Induk</label> <input value="" type="number" name="username"
-                        id="username" class="form-control" required> <small id="error-username"
+                <div class="form-group"> <label>Nomor Induk</label> <input value="" type="number" name="nomor_induk"
+                        id="nomor_induk" class="form-control" required> <small id="error-nomor_induk"
                         class="error-text form-text text-danger"></small> </div>
-                <div class="form-group"> <label>Username</label> <input value="" type="text" name="nama"
-                        id="nama" class="form-control" required> <small id="error-nama"
+                <div class="form-group"> <label>Username</label> <input value="" type="text" name="username"
+                        id="username" class="form-control" required> <small id="error-username"
                         class="error-text form-text text-danger"></small> </div>
                 <div class="form-group"> <label>Nama</label> <input value="" type="text" name="nama"
                         id="nama" class="form-control" required> <small id="error-nama"
                         class="error-text form-text text-danger"></small> </div>
-                <div class="form-group"> <label>Semester</label> <input value="" type="text" name="nama"
-                        id="nama" class="form-control" required> <small id="error-nama"
+                <div class="form-group"> <label>Semester</label> <input value="" type="number" name="semester"
+                        id="semester" class="form-control" required> <small id="error-semester"
                         class="error-text form-text text-danger"></small> </div>
                 <div class="form-group"> <label>Password</label> <input value="" type="password" name="password"
                         id="password" class="formcontrol" required> <small id="error-password"
                         class="error-text form-text text-danger"></small> </div>
-                 <div class="form-group"> <label>Jam Alpha</label> <input value="" type="number" name="username"
-                        id="username" class="form-control" required> <small id="error-username"
+                 <div class="form-group"> <label>Jam Alpha</label> <input value="" type="number" name="jam_alpha"
+                        id="jam_alpha" class="form-control" required> <small id="error-jam_alpha"
                         class="error-text form-text text-danger"></small> </div>
-                 <div class="form-group"> <label>Jam Kompen</label> <input value="" type="number" name="username"
-                        id="username" class="form-control" required> <small id="error-username"
+                 <div class="form-group"> <label>Jam Kompen</label> <input value="" type="number" name="jam_kompen"
+                        id="jam_kompen" class="form-control" required> <small id="error-jam_kompen"
                         class="error-text form-text text-danger"></small> </div>
-                 <div class="form-group"> <label>Jam Kompen Selesai</label> <input value="" type="number" name="username"
-                        id="username" class="form-control" required> <small id="error-username"
+                 <div class="form-group"> <label>Jam Kompen Selesai</label> <input value="" type="number" name="jam_kompen_selesai"
+                        id="jam_kompen_selesai" class="form-control" required> <small id="error-jam_kompen_selesai"
                         class="error-text form-text text-danger"></small> </div>
                  <div class="form-group"> <label>Prodi</label> <select name="id_prodi" id="id_prodi"
                         class="form-control" required>
@@ -58,7 +58,7 @@
     $(document).ready(function() {
         $("#form-tambah").validate({
             rules: {
-                level_id: {
+                nomor_induk: {
                     required: true,
                     number: true
                 },
@@ -72,10 +72,34 @@
                     minlength: 3,
                     maxlength: 100
                 },
+                semester: {
+                    required: true,
+                    number: true
+                },
                 password: {
                     required: true,
                     minlength: 6,
                     maxlength: 20
+                },
+                jam_alpha: {
+                    required: true,
+                    number: true
+                },
+                jam_kompen: {
+                    required: true,
+                    number: true
+                },
+                jam_kompen_selesai: {
+                    required: true,
+                    number: true
+                },
+                id_prodi: {
+                    required: true,
+                    number: true
+                },
+                id_level: {
+                    required: true,
+                    number: true
                 }
             },
             submitHandler: function(form) {

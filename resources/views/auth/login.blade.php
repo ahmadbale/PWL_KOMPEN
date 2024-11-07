@@ -76,7 +76,7 @@
 <body>
     <div class="login-container">
       <img src="{{ asset('logo-jti.png') }}">
-        <form>
+        <form action="{{ url('login') }}" method="POST" id="form-login">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" required>

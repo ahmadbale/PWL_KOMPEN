@@ -88,7 +88,7 @@ class LevelController extends Controller
             LevelModel::create($request->all());
             return response()->json([
                 'status' => true,
-                'message' => 'Data level berhasil disimpan'
+                'message' => 'Data level berhasil disimpan.'
             ]);
         }
 

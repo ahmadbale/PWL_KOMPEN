@@ -83,7 +83,7 @@
         </li>
         <li class="nav-item">
           <a href="{{ url('/kategori') }}" class="nav-link ">
-            <i class="nav-icon fas "></i>
+            <i class="nav-icon fas fa-solid fa-layer-group "></i>
             <p>Kategori</p>
           </a>
         </li>

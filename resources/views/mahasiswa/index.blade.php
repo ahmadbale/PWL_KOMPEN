@@ -30,7 +30,7 @@
         <table class="table table-striped table-hover table-sm mt-3 no-border" id="table_mahasiswa">
             <thead>
                 <tr>
-                    <th>ID Mahasiswa</th>
+                    <th>No</th>
                     <th>Nomor Induk</th>
                     <th>Nama Lengkap</th>
                     <th>Semester</th>
@@ -52,14 +52,13 @@
 
 @push('css')
 @endpush
-    
-@endpush
 
 @push('js')
 <script>
 function modalAction(url = ''){     
     $('#myModal').load(url,function(){       
-          $('#myModal').modal('show');     }); 
+          $('#myModal').modal('show');     
+        }); 
     }
 
     var dataMahasiswa;
@@ -71,9 +70,76 @@ function modalAction(url = ''){
                 "dataType": "json",
                 "type" : "POST",
                 "data" : function (d){
-                    d.mahasiswa_id = $('#mahasiswa_id').va;();
+                    d.id_mahasiswa = $('#id_mahasiswa').val();
+                }
+         },
+
+         columns: [
+            {
+                        //nomor urut dari laravel datatable addIndexColumn()
+                        data: "DT_RowIndex",
+                        className: "text-center",
+                        width: "5%",
+                        orderable: false,
+                        searchable: false
+                },{ 
+                    data: "nomor_induk",  
+                    className: "", 
+                    width: "10%", 
+                    orderable: true, 
+                    searchable: true, 
+                },{ 
+                    data: "nama",  
+                    className: "", 
+                    width: "20%", 
+                    orderable: true, 
+                    searchable: true, 
                 },
-         }
+                { 
+                    data: "semester",  
+                    className: "", 
+                    width: "5%", 
+                    orderable: true, 
+                    searchable: true, 
+                },
+                { 
+                    data: "jam_alpha",  
+                    className: "", 
+                    width: "10%", 
+                    orderable: true, 
+                    searchable: true, 
+                },
+                { 
+                    data: "jam_kompen",  
+                    className: "", 
+                    width: "10%", 
+                    orderable: true, 
+                    searchable: true, 
+                },
+                { 
+                    data: "jam_kompen_selesai",  
+                    className: "", 
+                    width: "5%", 
+                    orderable: true, 
+                    searchable: true, 
+                },
+                { 
+                    data: "prodi.nama_prodi",  
+                    className: "", 
+                    width: "19%", 
+                    orderable: true, 
+                    searchable: true, 
+                },
+                { 
+                    data: "aksi",  
+                    className: "", 
+                    width: "20%", 
+                    orderable: false, 
+                    searchable: false 
+                } 
+            ] 
+
+
         })
     })
 </script>

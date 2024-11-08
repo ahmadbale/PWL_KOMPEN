@@ -1,14 +1,16 @@
-<form action="{{ url('/mahasiswa/ajax') }}" method="POST" id="form-tambah"> @csrf <div id="modal-master"
+<form action="{{ url('/mahasiswa/ajax') }}" method="POST" id="form-tambah"> 
+    @csrf <div id="modal-master"
         class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Mahasiswa</h5> <button type="button" class="close"
-                    data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Mahasiswa</h5> <button type="button"
+                    class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-               
-                <div class="form-group"> <label>Nomor Induk</label> <input value="" type="number" name="nomor_induk"
-                        id="nomor_induk" class="form-control" required> <small id="error-nomor_induk"
+
+                <div class="form-group"> <label>Nomor Induk</label> <input value="" type="number"
+                        name="nomor_induk" id="nomor_induk" class="form-control" required> <small id="error-nomor_induk"
                         class="error-text form-text text-danger"></small> </div>
                 <div class="form-group"> <label>Username</label> <input value="" type="text" name="username"
                         id="username" class="form-control" required> <small id="error-username"
@@ -19,33 +21,28 @@
                 <div class="form-group"> <label>Semester</label> <input value="" type="number" name="semester"
                         id="semester" class="form-control" required> <small id="error-semester"
                         class="error-text form-text text-danger"></small> </div>
-                <div class="form-group"> <label>Password</label> <input value="" type="password" name="password"
-                        id="password" class="formcontrol" required> <small id="error-password"
-                        class="error-text form-text text-danger"></small> </div>
-                 <div class="form-group"> <label>Jam Alpha</label> <input value="" type="number" name="jam_alpha"
+                        <div class="form-group"> 
+                            <label>Password</label> 
+                            <input value="" type="password" name="password" id="password" class="form-control" required> 
+                            <small id="error-password" class="error-text form-text text-danger"></small> 
+                        </div> 
+                <div class="form-group"> <label>Jam Alpha</label> <input value="" type="number" name="jam_alpha"
                         id="jam_alpha" class="form-control" required> <small id="error-jam_alpha"
                         class="error-text form-text text-danger"></small> </div>
-                 <div class="form-group"> <label>Jam Kompen</label> <input value="" type="number" name="jam_kompen"
-                        id="jam_kompen" class="form-control" required> <small id="error-jam_kompen"
+                <div class="form-group"> <label>Jam Kompen</label> <input value="" type="number"
+                        name="jam_kompen" id="jam_kompen" class="form-control" required> <small id="error-jam_kompen"
                         class="error-text form-text text-danger"></small> </div>
-                 <div class="form-group"> <label>Jam Kompen Selesai</label> <input value="" type="number" name="jam_kompen_selesai"
-                        id="jam_kompen_selesai" class="form-control" required> <small id="error-jam_kompen_selesai"
-                        class="error-text form-text text-danger"></small> </div>
-                 <div class="form-group"> <label>Prodi</label> <select name="id_prodi" id="id_prodi"
+                <div class="form-group"> <label>Jam Kompen Selesai</label> <input value="" type="number"
+                        name="jam_kompen_selesai" id="jam_kompen_selesai" class="form-control" required> <small
+                        id="error-jam_kompen_selesai" class="error-text form-text text-danger"></small> </div>
+
+                <div class="form-group"> <label>Prodi</label> <select name="id_prodi" id="id_prodi"
                         class="form-control" required>
                         <option value="">- Pilih Prodi -</option>
                         @foreach ($prodi as $p)
-                            <option value="{{ $p->id_prodi }}">{{ $p->level_nama }}</option>
+                            <option value="{{ $p->id_prodi }}">{{ $p->nama_prodi }}</option>
                         @endforeach
                     </select> <small id="error-id_level" class="error-text form-text text-danger"></small> </div>
-                 <div class="form-group"> <label>Level</label> <select name="id_level" id="id_level"
-                        class="form-control" required>
-                        <option value="">- Pilih Level -</option>
-                        @foreach ($prodi as $p)
-                            <option value="{{ $p->id_level }}">{{ $p->level_nama }}</option>
-                        @endforeach
-                    </select> <small id="error-id_level" class="error-text form-text text-danger"></small> </div>
-                 
             </div>
 
             <div class="modal-footer"> <button type="button" data-dismiss="modal"
@@ -94,10 +91,6 @@
                     number: true
                 },
                 id_prodi: {
-                    required: true,
-                    number: true
-                },
-                id_level: {
                     required: true,
                     number: true
                 }

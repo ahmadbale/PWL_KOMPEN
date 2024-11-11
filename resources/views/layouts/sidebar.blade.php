@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -44,7 +43,7 @@
           </a>
           <ul class="nav nav-treeview">
               <li class="nav-item">
-                  <a href="{{ url('/tambahmahasiswa') }}" class="nav-link {{ (  'level') ? 'active' : '' }}">
+                  <a href="{{ url('/mahasiswa') }}" class="nav-link {{ (  'level') ? 'active' : '' }}">
                     <i class="nav-icon fas "></i>
                       <p>Data Mahasiswa</p>
                   </a>

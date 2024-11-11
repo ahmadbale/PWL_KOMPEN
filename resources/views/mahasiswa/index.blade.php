@@ -14,8 +14,8 @@
 <div class="card-tools">
     <button onclick="modalAction('{{ url('/mahasiswa/create_ajax') }}')" class="btn btn-success"><i class="fas fa-plus-circle"></i> Tambah Data
     </button> 
-    <button onclick="modalAction('{{ url('/') }}')" class="btn btn-success"><i class="fas fa-plus-circle"></i> Import Data</button> 
-    <a href="{{ url('/') }}" class="btn btn-success"><i class="fas fa-plus-circle"></i> Export Data</a>
+    <button onclick="modalAction('{{ url('/mahasiswa/import') }}')" class="btn btn-success"><i class="fas fa-plus-circle"></i> Import Data</button> 
+    <a href="{{ url('/mahasiswa/export_excel') }}" class="btn btn-success"><i class="fas fa-plus-circle"></i> Export Data</a>
 </div>
 <br>
 <div class="card card-outline ">
@@ -138,9 +138,14 @@ function modalAction(url = ''){
                     searchable: false 
                 } 
             ] 
+        });
+        
+        $('#table-mahasiswa_filter input').unbind().bind().on('keyup', function(e){         if(e.keyCode == 13){ // enter key             \
+        tableBarang.search(this.value).draw();        
+         }    
+         }); 
+ 
 
-
-        })
     })
 </script>
 

@@ -57,7 +57,9 @@
             rules: {
                 nomor_induk: {
                     required: true,
-                    number: true
+                    number: true,
+                    minlength: 10,
+                    maxlength: 10,
                 },
                 username: {
                     required: true,
@@ -67,11 +69,12 @@
                 nama: {
                     required: true,
                     minlength: 3,
-                    maxlength: 100
+                    maxlength: 50
                 },
                 semester: {
                     required: true,
-                    number: true
+                    number: true,
+                    maxlength:2
                 },
                 password: {
                     required: true,
@@ -80,15 +83,18 @@
                 },
                 jam_alpha: {
                     required: true,
-                    number: true
+                    number: true,
+                    maxlength:3
                 },
                 jam_kompen: {
                     required: true,
-                    number: true
+                    number: true,
+                    maxlength:3
                 },
                 jam_kompen_selesai: {
                     required: true,
-                    number: true
+                    number: true,
+                    maxlength:3
                 },
                 id_prodi: {
                     required: true,

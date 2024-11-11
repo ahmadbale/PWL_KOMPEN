@@ -53,5 +53,8 @@ Route::put('/{id}/update_ajax', [MahasiswaController::class, 'update_ajax']);
 Route::get('/{id}/show_ajax', [MahasiswaController::class, 'show_ajax']);
 Route::get('/{id}/delete_ajax', [MahasiswaController::class, 'confirm_ajax']);
 Route::delete('/{id}/delete_ajax', [MahasiswaController::class, 'delete_ajax']);
+Route::get('/import',[MahasiswaController::class,'import']);
+Route::post('/import_ajax',[MahasiswaController::class,'import_ajax']);
+Route::get('/export_excel',[MahasiswaController::class,'export_excel']);
 
 });

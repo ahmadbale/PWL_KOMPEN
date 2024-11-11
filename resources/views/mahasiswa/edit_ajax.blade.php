@@ -101,7 +101,9 @@
                 rules: {
                     nomor_induk: {
                     required: true,
-                    number: true
+                    number: true,
+                    minlength:10,
+                    maxlength:10
                 },
                 username: {
                     required: true,

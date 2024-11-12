@@ -1,4 +1,8 @@
 @extends('layouts.template')
+<head>
+    <title>Kompen JTI | Polinema</title>
+    <link rel="icon" href="logo-jti.png" type="image">
+    </head>
 <style>
     #text{
         padding-top: 50px;

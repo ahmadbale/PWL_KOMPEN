@@ -1,8 +1,15 @@
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 @extends('layouts.template')
-
+<head>
+    <title>Kompen JTI | Polinema</title>
+    <link rel="icon" href="logo-jti.png" type="image">
+    </head>
 @section('content')
 <style>
-
+     body {
+        font-family: 'DM Sans', sans-serif;
+    }
+    
 .card.card-outline {
         border-radius: 2rem; /* Contoh: Mengubah radius border */
     }
@@ -12,7 +19,7 @@
 <div class="col-12 text-center mb-3">
     <h1>Pengaturan</h1>
 </div>
-
+<body>
 <div class="card card-outline ">
 <div class="card-body">
   <div class="akun">
@@ -58,6 +65,7 @@
 
 </div>
 </div>
+</body>
 @endsection
 
 @push('js')

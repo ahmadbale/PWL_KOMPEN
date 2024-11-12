@@ -21,6 +21,7 @@
         ion-icon {
       --ionicon-stroke-width: 50px;
         }
+
     </style>
     <!-- Sidebar Menu -->
     <nav class="mt-2">
@@ -28,11 +29,17 @@
         <li class="nav-item">
           <a href="{{ url('/dashboard') }}" class="nav-link ">
             <i class="nav-icon fas"> <ion-icon name="grid-outline"></ion-icon></i>
-           
             <p>Dashboard</p>
           </a>
         </li>
-
+        <li class="nav-item has-treeview ">
+          <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-plus-square"></i>
+              <p class="p1">
+                  Manage Data Personil
+                  <i class="right fas fa-angle-left"></i>
+              </p>
+          </a>
         <li class="nav-item has-treeview ">
           <a href="#" class="nav-link">
               <i class="nav-icon fas fa-plus-square"></i>
@@ -69,6 +76,12 @@
           </a>
         </li>
         <li class="nav-item">
+          <a href="{{ url('/tambahtugas') }}" class="nav-link ">
+            <i class="nav-icon fas fa-plus-square"></i>
+            <p>Masukkan Tugas</p>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="{{ url('/verifikasitugas') }}" class="nav-link ">
             <i class="nav-icon fas fa-solid fa-check-double"></i>
             <p>Verifikasi Tugas</p>
@@ -100,7 +113,7 @@
         </li>
         <li class="nav-item">
           <a href="{{ url('/progres') }}" class="nav-link ">
-            <i class="nav-icon fas "></i>
+            <i class=" nav-icon fas fa-spinner"></i>
             <p>Progress</p>
           </a>
         </li>

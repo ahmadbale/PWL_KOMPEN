@@ -1,8 +1,16 @@
-
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 @extends('layouts.template')
+<head>
+    <title>Kompen JTI | Polinema</title>
+    <link rel="icon" href="logo-jti.png" type="image">
+    </head>
 <style>
      #text{
         padding-top: 50px;
+    }
+
+    body {
+        font-family: 'DM Sans', sans-serif;
     }
 </style>
 @section('content')
@@ -10,7 +18,7 @@
 <div class="col-12 text-left mb-3" id="text">
     <h2><b>Tambah Data Mahasiswa</b></h2>
 </div>
-
+<body>
 <div class="card-tools">
     <button onclick="modalAction('{{ url('/mahasiswa/create_ajax') }}')" class="btn btn-success"><i class="fas fa-plus-circle"></i> Tambah Data
     </button> 
@@ -47,6 +55,7 @@
         </table>
     </div>
 </div>
+</body>
 <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" databackdrop="static" data-keyboard="false" data-width="75%" aria-hidden="true"></div>
 @endsection
 

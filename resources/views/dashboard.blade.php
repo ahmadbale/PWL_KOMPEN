@@ -1,7 +1,16 @@
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<head>
+<title>Kompen JTI | Polinema</title>
+<link rel="icon" href="logo-jti.png" type="image">
+</head>
 @extends('layouts.template')
-
 @section('content')
 <style>
+
+    body {
+        font-family: 'DM Sans', sans-serif;
+    }
+
     .no-border td, .no-border th {
     border: none !important;
     }   
@@ -14,7 +23,7 @@
 <div class="col-12 text-center mb-3" id="text">
     <h2><b>Dashboard Kompen JTI</b></h2>
 </div>
-
+<body>
 <div class="card card-outline" id="card-outline-id">
     <div class="card-body" id="card-body-id">
         @if (session('success'))
@@ -41,6 +50,7 @@
         </table>
     </div>
 </div>
+</body>
 @endsection
 
 @push('js')

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TugasController;
+use App\Http\Controllers\TambahTugasController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProgresController;
@@ -39,6 +40,7 @@ Route::get('/notifikasi', [NotifikasiController::class, 'index']);
 Route::get('/pengaturan', [PengaturanController::class, 'index']);
 Route::get('/verifikasitugas', [VerifikasiTugasController::class, 'index']);
 Route::get('/verifikasi', [VerifikasiController::class, 'index']);
+Route::get('/tambahtugas', [TambahTugasController::class, 'index']);
 Route::get('/tambahdosen', [DosenController::class, 'index']);
 Route::get('/tambahtendik', [TendikController::class, 'index']);
 Route::get('/kategori', [KategoriController::class, 'index']);

@@ -13,7 +13,7 @@ class PersonilAkademikModel extends Model
 
     use HasFactory;
 
-    protected $fillable = ['id_level', 'username', 'nama', 'password'];
+    protected $fillable = ['id_personil','nomor_induk','no_telp','id_level', 'username', 'nama', 'password'];
 
     protected $hidden = ['password'];
     

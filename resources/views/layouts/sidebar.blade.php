@@ -21,7 +21,6 @@
         ion-icon {
       --ionicon-stroke-width: 50px;
         }
-
     </style>
     <!-- Sidebar Menu -->
     <nav class="mt-2">

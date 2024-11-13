@@ -16,7 +16,7 @@
             margin-right: auto;
             width: 30%;  
         }
-        .sub {
+    .sub {
     margin-left: auto;
     margin-right: auto; /* Menempatkan elemen di tengah secara horizontal */
     font-family: 'DM Sans', sans-serif; /* Memastikan font yang tepat */
@@ -24,7 +24,7 @@
     color: black; /* Warna teks */
     text-align: center; 
     padding-bottom: 10%; 
-}
+    }
 
     </style>
 <head>

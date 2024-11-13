@@ -39,8 +39,17 @@
                   <i class="right fas fa-angle-left"></i>
               </p>
           </a>
+          </li>
         <li class="nav-item has-treeview ">
-          <a href="#" class="nav-link">
+          <a href="{{ url('/level') }}" class="nav-link">
+              <i class="nav-icon fas fa-users "></i>
+              <p class="p1">
+                  Level
+              </p>
+          </a>
+          </li>
+        <li class="nav-item">
+          <a href="{{ url('/mahasiswa') }}" class="nav-link">
               <i class="nav-icon fas fa-plus-square"></i>
               <p class="p1">
                   Masukkan Data
@@ -102,12 +111,6 @@
           <a href="{{ url('/notifikasi') }}" class="nav-link ">
             <i class="nav-icon far fa-regular fa-bell "></i>
             <p>Notifikasi</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ url('/pengaturan') }}" class="nav-link ">
-            <i class="nav-icon fas fa-cog"></i>
-            <p>Pengaturan</p>
           </a>
         </li>
         <li class="nav-item">

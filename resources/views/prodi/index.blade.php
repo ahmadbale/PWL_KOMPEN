@@ -3,9 +3,9 @@
 @section('content')
 <div class="card card-outline card-primary">
     <div class="card-header">
-        <h3 class="card-title">Daftar Personil Akademik</h3>
+        <h3 class="card-title">Daftar Prodi</h3>
         <div class="card-tools">
-            <button onclick="modalAction('{{ url('personilakademik/create_ajax') }}')" class="btn btn-success">Tambah Personil</button>
+            <button onclick="modalAction('{{ url('prodi/create_ajax') }}')" class="btn btn-success">Tambah Personil</button>
         </div>
     </div>
     <div class="card-body">
@@ -24,26 +24,23 @@
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Filter:</label>
                     <div class="col-3">
-                        <select class="form-control" id="id_level" name="id_level" required>
+                        <select class="form-control" id="id_prodi" name="id_prodi" required>
                             <option value="">- Semua -</option>
-                            @foreach ($level as $item)
-                                <option value="{{ $item->id_level }}">{{ $item->nama_level }}</option>
+                            @foreach ($prodi as $p)
+                                <option value="{{ $p->id_prodi }}">{{ $p->nama_prodi }}</option>
                             @endforeach
                         </select>
                     </div>
-                    <small class="form-text text-muted">Level Personil</small>
+                    <small class="form-text text-muted">Data prodi</small>
                 </div>
             </div>
         </div>
-        <table class="table table-bordered table-striped table-hover table-sm" id="table_personilakademik">
+        <table class="table table-bordered table-striped table-hover table-sm" id="table_prodi">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nomor Induk</th>
-                    <th>Username</th>
-                    <th>Nama</th>
-                    <th>Nomor Telepon</th>
-                    <th>Level Pengguna</th>
+                    <th>Kode Prodi</th>
+                    <th>Nama Prodi</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -64,16 +61,16 @@
             });
         }
 
-        var dataPersonil;
+        var dataProdi;
         $(document).ready(function() {
-            dataPersonil = $('#table_personilakademik').DataTable({
+            dataProdi = $('#table_prodi').DataTable({
                 serverSide: true,
                 ajax: {
-                    "url": "{{ url('personilakademik/list') }}",
+                    "url": "{{ url('prodi/list') }}",
                     "dataType": "json",
                     "type": "POST",
                     "data": function (d) {
-                        d.id_level = $('#id_level').val();
+                        d.id_prodi = $('#id_prodi').val();
                     }
                 },
                 columns: [{
@@ -82,31 +79,16 @@
                     orderable: false,
                     searchable: false
                 },{
-                    data: "nomor_induk",
+                    data: "kode_prodi",
                     className: "",
                     orderable: true,
                     searchable: true
                 },{
-                    data: "username",
+                    data: "nama_prodi",
                     className: "",
                     orderable: true,
                     searchable: true
-                }, {
-                    data: "nama",
-                    className: "",
-                    orderable: true,
-                    searchable: true
-                }, {
-                    data: "nomor_telp",
-                    className: "",
-                    orderable: true,
-                    searchable: true
-                }, {
-                    data: "level.nama_level",
-                    className: "",
-                    orderable: true,
-                    searchable: true
-                }, {
+                },{
                     data: "aksi",
                     className: "",
                     orderable: false,
@@ -114,8 +96,8 @@
                 }]
             });
 
-            $('#id_level').on('change', function() {
-                dataPersonil.ajax.reload();
+            $('#id_prodi').on('change', function() {
+                dataProdi.ajax.reload();
             });
         });
     </script>

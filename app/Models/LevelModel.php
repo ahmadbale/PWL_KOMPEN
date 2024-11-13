@@ -13,7 +13,7 @@ class LevelModel extends Model
 
     protected $table = 'level';
     protected $primaryKey = 'id_level';
-    protected $fillable = ['kode_level', 'nama_level'];
+    protected $fillable = ['id_level','kode_level', 'nama_level'];
 
     public function user():BelongsTo {
         return $this->belongsTo(PersonilAkademikModel::class);

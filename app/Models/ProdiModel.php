@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ProdiModel extends Model
 {
     protected $table = 'prodi';
-    protected $primarykey = 'id_prodi';
+    protected $primaryKey = 'id_prodi';
 
     protected $fillable = ['id_prodi', 'kode_prodi', 'nama_prodi'];
 

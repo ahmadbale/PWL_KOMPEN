@@ -8,6 +8,7 @@ class ProgresController extends Controller
 {
     public function index()
     {
-        return view('progres.index');
+        $activeMenu = 'progres';
+        return view('progres.index',compact('activeMenu'));
     }
 }

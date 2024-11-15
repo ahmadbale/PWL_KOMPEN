@@ -3,18 +3,17 @@
 <head>
     <title>Kompen JTI | Polinema</title>
     <link rel="icon" href="logo-jti.png" type="image">
-    </head>
+</head>
 <style>
-     #text{
+     /* #text{
         padding-top: 50px;
-    }
+    } */
 
     body {
         font-family: 'DM Sans', sans-serif;
     }
 </style>
 @section('content')
-
 <div class="col-12 text-left mb-3" id="text">
     <h2><b>Tambah Data Mahasiswa</b></h2>
 </div>

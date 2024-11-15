@@ -8,6 +8,7 @@ class TugasController extends Controller
 {
     public function index()
     {
-        return view('tugas.index');
+        $activeMenu = 'tugas';
+        return view('tugas.index',compact('activeMenu'));
     }
 }

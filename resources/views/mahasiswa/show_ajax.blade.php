@@ -1,3 +1,8 @@
+<style>
+     .modal-content {
+        border-radius: 30px !important;
+    }
+</style>
 @empty($mahasiswa)
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">

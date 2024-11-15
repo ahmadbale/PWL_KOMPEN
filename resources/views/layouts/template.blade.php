@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <style>
         .main-sidebar {
             background-color: #535b5c; /* Warna TEAL sebagai latar belakang utama sidebar */
@@ -38,6 +37,7 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
     {{-- Database --}}
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
@@ -47,6 +47,8 @@
     <link rel="stylesheet" href="{{asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}} ">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+
 
     @stack('css')
 </head>
@@ -55,8 +57,8 @@
     <!-- Site wrapper -->
     <div class="wrapper">
         <!-- Navbar -->
-        {{-- @include('layouts.header') --}}
-        <!-- /.navbar -->
+         @include('layouts.header') 
+       <!-- /.navbar --> 
 
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4 " style="background-color: #ffffff">
@@ -65,11 +67,13 @@
               <img class="logo img-circle" src="{{ asset('logo-jti.png')}}" alt="">
              </a>
              <h1 class="sub">KOMPEN JTI POLINEMA</h1>
+
+             
             <!-- Sidebar -->
             @include('layouts.sidebar')
             <!-- /.sidebar -->
         </aside>
-
+    
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
@@ -117,6 +121,8 @@
     <script src="{{asset('adminlte/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script>
         $.ajaxSetup({headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

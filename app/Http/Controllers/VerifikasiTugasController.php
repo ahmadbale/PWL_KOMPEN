@@ -8,6 +8,7 @@ class VerifikasiTugasController extends Controller
 {
     public function index()
     {
-        return view('verfikasi_tugas.index');
+        $activeMenu = 'verifikasi_tugas';
+        return view('verfikasi_tugas.index',compact('activeMenu'));
     }
 }

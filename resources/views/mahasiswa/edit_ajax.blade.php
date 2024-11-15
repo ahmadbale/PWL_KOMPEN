@@ -1,3 +1,59 @@
+<style>
+    #nomor_induk{
+        border-radius:50px;
+        width:15rem;
+        background-color: #E1E5F4;
+    }
+
+    #username{
+        border-radius:50px;
+        width:15rem;
+        background-color: #E1E5F4;
+    }
+
+    #nama{
+        border-radius:50px;
+        width:20rem;
+        background-color: #E1E5F4;
+    }
+
+    #semester{
+        border-radius:50px;
+        width:15rem;
+        background-color: #E1E5F4;
+    
+    }
+    #password{
+        border-radius:50px;
+        width:15rem;
+        background-color: #E1E5F4;
+    }
+
+    #jam_alpha{
+        border-radius:50px;
+        width:15rem;
+        background-color: #E1E5F4;
+    }
+    #jam_kompen{
+        border-radius:50px;
+        width:15rem;
+        background-color: #E1E5F4;
+    }
+    #jam_kompen_selesai{
+        border-radius:50px;
+        width:15rem;
+        background-color: #E1E5F4;
+    }
+
+    #id_prodi{
+        border-radius:50px;
+        width:15rem;
+        background-color: #E1E5F4;
+    }
+
+
+</style>
+
 @empty($mahasiswa)
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -53,7 +109,7 @@
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input value="" type="password" name="password" id="password" class="form-control">
+                        <input value="" placeholder="********" type="password" name="password" id="password" class="form-control">
                         <small class="form-text text-muted">Abaikan jika tidak ingin ubah
                             password</small>
                         <small id="error-password" class="error-text form-text text-danger"></small>

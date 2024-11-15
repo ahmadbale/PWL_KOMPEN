@@ -8,6 +8,7 @@ class TambahTugasController extends Controller
 {
     public function index()
     {
-        return view('tambah_tugas.index');
+        $activeMenu = 'tambah_tugas';
+        return view('tambah_tugas.index',compact('activeMenu'));
     }
 }

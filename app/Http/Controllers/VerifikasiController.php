@@ -8,6 +8,7 @@ class VerifikasiController extends Controller
 {
     public function index()
     {
-        return view('verifikasi.index');
+        $activeMenu = 'verifikasi';
+        return view('verifikasi.index',compact('activeMenu'));
     }
 }

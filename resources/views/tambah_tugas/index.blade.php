@@ -13,8 +13,7 @@
 </style>
 
 @section('content')
-<br>
-<br>
+
 <div class="col-12 text-left mb-3" id="text">
     <h2><b> Submit Tugas</b></h2>
 </div>

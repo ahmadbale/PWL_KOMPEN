@@ -21,17 +21,21 @@
         ion-icon {
       --ionicon-stroke-width: 50px;
         }
+
+        .active{
+          background-color: #F1F3FC!important;
+        }
     </style>
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
-          <a href="{{ url('/dashboard') }}" class="nav-link ">
+          <a href="{{ url('/dashboard') }}" class="nav-link {{ ($activeMenu == 'dashboard')? 'active' : '' }}">
             <i class="nav-icon fas"> <ion-icon name="grid-outline"></ion-icon></i>
             <p>Dashboard</p>
           </a>
         </li>
-        <li class="nav-item has-treeview ">
+        {{-- <li class="nav-item has-treeview ">
           <a href="#" class="nav-link">
               <i class="nav-icon fas fa-plus-square"></i>
               <p class="p1">
@@ -39,38 +43,38 @@
                   <i class="right fas fa-angle-left"></i>
               </p>
           </a>
-          </li>
+          </li> --}}
         <li class="nav-item has-treeview ">
-          <a href="{{ url('/level') }}" class="nav-link">
+          <a href="{{ url('/level') }}" class="nav-link {{ ($activeMenu == 'level')? 'active' : '' }}">
               <i class="nav-icon fas fa-users "></i>
               <p class="p1">
                   Level
               </p>
           </a>
           </li>
-        <li class="nav-item">
-          <a href="{{ url('/mahasiswa') }}" class="nav-link">
-              <i class="nav-icon fas fa-plus-square"></i>
-              <p class="p1">
-                  Masukkan Data
-                  <i class="right fas fa-angle-left"></i>
-              </p>
-          </a>
+          <li class="nav-item has-treeview {{ ($activeMenu == 'mahasiswa') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-plus-square"></i>
+                <p class="p1">
+                    Masukkan Data
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
           <ul class="nav nav-treeview">
               <li class="nav-item">
-                  <a href="{{ url('/mahasiswa') }}" class="nav-link {{ (  'level') ? 'active' : '' }}">
+                  <a href="{{ url('/mahasiswa') }}" class="nav-link {{ ($activeMenu == 'mahasiswa')? 'active' : '' }}">
                     <i class="nav-icon fas "></i>
                       <p>Data Mahasiswa</p>
                   </a>
               </li>
               <li class="nav-item">
-                  <a href="{{ url('/tambahdosen') }}" class="nav-link {{ (  'user') ? 'active' : '' }}">
+                  <a href="{{ url('/tambahdosen') }}" class="nav-link {{ ($activeMenu == '')? 'active' : '' }}">
                     <i class="nav-icon fas "></i>
                       <p>Data Dosen</p>
                   </a>
               </li>
               <li class="nav-item">
-                  <a href="{{ url('/tambahtendik') }}" class="nav-link {{ (  'user') ? 'active' : '' }}">
+                  <a href="{{ url('/tambahtendik') }}" class="nav-link {{ ($activeMenu == '')? 'active' : '' }}">
                     <i class="nav-icon fas "></i>
                       <p>Data Tendik</p>
                   </a>
@@ -78,49 +82,49 @@
           </ul>
       </li>
         <li class="nav-item">
-          <a href="{{ url('/tugas') }}" class="nav-link ">
+          <a href="{{ url('/tugas') }}" class="nav-link {{ ($activeMenu == 'tugas')? 'active' : '' }}">
             <i class="nav-icon fas fa-tasks"></i>
             <p>Cari Tugas</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ url('/tambahtugas') }}" class="nav-link ">
+          <a href="{{ url('/tambahtugas') }}" class="nav-link {{ ($activeMenu == 'tambah_tugas')? 'active' : '' }}">
             <i class="nav-icon fas fa-plus-square"></i>
             <p>Masukkan Tugas</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ url('/verifikasitugas') }}" class="nav-link ">
+          <a href="{{ url('/verifikasitugas') }}" class="nav-link {{ ($activeMenu == 'verifikasi_tugas')? 'active' : '' }}">
             <i class="nav-icon fas fa-solid fa-check-double"></i>
             <p>Verifikasi Tugas</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ url('/verifikasi') }}" class="nav-link ">
+          <a href="{{ url('/verifikasi') }}" class="nav-link {{ ($activeMenu == 'verifikasi')? 'active' : '' }}">
             <i class="nav-icon fas  fa-solid fa-check-double "></i>
             <p>Verifikasi </p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ url('/kategori') }}" class="nav-link ">
+          <a href="{{ url('/kategori') }}" class="nav-link {{ ($activeMenu == 'kategori')? 'active' : '' }}">
             <i class="nav-icon fas fa-solid fa-layer-group "></i>
             <p>Kategori</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ url('/notifikasi') }}" class="nav-link ">
+          <a href="{{ url('/notifikasi') }}" class="nav-link {{ ($activeMenu == 'notifikasi')? 'active' : '' }}">
             <i class="nav-icon far fa-regular fa-bell "></i>
             <p>Notifikasi</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ url('/progres') }}" class="nav-link ">
+          <a href="{{ url('/progres') }}" class="nav-link {{ ($activeMenu == 'progres')? 'active' : '' }}">
             <i class=" nav-icon fas fa-spinner"></i>
             <p>Progress</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ url('/history') }}" class="nav-link">
+          <a href="{{ url('/history') }}" class="nav-link {{ ($activeMenu == 'history')? 'active' : '' }}">
             <i class="nav-icon far fa-regular fa-clock "></i>
             <p>History</p>
           </a>

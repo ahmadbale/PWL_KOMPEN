@@ -8,6 +8,8 @@ class KategoriController extends Controller
 {
     public function index()
     {
-        return view('kategori.index');
+        $activeMenu = 'kategori';
+        return view('kategori.index', compact('activeMenu'));
+        
     }
 }

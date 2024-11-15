@@ -8,6 +8,7 @@ class HistoryController extends Controller
 {
     public function index()
     {
-        return view('history.index');
+        $activeMenu = 'history';
+        return view('history.index',compact('activeMenu'));
     }
 }

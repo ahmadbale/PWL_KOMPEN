@@ -72,7 +72,7 @@
     }
 
     .cont{
-        padding-left: 5%;
+        padding-left: 2%;
         padding-right: 2%;
     }
 

@@ -19,7 +19,13 @@
         padding-bottom: 50px;
     }
     
+    .cont{
+        padding-left: 2%;
+        padding-right: 2%;
+    }
+    
 </style>
+<div class="cont">
 <div class="col-12 text-center mb-3" id="text">
     <h2><b>Dashboard Kompen JTI</b></h2>
 </div>
@@ -49,6 +55,7 @@
             </tbody>
         </table>
     </div>
+</div>
 </div>
 </body>
 @endsection

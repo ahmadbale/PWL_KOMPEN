@@ -10,15 +10,21 @@
   body{
         font-family: 'DM Sans', sans-serif;
     }
+
+    .cont{
+        padding-left: 2%;
+        padding-right: 2%;
+    }
 </style>
 
 @section('content')
 
-<div class="col-12 text-left mb-3" id="text">
-    <h2><b> Submit Tugas</b></h2>
-</div>
 <body>
+    <div class="cont">
 <div class="card-tools">
+    <div class="col-12 text-left mb-3" id="text">
+        <h2><b>Submit Tugas</b></h2>
+    </div>
     <button onclick="modalAction('{{ url('/') }}')" class="btn btn-success"><i class="fas fa-plus-circle"></i> Tambah Tugas</button> 
 </div>
 <br>
@@ -46,6 +52,7 @@
             </tbody>
         </table>
     </div>
+</div>
 </div>
 </body>
 @endsection

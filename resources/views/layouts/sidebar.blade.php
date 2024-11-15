@@ -44,14 +44,6 @@
               </p>
           </a>
           </li> --}}
-        <li class="nav-item has-treeview ">
-          <a href="{{ url('/level') }}" class="nav-link {{ ($activeMenu == 'level')? 'active' : '' }}">
-              <i class="nav-icon fas fa-users "></i>
-              <p class="p1">
-                  Level
-              </p>
-          </a>
-          </li>
           <li class="nav-item has-treeview {{ ($activeMenu == 'mahasiswa') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-plus-square"></i>

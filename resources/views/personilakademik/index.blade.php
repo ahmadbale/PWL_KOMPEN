@@ -1,14 +1,15 @@
+<style>
+      .no-border td, .no-border th {
+    border: none !important;
+    }
+</style>
 @extends('layouts.template')
-
 @section('content')
 <div class="card card-outline card-primary">
     <div class="card-header">
         <h3 class="card-title">Daftar Personil Akademik</h3>
         <div class="card-tools">
-            {{-- <a href="{{url('/user/export_excel')}}" class="btn btn-info"></i> Export Kategori Excel</a>
-            <a href="{{url('/user/export_pdf')}}" class="btn btn-info btn-warning"></i>  Export Kategori PDF</a>
-            <button onclick="modalAction('{{ url('/user/import') }}')" class="btn btn-info">Import User </button> --}}
-            <button onclick="modalAction('{{ url('user/create_ajax') }}')" class="btn btn-success">Tambah User</button>
+            <button onclick="modalAction('{{ url('personilakademik/create_ajax') }}')" class="btn btn-success">Tambah Personil</button>
         </div>
     </div>
     <div class="card-body">
@@ -30,7 +31,7 @@
                         <select class="form-control" id="id_level" name="id_level" required>
                             <option value="">- Semua -</option>
                             @foreach ($level as $item)
-                                <option value="{{ $item->id_level }}">{{ $item->level_nama }}</option>
+                                <option value="{{ $item->id_level }}">{{ $item->nama_level }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -38,14 +39,14 @@
                 </div>
             </div>
         </div>
-        <table class="table table-bordered table-striped table-hover table-sm" id="table_user">
+        <table class="table table-bordered table-striped table-hover table-sm no-border" id="table_personilakademik">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>NIK</th>
+                    <th>Nomor Induk</th>
                     <th>Username</th>
                     <th>Nama</th>
-                    <th>No Hp</th>
+                    <th>Nomor Telepon</th>
                     <th>Level Pengguna</th>
                     <th>Aksi</th>
                 </tr>
@@ -67,13 +68,12 @@
             });
         }
 
-        var dataUser;
+        var dataPersonil;
         $(document).ready(function() {
-            dataUser = $('#table_personil_akademik').DataTable({
-                // serverSide: true, jika ingin menggunakan server side processing
+            dataPersonil = $('#table_personilakademik').DataTable({
                 serverSide: true,
                 ajax: {
-                    "url": "{{ url('user/list') }}",
+                    "url": "{{ url('personilakademik/list') }}",
                     "dataType": "json",
                     "type": "POST",
                     "data": function (d) {
@@ -81,31 +81,19 @@
                     }
                 },
                 columns: [{
-                    // nomor urut dari laravel datatable addIndexColumn()
                     data: "DT_RowIndex",
                     className: "text-center",
                     orderable: false,
                     searchable: false
                 },{
-                    data: "id_personil",
+                    data: "nomor_induk",
                     className: "",
-                    // orderable: true, jika ingin kolom ini bisa diurutkan
                     orderable: true,
-                    // searchable: true, jika ingin kolom ini bisa dicari
-                    searchable: true 
-                },{
-                    data: "no_induk",
-                    className: "",
-                    // orderable: true, jika ingin kolom ini bisa diurutkan
-                    orderable: true,
-                    // searchable: true, jika ingin kolom ini bisa dicari
-                    searchable: true 
+                    searchable: true
                 },{
                     data: "username",
                     className: "",
-                    // orderable: true, jika ingin kolom ini bisa diurutkan
                     orderable: true,
-                    // searchable: true, jika ingin kolom ini bisa dicari
                     searchable: true
                 }, {
                     data: "nama",
@@ -113,13 +101,12 @@
                     orderable: true,
                     searchable: true
                 }, {
-                    // mengambil data level hasil dari ORM berelasi
-                    data: "level.level_nama",
+                    data: "nomor_telp",
                     className: "",
                     orderable: true,
                     searchable: true
                 }, {
-                    data: "no_telp",
+                    data: "level.nama_level",
                     className: "",
                     orderable: true,
                     searchable: true
@@ -129,11 +116,10 @@
                     orderable: false,
                     searchable: false
                 }]
-                
             });
 
             $('#id_level').on('change', function() {
-                dataUser.ajax.reload();
+                dataPersonil.ajax.reload();
             });
         });
     </script>

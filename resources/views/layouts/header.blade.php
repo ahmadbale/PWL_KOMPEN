@@ -14,7 +14,7 @@
     </ul>
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" id="logout" href="#" role="button"><i class="fa fa-sign-out"></i></a>
+            <a class="nav-link" id="logout" href="login" role="button"><i class="fa fa-sign-out"></i></a>
         </li>
     </ul>
   

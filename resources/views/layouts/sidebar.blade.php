@@ -35,15 +35,12 @@
             <p>Dashboard</p>
           </a>
         </li>
-        {{-- <li class="nav-item has-treeview ">
-          <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-plus-square"></i>
-              <p class="p1">
-                  Manage Data Personil
-                  <i class="right fas fa-angle-left"></i>
-              </p>
+        <li class="nav-item">
+          <a href="{{ url('/personilakademik') }}" class="nav-link {{ ($activeMenu == 'personilakademik')? 'active' : '' }}">
+            <i class="nav-icon fas "></i>
+              <p>Data Personil</p>
           </a>
-          </li> --}}
+      </li>
           <li class="nav-item has-treeview {{ ($activeMenu == 'mahasiswa') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-plus-square"></i>

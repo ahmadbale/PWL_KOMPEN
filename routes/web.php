@@ -14,6 +14,7 @@ use App\Http\Controllers\TendikController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\PersonilAkademikController;
 
 
 
@@ -29,9 +30,9 @@ use App\Http\Controllers\KategoriController;
 */
 
 
-// Route::get('login', [AuthController::class, 'login'])->name('login');
-// Route::post('login', [AuthController::class, 'postlogin']);
-// Route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
+Route::get('login', [AuthController::class, 'login'])->name('login');
+Route::post('login', [AuthController::class, 'postlogin']);
+Route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
 
 Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::get('/tugas', [TugasController::class, 'index']);
@@ -59,3 +60,16 @@ Route::get('/import',[MahasiswaController::class,'import']);
 Route::post('/import_ajax',[MahasiswaController::class,'import_ajax']);
 Route::get('/export_excel',[MahasiswaController::class,'export_excel']);
 });
+
+Route::group(['prefix' =>'personilakademik'],function(){
+    Route::get('/',[PersonilAkademikController::class,'index']);
+    Route::post('/list',[PersonilAkademikController::class, 'list']);
+    Route::get('/create_ajax', [PersonilAkademikController::class, 'create_ajax']); // Menampilkan halaman form tambah level Ajax
+    Route::post('/ajax', [PersonilAkademikController::class, 'store_ajax']); // Menampilkan data level baru Ajax
+    Route::get('/{id}/show_ajax', [PersonilAkademikController::class, 'show_ajax']); 
+    Route::get('/{id}/edit_ajax', [PersonilAkademikController::class, 'edit_ajax']); // Menampilkan halaman form edit level Ajax
+    Route::put('/{id}/update_ajax', [PersonilAkademikController::class, 'update_ajax']); // Menyimpan perubahan data level Ajax
+    Route::get('/{id}/delete_ajax', [PersonilAkademikController::class, 'confirm_ajax']); // Untuk tampilkan form confirm delete level Ajax
+    Route::delete('/{id}/delete_ajax', [PersonilAkademikController::class, 'delete_ajax']); // Untuk hapus data level Ajax
+});
+

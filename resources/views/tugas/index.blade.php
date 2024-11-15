@@ -53,7 +53,7 @@
     position: relative;
     }
 
-.custom-select {
+    .custom-select {
     background-image: none;
     padding-right: 30px; /* Ruang untuk ikon */
     border-radius: 30px;
@@ -71,108 +71,118 @@
     padding-right: 15px;
     }
 
+    .cont{
+        padding-left: 5%;
+        padding-right: 2%;
+    }
 
+    #table_tendik, #table_dosen, #table_admin{
+        background-color: #ffff;
+    }
 </style>
 <body>
-<div class="col-12 text-left mb-3">
-    <h2><b>Silahkan Cari Tugas Kompen yang tersedia</b></h2>
-</div>
-<br>
-<div class="row">
-    <div class="col-md-12">
-        <div class="form-group row">
-            <div class="col-3 position-relative">
-                <select class="form-control custom-select" name="level_id" id="level_id" required>
-                    <option value="">Pilih Kompetensi</option>
-                    {{-- @foreach ($level as $item )
-                    <option value="{{$item->level_id}}">{{ $item->level_nama}}</option>
-                    @endforeach --}}
-                </select>
-                <!-- Icon Font Awesome -->
-                <i class="right fas fa-angle-down select-icon"></i>
+    <div class="cont">
+        <div class="col-12 text-left mb-3">
+            <h2><b>Silahkan Cari Tugas Kompen yang tersedia</b></h2>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <div class="col-3 position-relative">
+                        <select class="form-control custom-select" name="level_id" id="level_id" required>
+                            <option value="">Pilih Kompetensi</option>
+                            {{-- @foreach ($level as $item )
+                            <option value="{{$item->level_id}}">{{ $item->level_nama}}</option>
+                            @endforeach --}}
+                        </select>
+                        <!-- Icon Font Awesome -->
+                        <i class="right fas fa-angle-down select-icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <br>
+        
+        <div class="menu">
+            <a href="#tugas-dosen" data-target="tugas-dosen">Tugas Dosen</a>
+            <a href="#tugas-tendik" data-target="tugas-tendik" class="active">Tugas Tendik</a>
+            <a href="#tugas-admin" data-target="tugas-admin">Tugas Admin</a>
+        </div>
+        
+        <br>
+        
+        <div class="card card-outline">
+            <div class="card-body">
+                @if (session('success'))
+                    <div class="alert alert-success">{{ session('success') }}</div>
+                @endif
+                @if (session('error'))
+                    <div class="alert alert-danger">{{ session('error') }}</div>
+                @endif
+        
+                <!-- Konten Tugas Dosen -->
+                <div id="tugas-dosen" class="table-content">
+                    <table class="table table-striped table-hover table-sm mt-3 no-border" id="table_dosen" >
+                        <thead>
+                            <tr>
+                                <th>Nama Lengkap</th>
+                                <th>Email</th>
+                                <th>No. Hp</th>
+                                <th>Time</th>
+                                <th>Detail</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Isi data tabel untuk Tugas Dosen di sini -->
+                        </tbody>
+                    </table>
+                </div>
+        
+                <!-- Konten Tugas Tendik -->
+                <div id="tugas-tendik" class="table-content active"  >
+                    <table class="table table-striped table-hover table-sm mt-3 no-border" id="table_tendik">
+                        <thead>
+                            <tr>
+                                <th>Nama Lengkap</th>
+                                <th>Email</th>
+                                <th>No. Hp</th>
+                                <th>Time</th>
+                                <th>Detail</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Isi data tabel untuk Tugas Tendik di sini -->
+                        </tbody>
+                    </table>
+                </div>
+        
+                <!-- Konten Tugas Admin -->
+                <div id="tugas-admin" class="table-content">
+                    <table class="table table-striped table-hover table-sm mt-3 no-border" id="table_admin">
+                        <thead>
+                            <tr>
+                                <th>Nama Lengkap</th>
+                                <th>Email</th>
+                                <th>No. Hp</th>
+                                <th>Time</th>
+                                <th>Detail</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Isi data tabel untuk Tugas Admin di sini -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-
-<br>
-
-<div class="menu">
-    <a href="#tugas-dosen" data-target="tugas-dosen">Tugas Dosen</a>
-    <a href="#tugas-tendik" data-target="tugas-tendik" class="active">Tugas Tendik</a>
-    <a href="#tugas-admin" data-target="tugas-admin">Tugas Admin</a>
-</div>
-
-<br>
-
-<div class="card card-outline">
-    <div class="card-body">
-        @if (session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
-        @if (session('error'))
-            <div class="alert alert-danger">{{ session('error') }}</div>
-        @endif
-
-        <!-- Konten Tugas Dosen -->
-        <div id="tugas-dosen" class="table-content">
-            <table class="table table-striped table-hover table-sm mt-3 no-border" id="table_dosen">
-                <thead>
-                    <tr>
-                        <th>Nama Lengkap</th>
-                        <th>Email</th>
-                        <th>No. Hp</th>
-                        <th>Time</th>
-                        <th>Detail</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Isi data tabel untuk Tugas Dosen di sini -->
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Konten Tugas Tendik -->
-        <div id="tugas-tendik" class="table-content active">
-            <table class="table table-striped table-hover table-sm mt-3 no-border" id="table_tendik">
-                <thead>
-                    <tr>
-                        <th>Nama Lengkap</th>
-                        <th>Email</th>
-                        <th>No. Hp</th>
-                        <th>Time</th>
-                        <th>Detail</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Isi data tabel untuk Tugas Tendik di sini -->
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Konten Tugas Admin -->
-        <div id="tugas-admin" class="table-content">
-            <table class="table table-striped table-hover table-sm mt-3 no-border" id="table_admin">
-                <thead>
-                    <tr>
-                        <th>Nama Lengkap</th>
-                        <th>Email</th>
-                        <th>No. Hp</th>
-                        <th>Time</th>
-                        <th>Detail</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Isi data tabel untuk Tugas Admin di sini -->
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
 </body>
 @endsection
 

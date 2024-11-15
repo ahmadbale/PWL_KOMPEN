@@ -72,7 +72,7 @@ class ProdiController extends Controller
     {
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
-                'kode_prodi' => 'required|string|min:3|unique:prodi,kode_prodi',
+                'kode_prodi' => 'required|string|min:2|unique:prodi,kode_prodi',
                 'nama_prodi' => 'required|string|max:250'
             ];
 
@@ -89,7 +89,7 @@ class ProdiController extends Controller
             ProdiModel::create($request->all());
             return response()->json([
                 'status' => true,
-                'message' => 'Data level berhasil disimpan.'
+                'message' => 'Data Prodi berhasil disimpan.'
             ]);
         }
 

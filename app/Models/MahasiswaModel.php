@@ -29,4 +29,23 @@ class MahasiswaModel extends Model
     {
         return $this->belongsTo(LevelModel::class, 'id_level', 'id_level');
     }
+
+    public function getProdiName(): string
+    {
+        return $this->prodi->nama_prodi;
+    }
+    public function getroleName(): string
+    {
+        return $this->level->nama_level;
+    }
+
+    public function hasRole($role): bool
+    {
+        return $this->level->kode_level == $role;
+    }
+
+    public function getRole()
+    {
+        return $this->level->kode_level;
+    }
 }

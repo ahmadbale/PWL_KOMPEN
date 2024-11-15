@@ -1,5 +1,3 @@
--- Active: 1717030877262@@127.0.0.1@3306@db_kompenjti
-<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -10,7 +8,7 @@
         }
 
         ion-icon {
-      --ionicon-stroke-width: 20px;
+      --ionicon-stroke-width: 50px;
         }
     </style>
     <!-- Sidebar Menu -->

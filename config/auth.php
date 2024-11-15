@@ -38,10 +38,14 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'mahasiswa',
+        ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'personil_akademik',
         ],
     ],
-
     /*
     |--------------------------------------------------------------------------
     | User Providers
@@ -60,15 +64,15 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'mahasiswa' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\MahasiswaModel::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+  
+        'personil_akademik' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\PersonilAkademikModel::class,
+        ],
     ],
 
     /*

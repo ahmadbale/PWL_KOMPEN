@@ -6,16 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\LevelModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class PersonilAkademikModel extends Model
+class PersonilAkademikModel extends Authenticatable
 {
     
     protected $table = 'personil_akademik';
     protected $primaryKey = 'id_personil';
-
-    use HasFactory;
-
-    protected $fillable = ['id_personil', 'nomor_induk', 'username', 'nama', 'password', 'nomor_telp', 'id_level'];
+    protected $fillable = ['id_personil', 'nomor_induk', 'username', 'nama', 'nomor_telp', 'id_level'];
 
     protected $hidden = ['password'];
 

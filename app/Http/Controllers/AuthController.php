@@ -4,16 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use App\Models\LevelModel;
-use App\Models\PersonilAkademikModel;
+
 
 class AuthController extends Controller
 {
     public function login()
     {
-        if (Auth::check()) {
+        if (Auth::guard('admin')->check()) {
             return redirect('/');
         }
         return view('auth.login');
@@ -22,7 +19,8 @@ class AuthController extends Controller
     {
         if ($request->ajax() || $request->wantsJson()) {
             $credentials = $request->only('username', 'password');
-            if (Auth::attempt($credentials)) {
+
+            if (Auth::guard('admin')->attempt($credentials)) {
                 return response()->json([
                     'status' => true,
                     'message' => 'Login Berhasil',
@@ -38,46 +36,18 @@ class AuthController extends Controller
     }
     public function logout(Request $request)
     {
+        // Pastikan auth guard yang digunakan sesuai, misalnya 'web' atau 'admin'
         Auth::logout();
+        
+        // Hapus semua session yang ada
+        $request->session()->flush();
+    
+        // Invalidate session dan regenerasi token CSRF
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('login');
+        
+        // Redirect ke halaman login
+        return redirect()->route('login'); // atau gunakan redirect('login')
     }
-
-    public function register()
-    {
-        $level = LevelModel::select('id_level', 'nama_level')->get();
-        return view('auth.register')->with('level', $level);
-    }
-    public function postRegister(Request $request)
-    {
-        if ($request->ajax() || $request->wantsJson()) {
-            $rules = [
-                'id_level' => 'required|integer',
-                'username' => 'required|string|min:3|unique:personil_akademik,username',
-                'nama' => 'required|string|max:100',
-                'password' => 'required|min:5'
-            ];
-            $validator = Validator::make($request->all(), $rules);
-            if ($validator->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Validasi Gagal',
-                    'msgField' => $validator->errors(),
-                ]);
-            }
-            // Hash password sebelum disimpan
-            $data = $request->all();
-            $data['password'] = Hash::make($request->password);
-            // Simpan data user
-            PersonilAkademikModel::create($data);
-            return response()->json([
-                'status' => true,
-                'message' => 'Data Personil berhasil disimpan',
-                'redirect' => url('login') // Redirect ke halaman login
-            ]);
-        }
-        // Jika bukan AJAX, arahkan ke halaman login
-        return redirect('login')->with('success', 'Registrasi berhasil!');
-    }
+    
 }

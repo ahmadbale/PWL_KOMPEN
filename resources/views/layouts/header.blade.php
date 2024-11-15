@@ -23,23 +23,23 @@
         </style>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{-- <img src="{{ asset('storage/photos/' . auth()->user()->profile_image) }}" class="avatar img-fluid rounded-circle" style="width: 30px; height: 30px;"
+                {{-- <img src="{{ asset('storage/photos/' . auth()->user()->profile_image) }}" class="avatar img-fluid rounded-circle" style="width: 30px; height: 30px;" --}}
                 alt="{{auth()->user()->username}}" /> <span class="text-dark">
-                  {{auth()->user()->username}} --}}
+                  {{auth()->user()->username}}
                 </span>
             </a>
             <div class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarDropdown">
               <div class="px-4 py-3">
                   {{-- profile Dropdown --}}
                   <div class="d-flex align-items-center">
-                      {{-- <img src="{{ asset('storage/photos/' . auth()->user()->profile_image) }}"  class="avatar rounded-circle me-3" alt="{{auth()->user()->nama}}">
+                      <img src="{{ asset('storage/photos/' . auth()->user()->profile_image) }}"  class="avatar rounded-circle me-3" alt="{{auth()->user()->nama}}">
                       <div>
                           <h6 class="mb-0">{{auth()->user()->username}}</h6>
                           <small class="text-muted"><strong>
                               {{ auth()->user()->level->level_nama }}
                           </strong>
                           </small>
-                      </div> --}}
+                      </div>
                   </div>
               </div>
               <div class="dropdown-divider"></div>
@@ -50,7 +50,6 @@
                   <i class="fas fa-sign-out-alt me-2"></i> Log Out
               </a>
           </div>
-  
             <script>
               function logout() {
                 localStorage.removeItem('authToken');

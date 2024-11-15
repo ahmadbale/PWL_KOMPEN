@@ -70,8 +70,15 @@
     .view-all a:hover {
         text-decoration: underline;
     }
+
+    .cont{
+        padding-left: 2%;
+        padding-right: 2%;
+    }
+
 </style>
 <body>
+<div class="cont">
 <div class="col-12 text-left mb-3 text-notif">
     <h2><b>Notifikasi</b></h2>
 </div>
@@ -130,6 +137,7 @@
     <div class="view-all">
         <a href="#">View All</a>
     </div>
+</div>
 </div>
 </body>
 @endsection

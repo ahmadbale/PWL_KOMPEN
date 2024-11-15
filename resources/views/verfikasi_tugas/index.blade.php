@@ -10,7 +10,13 @@
     body {
         font-family: 'DM Sans', sans-serif;
     }
+
+    .cont{
+        padding-left: 2%;
+        padding-right: 2%;
+    }
 </style>
+<div class="cont">
 <div class="col-12 text-left mb-3">
     <h2><b>Verifikasi Tugas Mahasiswa</b></h2>
 </div>
@@ -39,6 +45,7 @@
             </tbody>
         </table>
     </div>
+</div>
 </div>
 </body>
 @endsection

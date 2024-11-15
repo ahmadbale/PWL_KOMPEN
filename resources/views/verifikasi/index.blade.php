@@ -10,11 +10,17 @@
     border: none !important;
 }
 
-body {
+    body {
         font-family: 'DM Sans', sans-serif;
     }
 
+    .cont{
+        padding-left: 2%;
+        padding-right: 2%;
+    }
+
 </style>
+<div class="cont">
 <div class="col-12 text-left mb-3">
     <h2><b>Verifikasi Tugas</b></h2>
 </div>
@@ -44,6 +50,7 @@ body {
             </tbody>
         </table>
     </div>
+</div>
 </div>
 @endsection
 

@@ -12,9 +12,15 @@
 
     .no-border td, .no-border th {
     border: none !important;
-}
+    }
 
+    .cont{
+        padding-left: 2%;
+        padding-right: 2%;
+    }
 </style>
+
+<div class="cont">
 <div class="col-12 text-left mb-3">
     <h2><b>Tugas Progress</b></h2>
 </div>
@@ -44,6 +50,7 @@
             </tbody>
         </table>
     </div>
+</div>
 </div>
 @endsection
 

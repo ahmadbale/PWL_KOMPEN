@@ -8,8 +8,15 @@
       body {
         font-family: 'DM Sans', sans-serif;
     }
+
+    .cont{
+        padding-left: 2%;
+        padding-right: 2%;
+    }
+
 </style>
 @section('content')
+<div class="cont">
 <div class="col-12 text-left mb-3">
     <h2><b> Daftar Kompetensi Tugas</b></h2>
 </div>
@@ -41,6 +48,7 @@
             </tbody>
         </table>
     </div>
+</div>
 </div>
 </body>
 @endsection

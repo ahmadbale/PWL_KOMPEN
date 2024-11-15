@@ -12,8 +12,15 @@
     body {
         font-family: 'DM Sans', sans-serif;
     }
+
+    .cont{
+        padding-left: 2%;
+        padding-right: 2%;
+    }
+
 </style>
 @section('content')
+<div class="cont">
 <div class="col-12 text-left mb-3" id="text">
     <h2><b>Tambah Data Mahasiswa</b></h2>
 </div>
@@ -53,6 +60,7 @@
             </tbody>
         </table>
     </div>
+</div>
 </div>
 </body>
 <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" databackdrop="static" data-keyboard="false" data-width="75%" aria-hidden="true"></div>

@@ -76,7 +76,7 @@
         </a>
       </li> 
         <li class="nav-item">
-          <a href="{{ url('/tugas') }}" class="nav-link ">
+          <a href="{{ url('/kompetensi') }}" class="nav-link ">
             <i class="nav-icon fas fa-tasks"></i>
             <p>Kopetensi</p>
           </a>

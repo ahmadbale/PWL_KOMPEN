@@ -26,7 +26,7 @@ class MahasiswaController extends Controller
         $activeMenu = 'mahasiswa';
         $prodi = ProdiModel::all();
         $level = LevelModel::all();
-        return view('mahasiswa.index', [
+        return view('admin.mahasiswa.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'prodi' => $prodi,
@@ -37,14 +37,6 @@ class MahasiswaController extends Controller
     public function list(Request $request)
     {
         $mahasiswas = MahasiswaModel::select('id_mahasiswa', 'nomor_induk', 'username', 'nama', 'semester', 'jam_alpha', 'jam_kompen', 'jam_kompen_selesai', 'id_prodi')->with('prodi');
-
-        // if ($request->supplier_id) {
-        //     $stoks->where('supplier_id', $request->supplier_id);
-        // } else if ($request->barang_id) {
-        //     $stoks->where('barang_id', $request->barang_id);
-        // } else if ($request->user_id) {
-        //     $stoks->where('user_id', $request->user_id);
-        // }
 
         return DataTables::of($mahasiswas)
             // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
@@ -64,7 +56,7 @@ class MahasiswaController extends Controller
         $prodi = ProdiModel::select('id_prodi', 'nama_prodi')->get();
         // $level = LevelModel::select('id_level', 'nama_level')->get();
 
-        return view('mahasiswa.create_ajax')
+        return view('admin.mahasiswa.create_ajax')
             ->with('prodi', $prodi);
         // -> with('level', $level);
     }
@@ -127,7 +119,7 @@ class MahasiswaController extends Controller
     {
         $mahasiswa = MahasiswaModel::find($id);
 
-        return view('mahasiswa.show_ajax', ['mahasiswa' => $mahasiswa]);
+        return view('admin.mahasiswa.show_ajax', ['mahasiswa' => $mahasiswa]);
     }
 
     public function edit_ajax(string $id)
@@ -135,7 +127,7 @@ class MahasiswaController extends Controller
         $mahasiswa = MahasiswaModel::find($id);
         $prodi = ProdiModel::select('id_prodi', 'nama_prodi')->get();
 
-        return view('mahasiswa.edit_ajax', ['mahasiswa' => $mahasiswa, 'prodi' => $prodi]);
+        return view('admin.mahasiswa.edit_ajax', ['mahasiswa' => $mahasiswa, 'prodi' => $prodi]);
     }
 
     public function update_ajax(Request $request, string $id)
@@ -185,7 +177,7 @@ class MahasiswaController extends Controller
     {
         $mahasiswa = MahasiswaModel::find($id);
 
-        return view('mahasiswa.confirm_ajax', ['mahasiswa' => $mahasiswa]);
+        return view('admin.mahasiswa.confirm_ajax', ['mahasiswa' => $mahasiswa]);
     }
 
     public function delete_ajax(Request $request, $id)
@@ -210,7 +202,7 @@ class MahasiswaController extends Controller
 
     public function import()
     {
-        return view('mahasiswa.import');
+        return view('admin.mahasiswa.import');
     }
     public function import_ajax(Request $request)
     {

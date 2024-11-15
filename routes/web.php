@@ -2,6 +2,7 @@
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\KompetensiController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\PersonilAkademikController;
 use App\Http\Controllers\MahasiswaController;
@@ -66,6 +67,18 @@ Route::group(['prefix' => 'prodi'], function(){
     Route::get('/import',[ProdiController::class,'import']);
     Route::post('/import_ajax',[ProdiController::class,'import_ajax']);
     Route::get('/export_excel',[ProdiController::class,'export_excel']);
+});
+
+Route::group(['prefix' => 'kompetensi'], function(){
+    Route::get('/', [KompetensiController::class, 'index']);
+    Route::post('/list', [KompetensiController::class, 'list']);
+    Route::get('/create_ajax', [KompetensiController::class, 'create_ajax']);
+    Route::post('/ajax', [KompetensiController::class, 'store_ajax']);
+    Route::get('/{id}/edit_ajax', [KompetensiController::class, 'edit_ajax']);
+    Route::put('/{id}/update_ajax', [KompetensiController::class, 'update_ajax']);
+    Route::get('/{id}/show_ajax', [KompetensiController::class, 'show_ajax']);
+    Route::get('/{id}/delete_ajax', [KompetensiController::class, 'confirm_ajax']);
+    Route::delete('/{id}/delete_ajax', [KompetensiController::class, 'delete_ajax']);
 });
 
 });

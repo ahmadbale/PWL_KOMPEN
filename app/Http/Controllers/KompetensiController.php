@@ -1,45 +1,44 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\LevelModel;
-use App\Models\ProdiModel;
+use App\Models\KompetensiModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
-class ProdiController extends Controller
+class KompetensiController extends Controller
 {
     public function index()
     {
         $breadcrumb = (object)[
-            'title' => 'Daftar Prodi',
-            'list' => ['Home', 'Prodi']
+            'title' => 'Daftar Kompetensi',
+            'list' => ['Home', 'Kopetensi']
         ];
         $page = (object) [
-            'title' => 'Daftar Prodi'
+            'title' => 'Daftar Kopetensi yang Terdaftar dalam Sistem'
         ];
 
-        $activeMenu = 'prodi';
-        $prodi = ProdiModel::all();
-        return view('admin.prodi.index', compact('breadcrumb', 'page', 'prodi', 'activeMenu'));
+        $activeMenu = 'Kompetensi';
+        $kompetensi = KompetensiModel::all();
+        return view('admin.kompetensi.index', compact('breadcrumb', 'page', 'kompetensi', 'activeMenu'));
     }
 
     public function list(Request $request)
     {
-        $prodi = ProdiModel::select('id_prodi', 'kode_prodi', 'nama_prodi');
+        $kompetensi = KompetensiModel::select('id_kompetensi', 'nama_kompetensi', 'deskripsi_kompetensi');
 
-        if ($request->id_prodi) {
-            $prodi->where('id_prodi', $request->id_prodi);
+        if ($request->has('id_kompetensi')) {
+            $kompetensi->where('id_kompetensi', $request->id_kompetensi);
         }
 
-        return DataTables::of($prodi)
+        return DataTables::of($kompetensi)
             ->addIndexColumn()
-            ->addColumn('aksi', function ($prodi) {
-                $btn = '<button onclick="modalAction(\'' . url('/prodi/' . $prodi->id_prodi 
+            ->addColumn('aksi', function ($kompetensi) {
+                $btn = '<button onclick="modalAction(\'' . url('/kompetensi/' . $kompetensi->id_kompetensi 
                 . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
-                $btn .= '<button onclick="modalAction(\'' . url('/prodi/' . $prodi->id_prodi 
+                $btn .= '<button onclick="modalAction(\'' . url('/kompetensi/' . $kompetensi->id_kompetensi 
                 . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
-                $btn .= '<button onclick="modalAction(\'' . url('/prodi/' . $prodi->id_prodi 
+                $btn .= '<button onclick="modalAction(\'' . url('/kompetensi/' . $kompetensi->id_kompetensi 
                 . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
                 return $btn;
             })
@@ -47,33 +46,33 @@ class ProdiController extends Controller
             ->make(true);
     }
 
-    public function destroy(string $id_prodi)
+    public function destroy(string $id_kompetensi)
     {
-        $check = ProdiModel::find($id_prodi);
+        $check = Kompetensimodel::find($id_kompetensi);
         if (!$check) {
-            return redirect('/prodi')->with('error', 'Data Prodi tidak ditemukan');
+            return redirect('/kompetensi')->with('error', 'Data Kompetensi tidak ditemukan');
         }
         try {
-            levelmodel::destroy($id_prodi);
-            return redirect('/prodi')->with('success', 'Data prodi berhasil dihapus');
+            KompetensiModel::destroy($id_kompetensi);
+            return redirect('/kompetensi')->with('success', 'Data Kompetensi berhasil dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect('/prodi')->with('error', 'Data prodi gagal dhapus karena masih terdapat tabel lain yang terkait dengan data ini');
+            return redirect('/kompetensi')->with('error', 'Data Kompetensi gagal dhapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
     }
 
     // Ajax
     public function create_ajax()
     {
-        $prodi = ProdiModel::select('id_prodi','kode_prodi', 'nama_prodi')->get();
-        return view('admin.prodi.create_ajax', compact('prodi'));
+        $kompetensi = KompetensiModel::select('id_kompetensi', 'nama_kompetensi')->get();
+        return view('kompetensi.create_ajax', compact('kompetensi'));
     }
 
     public function store_ajax(Request $request)
     {
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
-                'kode_prodi' => 'required|string|min:2|unique:prodi,kode_prodi',
-                'nama_prodi' => 'required|string|max:250'
+                'nama_kompetensi' => 'required|string|max:100',
+                'deskripsi_kompetensi' => 'required|string|max:250'
             ];
 
             $validator = Validator::make($request->all(), $rules);
@@ -86,10 +85,10 @@ class ProdiController extends Controller
                 ]);
             }
 
-            ProdiModel::create($request->all());
+            KompetensiModel::create($request->all());
             return response()->json([
                 'status' => true,
-                'message' => 'Data Prodi berhasil disimpan.'
+                'message' => 'Data Kompetensi berhasil disimpan.'
             ]);
         }
 
@@ -98,22 +97,22 @@ class ProdiController extends Controller
 
     public function show_ajax(string $id)
     {
-        $prodi = ProdiModel::find($id);
-        return view('admin.prodi.show_ajax', compact('prodi'));
+        $kompetensi = KompetensiModel::find($id);
+        return view('kompetensi.show_ajax', compact('kompetensi'));
     }
 
     public function edit_ajax(string $id)
     {
-        $prodi = ProdiModel::find($id);
-        return view('admin.prodi.edit_ajax', compact('prodi'));
+        $kompetensi = KompetensiModel::find($id);
+        return view('kompetensi.edit_ajax', compact('kompetensi'));
     }
 
     public function update_ajax(Request $request, $id)
     {
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
-                'kode_prodi' => 'required|string|min:3|unique:prodi,kode_prodi,' . $id . ',id_prodi',
-                'nama_prodi' => 'required|string|max:255'
+                'nama_kompetensi' => 'required|string|max:255',
+                'deskripsi_kompetensi' => 'required|string|max:255'
             ];
 
             $validator = Validator::make($request->all(), $rules);
@@ -126,9 +125,9 @@ class ProdiController extends Controller
                 ]);
             }
 
-            $prodi = ProdiModel::find($id);
-            if ($prodi) {
-                $prodi->update($request->all());
+            $kompetensi = KompetensiModel::find($id);
+            if ($kompetensi) {
+                $kompetensi->update($request->all());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil diupdate'
@@ -144,16 +143,16 @@ class ProdiController extends Controller
         return redirect('/');
     }
     public function confirm_ajax(string $id){
-        $prodi = ProdiModel::find($id);
+        $kompetensi = KompetensiModel::find($id);
 
-        return view('admin.prodi.confirm_ajax', ['prodi' => $prodi]);
+        return view('kompetensi.confirm_ajax', ['kompetensi' => $kompetensi]);
     }
     public function delete_ajax(Request $request, $id)
     {
         if ($request->ajax() || $request->wantsJson()) {
-            $prodi = ProdiModel::find($id);
-            if ($prodi) {
-                $prodi->delete();
+            $kompetensi = KompetensiModel::find($id);
+            if ($kompetensi) {
+                $kompetensi->delete();
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil dihapus'

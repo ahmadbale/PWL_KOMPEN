@@ -20,7 +20,7 @@ class LevelController extends Controller
 
         $activeMenu = 'level';
         $levels = LevelModel::all();
-        return view('level.index', compact('breadcrumb', 'page', 'levels', 'activeMenu'));
+        return view('admin.level.index', compact('breadcrumb', 'page', 'levels', 'activeMenu'));
     }
 
     public function list(Request $request)
@@ -64,7 +64,7 @@ class LevelController extends Controller
     public function create_ajax()
     {
         $levels = LevelModel::select('id_level', 'nama_level')->get();
-        return view('level.create_ajax', compact('levels'));
+        return view('admin.level.create_ajax', compact('levels'));
     }
 
     public function store_ajax(Request $request)
@@ -98,13 +98,13 @@ class LevelController extends Controller
     public function show_ajax(string $id)
     {
         $level = LevelModel::find($id);
-        return view('level.show_ajax', compact('level'));
+        return view('admin.level.show_ajax', compact('level'));
     }
 
     public function edit_ajax(string $id)
     {
         $level = LevelModel::find($id);
-        return view('level.edit_ajax', compact('level'));
+        return view('admin.level.edit_ajax', compact('level'));
     }
 
     public function update_ajax(Request $request, $id)
@@ -145,7 +145,7 @@ class LevelController extends Controller
     public function confirm_ajax(string $id){
         $level = LevelModel::find($id);
 
-        return view('level.confirm_ajax', ['level' => $level]);
+        return view('admin.level.confirm_ajax', ['level' => $level]);
     }
     public function delete_ajax(Request $request, $id)
     {

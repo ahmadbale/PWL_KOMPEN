@@ -32,18 +32,18 @@ class KompetensiController extends Controller
         }
 
         return DataTables::of($kompetensi)
-            ->addIndexColumn()
-            ->addColumn('aksi', function ($kompetensi) {
-                $btn = '<button onclick="modalAction(\'' . url('/kompetensi/' . $kompetensi->id_kompetensi 
-                . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
-                $btn .= '<button onclick="modalAction(\'' . url('/kompetensi/' . $kompetensi->id_kompetensi 
-                . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
-                $btn .= '<button onclick="modalAction(\'' . url('/kompetensi/' . $kompetensi->id_kompetensi 
-                . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
-                return $btn;
-            })
-            ->rawColumns(['aksi'])
-            ->make(true);
+        ->addIndexColumn()
+        ->addColumn('aksi', function ($kompetensi) {
+            $btn = '<button onclick="modalAction(\'' . url('/kompetensi/' . $kompetensi->id_kompetensi 
+            . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
+            
+            $btn .= '<button onclick="modalAction(\'' . url('/kompetensi/' . $kompetensi->id_kompetensi 
+            . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
+            return $btn;
+        })
+        ->rawColumns(['aksi'])
+        ->make(true);
+    
     }
 
     public function destroy(string $id_kompetensi)
@@ -64,7 +64,7 @@ class KompetensiController extends Controller
     public function create_ajax()
     {
         $kompetensi = KompetensiModel::select('id_kompetensi', 'nama_kompetensi')->get();
-        return view('kompetensi.create_ajax', compact('kompetensi'));
+        return view('admin.kompetensi.create_ajax', compact('kompetensi'));
     }
 
     public function store_ajax(Request $request)
@@ -95,16 +95,10 @@ class KompetensiController extends Controller
         return redirect('/');
     }
 
-    public function show_ajax(string $id)
-    {
-        $kompetensi = KompetensiModel::find($id);
-        return view('kompetensi.show_ajax', compact('kompetensi'));
-    }
-
     public function edit_ajax(string $id)
     {
         $kompetensi = KompetensiModel::find($id);
-        return view('kompetensi.edit_ajax', compact('kompetensi'));
+        return view('admin.kompetensi.edit_ajax', compact('kompetensi'));
     }
 
     public function update_ajax(Request $request, $id)
@@ -145,7 +139,7 @@ class KompetensiController extends Controller
     public function confirm_ajax(string $id){
         $kompetensi = KompetensiModel::find($id);
 
-        return view('kompetensi.confirm_ajax', ['kompetensi' => $kompetensi]);
+        return view('admin.kompetensi.confirm_ajax', ['kompetensi' => $kompetensi]);
     }
     public function delete_ajax(Request $request, $id)
     {

@@ -32,18 +32,17 @@ class LevelController extends Controller
         }
 
         return DataTables::of($levels)
-            ->addIndexColumn()
-            ->addColumn('aksi', function ($level) {
-                $btn = '<button onclick="modalAction(\'' . url('/level/' . $level->id_level 
-                . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
-                $btn .= '<button onclick="modalAction(\'' . url('/level/' . $level->id_level 
-                . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
-                $btn .= '<button onclick="modalAction(\'' . url('/level/' . $level->id_level 
-                . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
-                return $btn;
-            })
-            ->rawColumns(['aksi'])
-            ->make(true);
+        ->addIndexColumn()
+        ->addColumn('aksi', function ($level) {
+            $btn = '<button onclick="modalAction(\'' . url('/level/' . $level->id_level 
+            . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
+            $btn .= '<button onclick="modalAction(\'' . url('/level/' . $level->id_level 
+            . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
+            return $btn;
+        })
+        ->rawColumns(['aksi'])
+        ->make(true);
+    
     }
 
     public function destroy(string $id_level)

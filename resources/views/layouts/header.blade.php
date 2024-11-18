@@ -36,7 +36,7 @@
                       <div>
                           <h6 class="mb-0">{{auth()->user()->username}}</h6>
                           <small class="text-muted"><strong>
-                              {{ auth()->user()->level->level_nama }}
+                              {{ auth()->user()->level->level_nama}}
                           </strong>
                           </small>
                       </div>

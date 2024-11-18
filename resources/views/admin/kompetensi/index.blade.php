@@ -1,83 +1,147 @@
 @extends('layouts.template')
 
 @section('content')
-    <div class="card card-outline card-primary">
-        <div class="card-header">
-            <h3 class="card-title">{{ $page->title}}</h3>
-            <div class="card-tools">
-                <button onclick="modalAction('{{ url('kompetensi/create_ajax') }}')" class="btn btn-success">Tambah Data</button>
-            </div>
-        </div>
-        <div class="card-body">
-            @if(session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
-            @if (session('error'))
-            <div class="alert alert-danger">{{ session('error') }}</div>
-            @endif
-            <table class="table table-bordered table-striped table-hover table-sm" id="table_level">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama kompetensi</th>
-                        <th>Deskripsi kompetensi</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-            </table>
+<div class="card card-outline card-primary">
+    <div class="card-header">
+        <h3 class="card-title">{{ $page->title }}</h3>
+        <div class="card-tools">
+            <button type="button" onclick="modalAction('{{ url('kompetensi/create_ajax') }}')" class="btn btn-success">
+                 Tambah Data
+            </button>
         </div>
     </div>
-    <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" data-width="75%" aria-hidden="true"></div>
+    <div class="card-body">
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+        
+        @if(session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
+        <table class="table table-bordered table-striped table-hover table-sm" id="table_kompetensi">
+            <thead>
+                <tr>
+                    <th width="5%">No</th>
+                    <th>Nama Kompetensi</th>
+                    <th>Deskripsi Kompetensi</th>
+                    <th width="15%">Aksi</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal content will be loaded here -->
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('css')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
+<style>
+    .modal-dialog {
+        max-width: 75%;
+        margin: 1.75rem auto;
+    }
+    .table {
+        width: 100% !important;
+    }
+</style>
 @endpush
 
 @push('js')
-    <script>
-        function modalAction(url = ''){
-            $('#myModal').load(url,function(){
-                $('#myModal').modal('show');
-            });
-        }
-        var dataKompetensi
-        $(document).ready(function(){
-            dataKompetensi = $('#table_kompetensi').DataTable({
-                processing: true,
-                //serverSide: true, jika ingin menggunakan server side processing
-                serverSide: true,
-                ajax:{
-                    "url": "{{ url('kompetensi/list') }}",
-                    "dataType": "json",
-                    "type": "POST"
-                },
-                columns:[
-                    {
-                        //nomor urut dari laravel datatable addIndexColumn()
-                        data: "DT_RowIndex",
-                        className: "text-center",
-                        orderable: false,
-                        searchable: false
-                    },{
-                        data: "nama_kompetensi",
-                        className: "",
-                        //orderable: true, jika ingin kolom bisa diurutkan
-                        orderable: true,
-                        //searchable: true, jika ingin kolom bisa dicari
-                        searchable: true
-                    },{
-                        data: "deskripsi_kompetensi",
-                        className: "",
-                        orderable:true,
-                        searchable: true
-                    },{
-                        data: "aksi",
-                        className: "",
-                        orderable:false,
-                        searchable: false
-                    }
-                ]
-            });
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    function modalAction(url) {
+        $('#myModal').load(url, function() {
+            $(this).modal('show');
         });
-    </script>
+    }
+
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var dataKompetensi = $('#table_kompetensi').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ url('kompetensi/list') }}",
+                type: "POST",
+                dataType: "json",
+                error: function(xhr, error, thrown) {
+                    console.log('Error:', error);
+                }
+            },
+            columns: [{
+                data: "DT_RowIndex",
+                className: "text-center",
+                orderable: false,
+                searchable: false
+            }, {
+                data: "nama_kompetensi",
+                className: "",
+                orderable: true,
+                searchable: true
+            }, {
+                data: "deskripsi_kompetensi",
+                className: "",
+                orderable: true,
+                searchable: true
+            }, {
+                data: "aksi",
+                className: "text-center",
+                orderable: false,
+                searchable: false
+            }],
+            paging: true,
+            lengthChange: true,
+            searching: true,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            order: [[1, 'asc']],
+            language: {
+                processing: "Memuat data...",
+                lengthMenu: "Tampilkan _MENU_ data per halaman",
+                zeroRecords: "Data tidak ditemukan",
+                info: "Menampilkan halaman _PAGE_ dari _PAGES_",
+                infoEmpty: "Tidak ada data yang tersedia",
+                infoFiltered: "(difilter dari total _MAX_ data)",
+                search: "Cari:",
+                paginate: {
+                    first: "Pertama",
+                    last: "Terakhir",
+                    next: "Selanjutnya",
+                    previous: "Sebelumnya"
+                }
+            }
+        });
+
+        $('#myModal').on('hidden.bs.modal', function() {
+            dataKompetensi.ajax.reload(null, false);
+        });
+    });
+</script>
 @endpush

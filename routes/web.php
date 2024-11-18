@@ -30,9 +30,7 @@ Route::group(['prefix' =>'personilakademik'],function(){
 Route::group(['prefix' =>'level'],function(){
     Route::get('/',[LevelController::class,'index']);
     Route::post('/list',[LevelController::class, 'list']);
-    Route::get('/create_ajax', [LevelController::class, 'create_ajax']); // Menampilkan halaman form tambah level Ajax
     Route::post('/ajax', [LevelController::class, 'store_ajax']); // Menampilkan data level baru Ajax
-    Route::get('/{id}/show_ajax', [LevelController::class, 'show_ajax']); 
     Route::get('/{id}/edit_ajax', [LevelController::class, 'edit_ajax']); // Menampilkan halaman form edit level Ajax
     Route::put('/{id}/update_ajax', [LevelController::class, 'update_ajax']); // Menyimpan perubahan data level Ajax
     Route::get('/{id}/delete_ajax', [LevelController::class, 'confirm_ajax']); // Untuk tampilkan form confirm delete level Ajax
@@ -61,7 +59,6 @@ Route::group(['prefix' => 'prodi'], function(){
     Route::post('/ajax', [ProdiController::class, 'store_ajax']);
     Route::get('/{id}/edit_ajax', [ProdiController::class, 'edit_ajax']);
     Route::put('/{id}/update_ajax', [ProdiController::class, 'update_ajax']);
-    Route::get('/{id}/show_ajax', [ProdiController::class, 'show_ajax']);
     Route::get('/{id}/delete_ajax', [ProdiController::class, 'confirm_ajax']);
     Route::delete('/{id}/delete_ajax', [ProdiController::class, 'delete_ajax']);
     Route::get('/import',[ProdiController::class,'import']);
@@ -76,7 +73,6 @@ Route::group(['prefix' => 'kompetensi'], function(){
     Route::post('/ajax', [KompetensiController::class, 'store_ajax']);
     Route::get('/{id}/edit_ajax', [KompetensiController::class, 'edit_ajax']);
     Route::put('/{id}/update_ajax', [KompetensiController::class, 'update_ajax']);
-    Route::get('/{id}/show_ajax', [KompetensiController::class, 'show_ajax']);
     Route::get('/{id}/delete_ajax', [KompetensiController::class, 'confirm_ajax']);
     Route::delete('/{id}/delete_ajax', [KompetensiController::class, 'delete_ajax']);
 });

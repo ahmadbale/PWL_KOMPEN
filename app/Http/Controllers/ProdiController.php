@@ -36,9 +36,8 @@ class ProdiController extends Controller
             ->addIndexColumn()
             ->addColumn('aksi', function ($prodi) {
                 $btn = '<button onclick="modalAction(\'' . url('/prodi/' . $prodi->id_prodi 
-                . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
-                $btn .= '<button onclick="modalAction(\'' . url('/prodi/' . $prodi->id_prodi 
                 . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
+
                 $btn .= '<button onclick="modalAction(\'' . url('/prodi/' . $prodi->id_prodi 
                 . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
                 return $btn;

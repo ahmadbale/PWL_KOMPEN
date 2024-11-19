@@ -1,4 +1,4 @@
-@empty($kompetensi)
+@empty($jeniskompen)
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,32 +11,32 @@
                     <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
                     Data yang anda cari tidak ditemukan
                 </div>
-                <a href="{{ url('/kompetensi') }}" class="btn btn-warning">Kembali</a>
+                <a href="{{ url('/jeniskompen') }}" class="btn btn-warning">Kembali</a>
             </div>
         </div>
     </div>
 @else
-    <form action="{{ url('/kompetensi/' . $kompetensi->id_kompetensi . '/update_ajax') }}" method="POST" id="form-edit">
+    <form action="{{ url('/jeniskompen/' . $jeniskompen->id_jenis_kompen . '/update_ajax') }}" method="POST" id="form-edit">
         @csrf
         @method('PUT')
         <div id="modal-master" class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Kompetensi</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit jenis kompen</h5>
                     <button type="button" class="close" data-dismiss="modal" aria label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Nama Kompetensi</label>
-                        <input value="{{ $kompetensi->nama_kompetensi }}" type="text" name="nama_kompetensi" id="nama_kompetensi" class="form-control" required>
-                        <small id="error-nama_kompetensi" class="error-text form-text text-danger"></small>
+                        <label>Kode Jenis</label>
+                        <input value="{{ $jeniskompen->kode_jenis }}" type="text" name="kode_jenis" id="kode_jenis" class="form-control" required>
+                        <small id="error-kode_jenis" class="error-text form-text text-danger"></small>
                     </div>
                     <div class="form-group">
-                        <label>Deskripsi Kompetensi</label>
-                        <input value="{{ $kompetensi->deskripsi_kompetensi }}" type="text" name="deskripsi_kompetensi" id="deskripsi_kompetensi" class="form-control"
+                        <label></label>
+                        <input value="{{ $jeniskompen->nama_jenis }}" type="text" name="nama_jenis" id="nama_jenis" class="form-control"
                             required>
-                        <small id="error-deskripsi_kompetensi" class="error-text form-text text-danger"></small>
+                        <small id="error-nama_jenis" class="error-text form-text text-danger"></small>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -50,12 +50,12 @@
         $(document).ready(function() {
             $("#form-edit").validate({
                 rules: {
-                nama_kompetensi: {
+                kode_jenis: {
                     required: true,
                     minlength: 3,
                     maxlength: 20
                 },
-                deskripsi_kompetensi: {
+                nama_jenis: {
                     required: true,
                     minlength: 3,
                     maxlength: 100
@@ -74,7 +74,7 @@
                                     title: 'Berhasil',
                                     text: response.message
                                 });
-                                dataKompetensi.ajax.reload();
+                                datajeniskompen.ajax.reload();
                             } else {
                                 $('.error-text').text('');
                                 $.each(response.msgField, function(prefix, val) {

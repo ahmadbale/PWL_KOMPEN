@@ -33,7 +33,7 @@
                     <th>No</th>
                     <th>Nomor Induk</th>
                     <th>Nama Lengkap</th>
-                    <th>Semester</th>
+                    <th>Periode</th>
                     <th>Jam Alpha</th>
                     <th>Jam Kompen</th>
                     <th>Jam Kompen Selesai</th>
@@ -75,13 +75,13 @@ function modalAction(url = ''){
          },
 
          columns: [
-            {
-                        //nomor urut dari laravel datatable addIndexColumn()
-                        data: "DT_RowIndex",
-                        className: "text-center",
-                        width: "5%",
-                        orderable: false,
-                        searchable: false
+                {
+                    //nomor urut dari laravel datatable addIndexColumn()
+                    data: "DT_RowIndex",
+                    className: "text-center",
+                    width: "5%",
+                    orderable: false,
+                    searchable: false
                 },{ 
                     data: "nomor_induk",  
                     className: "", 
@@ -96,7 +96,7 @@ function modalAction(url = ''){
                     searchable: true, 
                 },
                 { 
-                    data: "semester",  
+                    data: "periode_tahun",  
                     className: "", 
                     width: "5%", 
                     orderable: true, 

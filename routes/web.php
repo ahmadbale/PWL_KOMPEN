@@ -2,6 +2,7 @@
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\JenisController;
 use App\Http\Controllers\KompetensiController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\PersonilAkademikController;
@@ -77,4 +78,14 @@ Route::group(['prefix' => 'kompetensi'], function(){
     Route::delete('/{id}/delete_ajax', [KompetensiController::class, 'delete_ajax']);
 });
 
+Route::group(['prefix' => 'jeniskompen'], function(){
+    Route::get('/', [JenisController::class, 'index']);
+    Route::post('/list', [JenisController::class, 'list']);
+    Route::get('/create_ajax', [JenisController::class, 'create_ajax']);
+    Route::post('/ajax', [JenisController::class, 'store_ajax']);
+    Route::get('/{id}/edit_ajax', [JenisController::class, 'edit_ajax']);
+    Route::put('/{id}/update_ajax', [JenisController::class, 'update_ajax']);
+    Route::get('/{id}/delete_ajax', [JenisController::class, 'confirm_ajax']);
+    Route::delete('/{id}/delete_ajax', [JenisController::class, 'delete_ajax']);
+});
 });

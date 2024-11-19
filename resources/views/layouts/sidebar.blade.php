@@ -87,6 +87,12 @@
             <p>Notifikasi</p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="{{ url('/jeniskompen') }}" class="nav-link ">
+            <i class="nav-icon fas fa-filter"></i>
+            <p>Jenis Kompen</p>
+          </a>
+        </li>
       </ul>
     </nav>
   </div>

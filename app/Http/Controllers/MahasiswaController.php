@@ -36,7 +36,7 @@ class MahasiswaController extends Controller
 
     public function list(Request $request)
     {
-        $mahasiswas = MahasiswaModel::select('id_mahasiswa', 'nomor_induk', 'username', 'nama', 'semester', 'jam_alpha', 'jam_kompen', 'jam_kompen_selesai', 'id_prodi')->with('prodi');
+        $mahasiswas = MahasiswaModel::select('id_mahasiswa', 'nomor_induk', 'username', 'nama', 'periode_tahun', 'jam_alpha', 'jam_kompen', 'jam_kompen_selesai', 'id_prodi')->with('prodi');
 
         return DataTables::of($mahasiswas)
             // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
@@ -68,7 +68,7 @@ class MahasiswaController extends Controller
                 'nomor_induk' => 'required|max:10|unique:mahasiswa,nomor_induk',
                 'username' => 'required',
                 'nama' => 'required',
-                'semester' => 'required',
+                'periode_tahun' => 'required',
                 'password' => 'required',
                 'jam_alpha' => 'required',
                 'jam_kompen' => 'required',
@@ -138,7 +138,7 @@ class MahasiswaController extends Controller
                 'nomor_induk' => 'required',
                 'username' => 'required',
                 'nama' => 'required',
-                'semester' => 'required',
+                'periode_tahun' => 'required',
                 'password' => 'sometimes',
                 'id_prodi' => 'required',
             ];
@@ -234,7 +234,7 @@ class MahasiswaController extends Controller
                          'nomor_induk' => $value['A'],
                          'username' => $value['B'],
                          'nama' => $value['C'], 
-                         'semester' => $value['D'], 
+                         'periode_tahun' => $value['D'], 
                          'password' => $value['E'], 
                          'jam_alpha' => $value['F'], 
                          'jam_kompen' => $value['G'],
@@ -259,7 +259,7 @@ class MahasiswaController extends Controller
 
     public function export_excel()
     {
-        $mahasiswa = MahasiswaModel::select('nomor_induk','nama','username','semester','jam_alpha','jam_kompen','jam_kompen_selesai','id_prodi')
+        $mahasiswa = MahasiswaModel::select('nomor_induk','nama','username','periode_tahun','jam_alpha','jam_kompen','jam_kompen_selesai','id_prodi')
         ->orderBy('nama')
         ->with('prodi')
         ->get();
@@ -271,7 +271,7 @@ class MahasiswaController extends Controller
         $sheet->setCellValue('B1', 'Nomor Induk');
         $sheet->setCellValue('C1', 'Nama');
         $sheet->setCellValue('D1', 'Username');
-        $sheet->setCellValue('E1', 'Semester');
+        $sheet->setCellValue('E1', 'periode_tahun');
         $sheet->setCellValue('F1', 'Jam Alpha');
         $sheet->setCellValue('G1', 'Jam Kompen');
         $sheet->setCellValue('H1', 'Jam Kompen Selesai');
@@ -286,7 +286,7 @@ class MahasiswaController extends Controller
             $sheet->setCellValue('B' . $baris, $value->nomor_induk);
             $sheet->setCellValue('C' . $baris, $value->nama);
             $sheet->setCellValue('D' . $baris, $value->username);
-            $sheet->setCellValue('E' . $baris, $value->semester);
+            $sheet->setCellValue('E' . $baris, $value->periode_tahun);
             $sheet->setCellValue('F' . $baris, $value->jam_alpha);
             $sheet->setCellValue('G' . $baris, $value->jam_kompen);
             $sheet->setCellValue('H' . $baris, $value->jam_kompen_selesai);

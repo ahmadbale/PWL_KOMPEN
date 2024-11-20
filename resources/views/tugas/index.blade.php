@@ -15,40 +15,6 @@
         border: none !important;
     }
 
-    .menu {
-        display: flex;
-        gap: 20px; /* Jarak antar tautan */
-        font-family: Arial, sans-serif;
-        justify-content: left;
-        padding: 10px;
-    }
-
-    /* Gaya dasar untuk semua tautan */
-    .menu a {
-        text-decoration: none;
-        color: #b0b0b0; /* Warna abu-abu untuk tautan yang tidak aktif */
-        font-size: 18px;
-        font-weight: normal;
-    }
-
-    /* Gaya untuk tautan yang aktif */
-    .menu a.active {
-        color: #333; /* Warna teks lebih gelap */
-        font-weight: bold; /* Teks tebal */
-        border-bottom: 5px solid #333; /* Garis bawah */
-        padding-bottom: 2px; /* Jarak kecil antara teks dan garis bawah */
-    }
-
-    /* Sembunyikan konten tabel secara default */
-    .table-content {
-        display: none;
-    }
-
-    /* Tampilkan konten tabel yang aktif */
-    .table-content.active {
-        display: block;
-    }
-
     .position-relative {
     position: relative;
     }
@@ -69,15 +35,6 @@
     font-size: 16px; /* Ukuran ikon sesuai kebutuhan */
     color: #555; /* Sesuaikan warna ikon */
     padding-right: 15px;
-    }
-
-    .cont{
-        padding-left: 2%;
-        padding-right: 2%;
-    }
-
-    #table_tendik, #table_dosen, #table_admin{
-        background-color: #ffff;
     }
 </style>
 <body>
@@ -103,105 +60,37 @@
             </div>
         </div>
         
-        
-        <br>
-        
-        <div class="menu">
-            <a href="#tugas-dosen" data-target="tugas-dosen">Tugas Dosen</a>
-            <a href="#tugas-tendik" data-target="tugas-tendik" class="active">Tugas Tendik</a>
-            <a href="#tugas-admin" data-target="tugas-admin">Tugas Admin</a>
-        </div>
-        
-        <br>
-        
-        <div class="card card-outline">
-            <div class="card-body">
-                @if (session('success'))
-                    <div class="alert alert-success">{{ session('success') }}</div>
-                @endif
-                @if (session('error'))
-                    <div class="alert alert-danger">{{ session('error') }}</div>
-                @endif
-        
-                <!-- Konten Tugas Dosen -->
-                <div id="tugas-dosen" class="table-content">
-                    <table class="table table-striped table-hover table-sm mt-3 no-border" id="table_dosen" >
-                        <thead>
-                            <tr>
-                                <th>Nama Lengkap</th>
-                                <th>Email</th>
-                                <th>No. Hp</th>
-                                <th>Time</th>
-                                <th>Detail</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Isi data tabel untuk Tugas Dosen di sini -->
-                        </tbody>
-                    </table>
-                </div>
-        
-                <!-- Konten Tugas Tendik -->
-                <div id="tugas-tendik" class="table-content active"  >
-                    <table class="table table-striped table-hover table-sm mt-3 no-border" id="table_tendik">
-                        <thead>
-                            <tr>
-                                <th>Nama Lengkap</th>
-                                <th>Email</th>
-                                <th>No. Hp</th>
-                                <th>Time</th>
-                                <th>Detail</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Isi data tabel untuk Tugas Tendik di sini -->
-                        </tbody>
-                    </table>
-                </div>
-        
-                <!-- Konten Tugas Admin -->
-                <div id="tugas-admin" class="table-content">
-                    <table class="table table-striped table-hover table-sm mt-3 no-border" id="table_admin">
-                        <thead>
-                            <tr>
-                                <th>Nama Lengkap</th>
-                                <th>Email</th>
-                                <th>No. Hp</th>
-                                <th>Time</th>
-                                <th>Detail</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Isi data tabel untuk Tugas Admin di sini -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
 
-</body>
+        
+<div class="card card-outline ">
+    <div class="card-body">
+        @if (session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
+
+        <table class="table table-striped table-hover table-sm mt-3 no-border" id="table_user">
+            <thead>
+                <tr>
+                    <th>Nama Dosen / Tendik</th>
+                    <th>Tugas</th>
+                    <th>Jenis Tugas</th>
+                    <th>Dateline</th>
+                    <th>Konversi Jam Kompen</th>
+                    <th>Detail</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Isi data tabel di sini -->
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
 @endsection
 
 @push('js')
-<script>
-    // Menangani klik pada menu untuk menampilkan tabel yang sesuai
-    document.querySelectorAll('.menu a').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-
-            // Menghapus kelas 'active' dari semua tautan dan tabel
-            document.querySelectorAll('.menu a').forEach(a => a.classList.remove('active'));
-            document.querySelectorAll('.table-content').forEach(content => content.classList.remove('active'));
-
-            // Menambahkan kelas 'active' pada tautan dan tabel yang diklik
-            this.classList.add('active');
-            const target = this.getAttribute('data-target');
-            document.getElementById(target).classList.add('active');
-        });
-    });
-</script>
 @endpush

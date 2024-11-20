@@ -47,7 +47,7 @@
                     <th>No</th>
                     <th>Nomor Induk</th>
                     <th>Nama Lengkap</th>
-                    <th>Semester</th>
+                    <th>Periode</th>
                     <th>Jam Alpha</th>
                     <th>Jam Kompen</th>
                     <th>Jam Kompen Selesai</th>

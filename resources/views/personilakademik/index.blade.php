@@ -5,13 +5,14 @@
 </style>
 @extends('layouts.template')
 @section('content')
-<div class="card card-outline card-primary">
-    <div class="card-header">
-        <h3 class="card-title">Daftar Personil Akademik</h3>
+<div class="col-12 text-left mb-3" id="text">
+    <h2><b>Daftar Personil Akademik</b></h2>
+</div>
         <div class="card-tools">
             <button onclick="modalAction('{{ url('personilakademik/create_ajax') }}')" class="btn btn-success">Tambah Personil</button>
         </div>
-    </div>
+<br>
+<div class="card card-outline ">
     <div class="card-body">
         @if (session('success'))
             <div class="alert alert-success">

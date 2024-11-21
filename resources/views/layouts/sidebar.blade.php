@@ -69,28 +69,34 @@
           </ul>
       </li>
 
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a href="{{ url('/tugas') }}" class="nav-link ">
           <i class="nav-icon fas fa-check"></i>
           <p>Verifikasi</p>
         </a>
-      </li> 
+      </li>  --}}
         <li class="nav-item">
           <a href="{{ url('/kompetensi') }}" class="nav-link ">
             <i class="nav-icon fas fa-tasks"></i>
-            <p>Kopetensi</p>
+            <p>Kompetensi</p>
           </a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
           <a href="{{ url('/tugas') }}" class="nav-link ">
             <i class="nav-icon fas fa-bell"></i>
             <p>Notifikasi</p>
-          </a>
-        </li>
+          </a>s
+        </li> --}}
         <li class="nav-item">
           <a href="{{ url('/jeniskompen') }}" class="nav-link ">
             <i class="nav-icon fas fa-filter"></i>
             <p>Jenis Kompen</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url('/kompen') }}" class="nav-link ">
+            <i class="nav-icon fas fa-tasks"></i>
+            <p>Buat Kompen</p>
           </a>
         </li>
       </ul>

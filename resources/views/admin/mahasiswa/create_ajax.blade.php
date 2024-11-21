@@ -18,8 +18,8 @@
                 <div class="form-group"> <label>Nama</label> <input value="" type="text" name="nama"
                         id="nama" class="form-control" required> <small id="error-nama"
                         class="error-text form-text text-danger"></small> </div>
-                <div class="form-group"> <label>Semester</label> <input value="" type="number" name="semester"
-                        id="semester" class="form-control" required> <small id="error-semester"
+                <div class="form-group"> <label>Periode tahun</label> <input value="" type="number" name="periode_tahun"
+                        id="periode_tahun" class="form-control" required> <small id="error-periode_tahun"
                         class="error-text form-text text-danger"></small> </div>
                         <div class="form-group"> 
                             <label>Password</label> 
@@ -43,7 +43,7 @@
                             <option value="{{ $p->id_prodi }}">{{ $p->nama_prodi }}</option>
                         @endforeach
                     </select> <small id="error-id_level" class="error-text form-text text-danger"></small> </div>
-            </div>
+                </div>
 
             <div class="modal-footer"> <button type="button" data-dismiss="modal"
                     class="btn btn-warning">Batal</button> <button type="submit"
@@ -71,10 +71,10 @@
                     minlength: 3,
                     maxlength: 50
                 },
-                semester: {
+                periode_tahun: {
                     required: true,
                     number: true,
-                    maxlength:2
+                    maxlength:4
                 },
                 password: {
                     required: true,

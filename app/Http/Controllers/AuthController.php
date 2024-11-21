@@ -10,7 +10,7 @@ class AuthController extends Controller
 {
     public function login()
     {
-        if (Auth::guard('admin')->check()) {
+        if (Auth::guard('personil')->check() || Auth::guard('mahasiswa')->check()) {
             return redirect('/');
         }
         return view('auth.login');
@@ -20,20 +20,33 @@ class AuthController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $credentials = $request->only('username', 'password');
 
-            if (Auth::guard('admin')->attempt($credentials)) {
+            if (Auth::guard('mahasiswa')->attempt($credentials)) {
                 return response()->json([
                     'status' => true,
-                    'message' => 'Login Berhasil',
-                    'redirect' => url('/')
+                    'message' => 'Login Berhasil sebagai mahasiswa',
+                    'redirect' => url('/') // Redirect ke halaman mahasiswa
                 ]);
             }
+            // Coba autentikasi sebagai admin
+            if (Auth::guard('personil')->attempt($credentials)) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Login Berhasil sebagai personi',
+                    'redirect' => url('/') // Redirect ke halaman admin
+                ]);
+            }
+    
+            // Jika login gagal untuk kedua guard
             return response()->json([
                 'status' => false,
-                'message' => 'Login Gagal'
+                'message' => 'Login Gagal. Username atau password salah.'
             ]);
         }
+    
         return redirect('login');
     }
+    
+
     public function logout(Request $request)
     {
         // Pastikan auth guard yang digunakan sesuai, misalnya 'web' atau 'admin'

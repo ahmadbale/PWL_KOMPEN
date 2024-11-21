@@ -2,6 +2,7 @@
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BuatKompenController;
 use App\Http\Controllers\JenisController;
 use App\Http\Controllers\KompetensiController;
 use App\Http\Controllers\LevelController;
@@ -11,9 +12,9 @@ use App\Http\Controllers\ProdiController;
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'postlogin']);
-Route::get('logout', [AuthController::class, 'logout'])->middleware('auth:admin');
+Route::get('logout', [AuthController::class, 'logout'])->middleware('auth:personil,mahasiswa');
 
-Route::middleware(['auth:admin'])->group(function() {
+Route::middleware(['auth:personil,mahasiswa'])->group(function() {
 Route::get('/', [WelcomeController::class, 'index']);
 
 Route::group(['prefix' =>'personilakademik'],function(){
@@ -87,5 +88,16 @@ Route::group(['prefix' => 'jeniskompen'], function(){
     Route::put('/{id}/update_ajax', [JenisController::class, 'update_ajax']);
     Route::get('/{id}/delete_ajax', [JenisController::class, 'confirm_ajax']);
     Route::delete('/{id}/delete_ajax', [JenisController::class, 'delete_ajax']);
+});
+
+Route::group(['prefix' => 'kompen'], function(){
+    Route::get('/', [BuatKompenController::class, 'index']);
+    Route::post('/list', [BuatKompenController::class, 'list']);
+    Route::get('/create_ajax', [BuatKompenController::class, 'create_ajax']);
+    Route::post('/ajax', [BuatKompenController::class, 'store_ajax']);
+    Route::get('/{id}/edit_ajax', [BuatKompenController::class, 'edit_ajax']);
+    Route::put('/{id}/update_ajax', [BuatKompenController::class, 'update_ajax']);
+    Route::get('/{id}/delete_ajax', [BuatKompenController::class, 'confirm_ajax']);
+    Route::delete('/{id}/delete_ajax', [BuatKompenController::class, 'delete_ajax']);
 });
 });

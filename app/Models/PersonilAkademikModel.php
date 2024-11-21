@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\LevelModel;
+use App\Models\KompenModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class PersonilAkademikModel extends Authenticatable
@@ -25,6 +25,12 @@ class PersonilAkademikModel extends Authenticatable
     {
         return $this->belongsTo(LevelModel::class, 'id_level', 'id_level');
     }
+
+    public function kompen(): HasMany
+    {
+        return $this->hasMany(KompenModel::class, 'id_personil', 'id_personil');
+    }
+
 
     public function getroleName(): string
     {

@@ -2,17 +2,6 @@
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <div class="sidebar">
-    <!-- Sidebar Search Form -->
-    {{-- <div class="form-inline mt-2">
-      <div class="input-group" data-widget="sidebar-search">
-        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-sidebar">
-            <i class="fas fa-search fa-fw"></i>
-          </button>
-        </div>
-      </div>
-    </div> --}}
     <style>
         p,i{
         color:black;
@@ -35,10 +24,14 @@
             <p>Dashboard</p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="{{ url('/personilakademik') }}" class="nav-link {{ ($activeMenu == 'personilakademik')? 'active' : '' }}">
-            <i class="nav-icon fas "></i>
-              <p>Data Personil</p>
+
+        <li class="nav-item has-treeview ">
+          <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-plus-square"></i>
+              <p class="p1">
+                  Manage Pengguna
+                  <i class="right fas fa-angle-left"></i>
+              </p>
           </a>
       </li>
           <li class="nav-item has-treeview {{ ($activeMenu == 'mahasiswa') ? 'menu-open' : '' }}">
@@ -57,7 +50,35 @@
                   </a>
               </li>
               <li class="nav-item">
+<<<<<<< HEAD
                   <a href="{{ url('/tambahdosen') }}" class="nav-link {{ ($activeMenu == '')? 'active' : '' }}">
+=======
+                  <a href="{{ url('/prodi') }}" class="nav-link {{ (  'user') ? 'active' : '' }}">
+                    <i class="nav-icon fas "></i>
+                      <p>Data Prodi Mahasiswa</p>
+                  </a>
+              </li>
+          </ul>
+      </li>
+
+        <li class="nav-item has-treeview ">
+          <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-plus-square"></i>
+              <p class="p1">
+                  Data Pengguna
+                  <i class="right fas fa-angle-left"></i>
+              </p>
+          </a>
+          <ul class="nav nav-treeview">
+              <li class="nav-item">
+                  <a href="{{ url('/mahasiswa') }}" class="nav-link {{ (  'level') ? 'active' : '' }}">
+                    <i class="nav-icon fas "></i>
+                      <p>Data Mahasiswa</p>
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a href="{{ url('/personilakademik') }}" class="nav-link {{ (  'user') ? 'active' : '' }}">
+>>>>>>> db834c6445b3c379aa6770a0a5e2e0bb89c848d8
                     <i class="nav-icon fas "></i>
                       <p>Data Dosen</p>
                   </a>
@@ -70,7 +91,21 @@
               </li>
           </ul>
       </li>
+
+      <li class="nav-item">
+        <a href="{{ url('/tugas') }}" class="nav-link ">
+          <i class="nav-icon fas fa-check"></i>
+          <p>Verifikasi</p>
+        </a>
+      </li> 
         <li class="nav-item">
+          <a href="{{ url('/kompetensi') }}" class="nav-link ">
+            <i class="nav-icon fas fa-tasks"></i>
+            <p>Kopetensi</p>
+          </a>
+        </li>
+        <li class="nav-item">
+<<<<<<< HEAD
           <a href="{{ url('/tugas') }}" class="nav-link {{ ($activeMenu == 'tugas')? 'active' : '' }}">
             <i class="nav-icon fas fa-tasks"></i>
             <p>Cari Tugas</p>
@@ -103,10 +138,15 @@
         <li class="nav-item">
           <a href="{{ url('/notifikasi') }}" class="nav-link {{ ($activeMenu == 'notifikasi')? 'active' : '' }}">
             <i class="nav-icon far fa-regular fa-bell "></i>
+=======
+          <a href="{{ url('/tugas') }}" class="nav-link ">
+            <i class="nav-icon fas fa-bell"></i>
+>>>>>>> db834c6445b3c379aa6770a0a5e2e0bb89c848d8
             <p>Notifikasi</p>
           </a>
         </li>
         <li class="nav-item">
+<<<<<<< HEAD
           <a href="{{ url('/progres') }}" class="nav-link {{ ($activeMenu == 'progres')? 'active' : '' }}">
             <i class=" nav-icon fas fa-spinner"></i>
             <p>Progress</p>
@@ -116,22 +156,14 @@
           <a href="{{ url('/history') }}" class="nav-link {{ ($activeMenu == 'history')? 'active' : '' }}">
             <i class="nav-icon far fa-regular fa-clock "></i>
             <p>History</p>
+=======
+          <a href="{{ url('/jeniskompen') }}" class="nav-link ">
+            <i class="nav-icon fas fa-filter"></i>
+            <p>Jenis Kompen</p>
+>>>>>>> db834c6445b3c379aa6770a0a5e2e0bb89c848d8
           </a>
         </li>
       </ul>
     </nav>
-
-    {{-- <div class="d-flex align-items-center">
-      <img src="{{ asset('storage/photos/' . auth()->user()->profile_image) }}"  class="avatar rounded-circle me-3" alt="{{auth()->user()->nama}}">
-      <div>
-          <h6 class="mb-0">{{auth()->user()->username}}</h6>
-          <small class="text-muted"><strong>
-              {{ auth()->user()->level->level_nama }}
-          </strong>
-          </small>
-      </div>
-  </div> --}}
-
-
   </div>
   

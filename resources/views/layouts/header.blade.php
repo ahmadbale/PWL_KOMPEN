@@ -26,11 +26,36 @@
             .avatar { width: 40px; height: 40px; object-fit: cover; }
             .dropdown-menu { min-width: 200px; }
             .user-info { font-size: 0.9rem; }
-            #logout{
-                padding-left:85rem;
-            }
-
-        </style>  
+        </style>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{-- <img src="{{ asset('storage/photos/' . auth()->user()->profile_image) }}" class="avatar img-fluid rounded-circle" style="width: 30px; height: 30px;" --}}
+                alt="{{auth()->user()->username}}" /> <span class="text-dark">
+                  {{auth()->user()->username}}
+                </span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarDropdown">
+              <div class="px-4 py-3">
+                  {{-- profile Dropdown --}}
+                  <div class="d-flex align-items-center">
+                      <img src="{{ asset('storage/photos/' . auth()->user()->profile_image) }}"  class="avatar rounded-circle me-3" alt="{{auth()->user()->nama}}">
+                      <div>
+                          <h6 class="mb-0">{{auth()->user()->username}}</h6>
+                          <small class="text-muted"><strong>
+                              {{ auth()->user()->level->level_nama}}
+                          </strong>
+                          </small>
+                      </div>
+                  </div>
+              </div>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item py-2" href="{{ url('/profile') }}">
+                  <i class="fas fa-user me-2"></i> Edit Profile
+              </a>
+              <a class="dropdown-item py-2" href="#" onclick="logout()">
+                  <i class="fas fa-sign-out-alt me-2"></i> Log Out
+              </a>
+          </div>
             <script>
               function logout() {
                 localStorage.removeItem('authToken');
@@ -40,3 +65,4 @@
             </script>
     </ul>
   </nav>
+  

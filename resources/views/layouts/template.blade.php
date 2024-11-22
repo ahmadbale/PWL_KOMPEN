@@ -7,13 +7,13 @@
         }
 
         .logo{
-            padding-top: 10%;
-            padding-bottom: 5%;
+            padding-top: 3%;
+            padding-bottom: 5px;
             display: flex;
             justify-content: center;
             margin-left: auto;
             margin-right: auto;
-            width: 30%;  
+            width: 40%;  
         }
     .sub {
     margin-left: auto;
@@ -29,7 +29,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'PWL Laravel Starter Code') }}</title>
+    <title>{{ config('app.name', 'KOMPEN') }}</title>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -66,9 +66,7 @@
             <a href="{{ url('/') }}">
               <img class="logo img-circle" src="{{ asset('logo-jti.png')}}" alt="">
              </a>
-             <h1 class="sub">KOMPEN JTI POLINEMA</h1>
-
-             
+             <h1 class="sub">KOMPEN</h1>
             <!-- Sidebar -->
             @include('layouts.sidebar')
             <!-- /.sidebar -->
@@ -77,7 +75,7 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-            @include('layouts.breadcrumb')
+            {{-- @include('layouts.breadcrumb') --}}
 
             <!-- Main content -->
             <section class="content">

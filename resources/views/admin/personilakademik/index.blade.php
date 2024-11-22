@@ -40,7 +40,11 @@
                 </div>
             </div>
         </div>
+<<<<<<< HEAD:resources/views/personilakademik/index.blade.php
         <table class="table table-bordered table-striped table-hover table-sm no-border" id="table_personilakademik">
+=======
+        <table class="table table-bordered table-striped table-hover table-sm" id="table_personilakademik">
+>>>>>>> db834c6445b3c379aa6770a0a5e2e0bb89c848d8:resources/views/admin/personilakademik/index.blade.php
             <thead>
                 <tr>
                     <th>ID</th>

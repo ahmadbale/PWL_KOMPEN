@@ -24,7 +24,7 @@ class PersonilAkademikController extends Controller
 
         $activeMenu = 'personilakademik'; // set menu yang sedang aktif
         $level = LevelModel::all(); //ambil data level untuk filter level
-        return view('personilakademik.index', [
+        return view('admin.personilakademik.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'level' => $level,
@@ -71,7 +71,7 @@ class PersonilAkademikController extends Controller
     public function create_ajax()
     {
         $level = LevelModel::select('id_level', 'nama_level')->get();
-        return view('personilakademik.create_ajax')->with('level', $level);
+        return view('admin.personilakademik.create_ajax')->with('level', $level);
     }
 
     public function store_ajax(Request $request)
@@ -124,14 +124,14 @@ class PersonilAkademikController extends Controller
     public function show_ajax(string $id)
     {
         $personil = PersonilAkademikModel::find($id);
-        return view('personilakademik.show_ajax', ['personil' => $personil]);
+        return view('admin.personilakademik.show_ajax', ['personil' => $personil]);
     }
 
     public function edit_ajax(string $id)
     {
         $personil = PersonilAkademikModel::find($id);
         $level = LevelModel::select('id_level', 'nama_level')->get();
-        return view('personilakademik.edit_ajax', ['personil' => $personil, 'level' => $level]);
+        return view('admin.personilakademik.edit_ajax', ['personil' => $personil, 'level' => $level]);
     }
 
     public function update_ajax(Request $request, $id)
@@ -176,7 +176,7 @@ class PersonilAkademikController extends Controller
     public function confirm_ajax(string $id)
     {
         $personil = PersonilAkademikModel::find($id);
-        return view('personilakademik.confirm_ajax', ['personil' => $personil]);
+        return view('admin.personilakademik.confirm_ajax', ['personil' => $personil]);
     }
 
     public function delete_ajax(Request $request, $id)

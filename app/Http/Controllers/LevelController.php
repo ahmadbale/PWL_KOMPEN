@@ -2,77 +2,76 @@
 namespace App\Http\Controllers;
 
 use App\Models\LevelModel;
-use App\Models\ProdiModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
-class ProdiController extends Controller
+class LevelController extends Controller
 {
     public function index()
     {
         $breadcrumb = (object)[
-            'title' => 'Daftar Prodi',
-            'list' => ['Home', 'Prodi']
+            'title' => 'Daftar Level',
+            'list' => ['Home', 'Level']
         ];
         $page = (object) [
-            'title' => 'Daftar Prodi'
+            'title' => 'Daftar Level yang Terdaftar dalam Sistem'
         ];
 
-        $activeMenu = 'prodi';
-        $prodi = ProdiModel::all();
-        return view('admin.prodi.index', compact('breadcrumb', 'page', 'prodi', 'activeMenu'));
+        $activeMenu = 'level';
+        $levels = LevelModel::all();
+        return view('admin.level.index', compact('breadcrumb', 'page', 'levels', 'activeMenu'));
     }
 
     public function list(Request $request)
     {
-        $prodi = ProdiModel::select('id_prodi', 'kode_prodi', 'nama_prodi');
+        $levels = LevelModel::select('id_level', 'kode_level', 'nama_level');
 
-        if ($request->id_prodi) {
-            $prodi->where('id_prodi', $request->id_prodi);
+        if ($request->has('id_level')) {
+            $levels->where('id_level', $request->id_level);
         }
 
-        return DataTables::of($prodi)
-            ->addIndexColumn()
-            ->addColumn('aksi', function ($prodi) {
-                $btn = '<button onclick="modalAction(\'' . url('/prodi/' . $prodi->id_prodi 
-                . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
-
-                $btn .= '<button onclick="modalAction(\'' . url('/prodi/' . $prodi->id_prodi 
-                . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
-                return $btn;
-            })
-            ->rawColumns(['aksi'])
-            ->make(true);
+        return DataTables::of($levels)
+        ->addIndexColumn()
+        ->addColumn('aksi', function ($level) {
+            $btn = '<button onclick="modalAction(\'' . url('/level/' . $level->id_level 
+            . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
+            $btn .= '<button onclick="modalAction(\'' . url('/level/' . $level->id_level 
+            . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
+            return $btn;
+        })
+        ->rawColumns(['aksi'])
+        ->make(true);
+    
     }
 
-    public function destroy(string $id_prodi)
+    public function destroy(string $id_level)
     {
-        $check = ProdiModel::find($id_prodi);
+        $check = levelmodel::find($id_level);
         if (!$check) {
-            return redirect('/prodi')->with('error', 'Data Prodi tidak ditemukan');
+            return redirect('/level')->with('error', 'Data level tidak ditemukan');
         }
         try {
-            levelmodel::destroy($id_prodi);
-            return redirect('/prodi')->with('success', 'Data prodi berhasil dihapus');
+            levelmodel::destroy($id_level);
+            return redirect('/level')->with('success', 'Data level berhasil dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect('/prodi')->with('error', 'Data prodi gagal dhapus karena masih terdapat tabel lain yang terkait dengan data ini');
+            return redirect('/level')->with('error', 'Data level gagal dhapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
     }
 
     // Ajax
     public function create_ajax()
     {
-        $prodi = ProdiModel::select('id_prodi','kode_prodi', 'nama_prodi')->get();
-        return view('admin.prodi.create_ajax', compact('prodi'));
+        $levels = LevelModel::select('id_level', 'nama_level')->get();
+        return view('admin.level.create_ajax', compact('levels'));
     }
 
     public function store_ajax(Request $request)
     {
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
-                'kode_prodi' => 'required|string|min:2|unique:prodi,kode_prodi',
-                'nama_prodi' => 'required|string|max:250'
+                'kode_level' => 'required|string|min:3|unique:level,kode_level',
+                'nama_level' => 'required|string|max:250'
             ];
 
             $validator = Validator::make($request->all(), $rules);
@@ -85,10 +84,10 @@ class ProdiController extends Controller
                 ]);
             }
 
-            ProdiModel::create($request->all());
+            LevelModel::create($request->all());
             return response()->json([
                 'status' => true,
-                'message' => 'Data Prodi berhasil disimpan.'
+                'message' => 'Data level berhasil disimpan.'
             ]);
         }
 
@@ -97,22 +96,22 @@ class ProdiController extends Controller
 
     public function show_ajax(string $id)
     {
-        $prodi = ProdiModel::find($id);
-        return view('admin.prodi.show_ajax', compact('prodi'));
+        $level = LevelModel::find($id);
+        return view('admin.level.show_ajax', compact('level'));
     }
 
     public function edit_ajax(string $id)
     {
-        $prodi = ProdiModel::find($id);
-        return view('admin.prodi.edit_ajax', compact('prodi'));
+        $level = LevelModel::find($id);
+        return view('admin.level.edit_ajax', compact('level'));
     }
 
     public function update_ajax(Request $request, $id)
     {
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
-                'kode_prodi' => 'required|string|min:3|unique:prodi,kode_prodi,' . $id . ',id_prodi',
-                'nama_prodi' => 'required|string|max:255'
+                'kode_level' => 'required|string|min:3|unique:level,kode_level,' . $id . ',id_level',
+                'nama_level' => 'required|string|max:255'
             ];
 
             $validator = Validator::make($request->all(), $rules);
@@ -125,9 +124,9 @@ class ProdiController extends Controller
                 ]);
             }
 
-            $prodi = ProdiModel::find($id);
-            if ($prodi) {
-                $prodi->update($request->all());
+            $level = LevelModel::find($id);
+            if ($level) {
+                $level->update($request->all());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil diupdate'
@@ -143,16 +142,16 @@ class ProdiController extends Controller
         return redirect('/');
     }
     public function confirm_ajax(string $id){
-        $prodi = ProdiModel::find($id);
+        $level = LevelModel::find($id);
 
-        return view('admin.prodi.confirm_ajax', ['prodi' => $prodi]);
+        return view('admin.level.confirm_ajax', ['level' => $level]);
     }
     public function delete_ajax(Request $request, $id)
     {
         if ($request->ajax() || $request->wantsJson()) {
-            $prodi = ProdiModel::find($id);
-            if ($prodi) {
-                $prodi->delete();
+            $level = LevelModel::find($id);
+            if ($level) {
+                $level->delete();
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil dihapus'

@@ -1,7 +1,13 @@
+<style>
+    .no-border td, .no-border th {
+        border-color: black; 
+        
+  }
+</style>
 @extends('layouts.template')
 
 @section('content')
-<div class="card card-outline card-primary">
+<div class="card card-outline card">
     <div class="card-header">
         <h3 class="card-title">Daftar Prodi</h3>
         <div class="card-tools">
@@ -35,7 +41,7 @@
                 </div>
             </div>
         </div>
-        <table class="table table-bordered table-striped table-hover table-sm" id="table_prodi">
+        <table class="table table-bordered table-striped table-hover table-sm no-border" id="table_prodi">
             <thead>
                 <tr>
                     <th>ID</th>

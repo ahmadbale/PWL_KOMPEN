@@ -6,7 +6,7 @@
 </head>
 <style>
      /* #text{
-        padding-top: 50px;
+        padding-top: 0px;
     } */
 
     body {

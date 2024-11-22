@@ -4,6 +4,10 @@
      #text{
         padding-top: 50px;
     }
+
+    /* .no-border td, .no-border th{
+        border: black !important;
+    } */
 </style>
 @section('content')
 
@@ -27,13 +31,13 @@
             <div class="alert alert-danger">{{ session('error') }}</div>
         @endif
        
-        <table class="table table-striped table-hover table-sm mt-3 no-border" id="table_mahasiswa">
+        <table class="table table-striped table-hover table-sm mt-3" id="table_mahasiswa">
             <thead>
                 <tr>
                     <th>No</th>
                     <th>Nomor Induk</th>
                     <th>Nama Lengkap</th>
-                    <th>Periode</th>
+                    <th>Tahun Semester</th>
                     <th>Jam Alpha</th>
                     <th>Jam Kompen</th>
                     <th>Jam Kompen Selesai</th>
@@ -81,7 +85,7 @@ function modalAction(url = ''){
                     className: "text-center",
                     width: "5%",
                     orderable: false,
-                    searchable: false
+                    searchable: false,
                 },{ 
                     data: "nomor_induk",  
                     className: "", 

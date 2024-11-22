@@ -1,26 +1,43 @@
-<form action="{{ url('/mahasiswa/import_ajax') }}" method="POST" id="form-import" enctype="multipart/form-data"> @csrf <div
-        id="modal-master" class="modal-dialog modal-lg" role="document">
+<form action="{{ url('/mahasiswa/import_ajax') }}" method="POST" id="form-import" enctype="multipart/form-data">
+    @csrf
+    <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
+            <!-- Header Modal -->
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Import Data Mahasiswa</h5> <button type="button"
-                    class="close" data-dismiss="modal" arialabel="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="exampleModalLabel">Import Data Mahasiswa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            
+            <!-- Body Modal -->
             <div class="modal-body">
-                <div class="form-group"> <label>Download Template</label> <a href="{{ asset('template_mahasiswa.xlsx') }}"
-                        class="btn btn-info btnsm" download><i class="fa fa-file-excel"></i>Download</a> <small
-                        id="error-kategori_id" class="error-text form-text textdanger"></small> </div>
-                <div class="form-group"> <label>Pilih File</label> <input type="file" name="file_mahasiswa"
-                        id="file_mahasiswa" class="formcontrol" required> <small id="error-file_mahasiswa"
-                        class="error-text form-text textdanger"></small> </div>
+                <!-- Download Template -->
+                <div class="form-group">
+                    <label>Download Template</label>
+                    <a href="{{ asset('template_mahasiswa.xlsx') }}" class="btn btn-info btn-sm" download>
+                        <i class="fa fa-file-excel"></i> Download
+                    </a>
+                    <small id="error-kategori_id" class="error-text form-text text-danger"></small>
+                </div>
+
+                <!-- Upload File -->
+                <div class="form-group">
+                    <label>Pilih File</label>
+                    <input type="file" name="file_mahasiswa" id="file_mahasiswa" class="form-control" required>
+                    <small id="error-file_mahasiswa" class="error-text form-text text-danger"></small>
+                </div>
             </div>
+
+            <!-- Footer Modal -->
             <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn btnwarning">Batal</button> <button type="submit"
-                    class="btn btn-primary">Upload</button>
+                <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
+                <button type="submit" class="btn btn-primary">Upload</button>
             </div>
         </div>
     </div>
 </form>
+
 <script>
     $(document).ready(function() {
         $("#form-import").validate({
@@ -31,8 +48,7 @@
                 },
             },
             submitHandler: function(form) {
-                var formData = new FormData(
-                form); // Jadikan form ke FormData untuk menghandle file 
+                var formData = new FormData(form); // Jadikan form ke FormData untuk menghandle file 
 
                 $.ajax({
                     url: form.action,
@@ -41,16 +57,14 @@
                     processData: false, // setting processData dan contentType ke false, untuk menghandle file                     
                     contentType: false,
                     success: function(response) {
-                        if (response
-                            .status) { // jika sukses                             
+                        if (response.status) { // jika sukses                             
                             $('#myModal').modal('hide');
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Berhasil',
                                 text: response.message
                             });
-                            tableMahasiswa.ajax
-                        .reload(); // reload datatable                        
+                            tableMahasiswa.ajax.reload(); // reload datatable                        
                         } else { // jika error            
                             $('.error-text').text('');
                             $.each(response.msgField, function(prefix, val) {

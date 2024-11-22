@@ -8,6 +8,8 @@ use App\Http\Controllers\LevelController;
 use App\Http\Controllers\PersonilAkademikController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\ProdiController;
+use App\Http\Controllers\NotifikasiController;
+use App\Http\Controllers\WelcomeController;
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'postlogin']);
@@ -28,6 +30,9 @@ Route::group(['prefix' =>'personilakademik'],function(){
     Route::delete('/{id}/delete_ajax', [PersonilAkademikController::class, 'delete_ajax']); // Untuk hapus data level Ajax
 });
 
+Route::group(['prefix' => 'notifikasi'],function():void{
+    Route::get('/',[NotifikasiController::class,'index']);
+});
 Route::group(['prefix' =>'level'],function(){
     Route::get('/',[LevelController::class,'index']);
     Route::post('/list',[LevelController::class, 'list']);

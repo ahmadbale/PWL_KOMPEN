@@ -18,8 +18,8 @@
                 <div class="form-group"> <label>Nama</label> <input value="" type="text" name="nama"
                         id="nama" class="form-control" required> <small id="error-nama"
                         class="error-text form-text text-danger"></small> </div>
-                <div class="form-group"> <label>Semester</label> <input value="" type="number" name="semester"
-                        id="semester" class="form-control" required> <small id="error-semester"
+                <div class="form-group"> <label>Tahun Semester</label> <input value="" type="number" name="periode_tahun"
+                        id="periode_tahun" class="form-control" required> <small id="error-periode_tahun"
                         class="error-text form-text text-danger"></small> </div>
                         <div class="form-group"> 
                             <label>Password</label> 
@@ -71,10 +71,10 @@
                     minlength: 3,
                     maxlength: 50
                 },
-                semester: {
+                periode_tahun: {
                     required: true,
                     number: true,
-                    maxlength:2
+                    maxlength:5
                 },
                 password: {
                     required: true,

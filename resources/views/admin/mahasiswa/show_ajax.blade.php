@@ -28,7 +28,7 @@
                     <table class="table table-sm table-bordered table-striped">
                         <tr><th class="test-right col-3">Nomor Induk </th><td class="col-9">{{ $mahasiswa->nomor_induk }}</td></tr>
                         <tr><th class="test-right col-3">Nama Lengkap </th><td class="col-9">{{ $mahasiswa->nama }}</td></tr>
-                        <tr><th class="test-right col-3">Semester </th><td class="col-9">{{ $mahasiswa->semester }}</td></tr>
+                        <tr><th class="test-right col-3">Tahun Semester </th><td class="col-9">{{ $mahasiswa->periode_tahun }}</td></tr>
                         <tr><th class="test-right col-3">Jam Alpha </th><td class="col-9">{{ $mahasiswa->jam_alpha}}</td></tr>
                         <tr><th class="test-right col-3">Jam Kompen </th><td class="col-9">{{ $mahasiswa->jam_kompen }}</td></tr>
                         <tr><th class="test-right col-3">Jam Kompen Selesai </th><td class="col-9">{{ $mahasiswa->jam_kompen_selesai }}</td></tr>

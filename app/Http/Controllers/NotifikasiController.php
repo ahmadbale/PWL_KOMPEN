@@ -9,6 +9,6 @@ class NotifikasiController extends Controller
     public function index()
     {
         $activeMenu = 'notifikasi';
-        return view('notifikasi.index',compact('activeMenu'));
+        return view('admin.notifikasi.index',compact('activeMenu'));
     }
 }

@@ -12,11 +12,6 @@
             <!-- Isi dengan link jika diperlukan -->
         </li>
     </ul>
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" id="logout" href="login" role="button"><i class="fa fa-sign-out"></i></a>
-        </li>
-    </ul>
   
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -52,7 +47,7 @@
               <a class="dropdown-item py-2" href="{{ url('/profile') }}">
                   <i class="fas fa-user me-2"></i> Edit Profile
               </a>
-              <a class="dropdown-item py-2" href="#" onclick="logout()">
+              <a class="dropdown-item py-2" href="{{ url('/login')}}" onclick="logout()">
                   <i class="fas fa-sign-out-alt me-2"></i> Log Out
               </a>
           </div>

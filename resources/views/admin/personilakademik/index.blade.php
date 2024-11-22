@@ -1,7 +1,7 @@
 <style>
-      .no-border td, .no-border th {
-    border: none !important;
-    }
+        .border td, .border th {
+        border: 1pt solid black !important;
+        }
 </style>
 @extends('layouts.template')
 @section('content')
@@ -40,11 +40,7 @@
                 </div>
             </div>
         </div>
-<<<<<<< HEAD:resources/views/personilakademik/index.blade.php
-        <table class="table table-bordered table-striped table-hover table-sm no-border" id="table_personilakademik">
-=======
-        <table class="table table-bordered table-striped table-hover table-sm" id="table_personilakademik">
->>>>>>> db834c6445b3c379aa6770a0a5e2e0bb89c848d8:resources/views/admin/personilakademik/index.blade.php
+        <table class="table table-bordered table-striped table-hover table-sm border" id="table_personilakademik">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -89,7 +85,8 @@
                     data: "DT_RowIndex",
                     className: "text-center",
                     orderable: false,
-                    searchable: false
+                    searchable: false,
+                    width: "5%"
                 },{
                     data: "nomor_induk",
                     className: "",

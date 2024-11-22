@@ -47,9 +47,9 @@
                     </div>
                     <div class="form-group">
                         <label>Semester</label>
-                        <input value="{{ $mahasiswa->semester }}" type="text" name="semester" id="semester" class="form-control"
+                        <input value="{{ $mahasiswa->periode_tahun }}" type="text" name="periode_tahun" id="periode_tahun" class="form-control"
                             required>
-                        <small id="error-semester" class="error-text form-text text-danger"></small>
+                        <small id="error-periode_tahun" class="error-text form-text text-danger"></small>
                     </div>
                     <div class="form-group">
                         <label>Password</label>
@@ -115,7 +115,7 @@
                     minlength: 3,
                     maxlength: 100
                 },
-                semester: {
+                periode_tahun: {
                     required: true,
                     number: true
                 },

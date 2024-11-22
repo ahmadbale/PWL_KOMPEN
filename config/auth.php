@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'mahasiswa',
         'passwords' => 'users',
     ],
 
@@ -36,12 +36,16 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'mahasiswa' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'mahasiswa',
+        ],
+
+        'personil' => [
+            'driver' => 'session',
+            'provider' => 'personil_akademik',
         ],
     ],
-
     /*
     |--------------------------------------------------------------------------
     | User Providers
@@ -60,15 +64,15 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'mahasiswa' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\MahasiswaModel::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+  
+        'personil_akademik' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\PersonilAkademikModel::class,
+        ],
     ],
 
     /*

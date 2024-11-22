@@ -2,21 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\LevelModel;
+use App\Models\KompenModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-class PersonilAkademikModel extends Model
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class PersonilAkademikModel extends Authenticatable
 {
+    
     protected $table = 'personil_akademik';
     protected $primaryKey = 'id_personil';
-
-    use HasFactory;
-
-    protected $fillable = ['id_personil','nomor_induk','no_telp','id_level', 'username', 'nama', 'password'];
+    protected $fillable = ['id_personil', 'nomor_induk', 'username', 'nama', 'nomor_telp', 'id_level'];
 
     protected $hidden = ['password'];
-    
+
     protected $casts = [
         'password' => 'hashed'
     ];
@@ -25,13 +25,25 @@ class PersonilAkademikModel extends Model
     {
         return $this->belongsTo(LevelModel::class, 'id_level', 'id_level');
     }
-    public function geRoleName(): string {
+
+    public function kompen(): HasMany
+    {
+        return $this->hasMany(KompenModel::class, 'id_personil', 'id_personil');
+    }
+
+
+    public function getroleName(): string
+    {
         return $this->level->nama_level;
     }
-    public function hasRole($role): bool {
+
+    public function hasRole($role): bool
+    {
         return $this->level->kode_level == $role;
     }
-    public function getRole() {
+
+    public function getRole()
+    {
         return $this->level->kode_level;
     }
 }

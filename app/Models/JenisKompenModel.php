@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 class JenisKompenModel extends Model
 {
     use HasFactory;
@@ -13,8 +15,10 @@ class JenisKompenModel extends Model
     protected $primaryKey = 'id_jenis_kompen';
     protected $fillable = ['id_jenis_kompen','kode_jenis', 'nama_jenis'];
     
-    // public function mahasiswa(): BelongsTo
-    // {
-    //     return $this->belongsTo(MahasiswaModel::class, 'id_mahasiswa', 'id_mahasiswa');
-    // }
+    public function kompen(): HasMany
+    {
+        return $this->hasMany(KompenModel::class, 'id_jenis_kompen', 'id_jenis_kompen');
+    }
+
+
 }

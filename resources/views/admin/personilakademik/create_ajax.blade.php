@@ -9,40 +9,48 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label>Nomor Induk</label>
-                    <input type="text" name="nomor_induk" id="nomor_induk" class="form-control">
-                    <small id="error-nomor_induk" class="error-text form-text text-danger"></small>
-                </div>
-                <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" name="username" id="username" class="form-control">
-                    <small id="error-username" class="error-text form-text text-danger"></small>
-                </div>
-                <div class="form-group">
-                    <label>Nama</label>
-                    <input type="text" name="nama" id="nama" class="form-control">
-                    <small id="error-nama" class="error-text form-text text-danger"></small>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" name="password" id="password" class="form-control">
-                    <small id="error-password" class="error-text form-text text-danger"></small>
-                </div>
-                <div class="form-group">
-                    <label>Nomor Telepon</label>
-                    <input type="text" name="nomor_telp" id="nomor_telp" class="form-control">
-                    <small id="error-nomor_telp" class="error-text form-text text-danger"></small>
-                </div>
-                <div class="form-group">
-                    <label>Level Pengguna</label>
-                    <select name="id_level" id="id_level" class="form-control">
-                        <option value="">- Pilih Level -</option>
-                        @foreach ($level as $l)
-                            <option value="{{ $l->id_level }}">{{ $l->nama_level }}</option>
-                        @endforeach
-                    </select>
-                    <small id="error-id_level" class="error-text form-text text-danger"></small>
+                <div class="row">
+                    <!-- Bagian Kiri -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Nomor Induk</label>
+                            <input type="text" name="nomor_induk" id="nomor_induk" class="form-control">
+                            <small id="error-nomor_induk" class="error-text form-text text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <label>Nama</label>
+                            <input type="text" name="nama" id="nama" class="form-control">
+                            <small id="error-nama" class="error-text form-text text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <label>Nomor Telepon</label>
+                            <input type="text" name="nomor_telp" id="nomor_telp" class="form-control">
+                            <small id="error-nomor_telp" class="error-text form-text text-danger"></small>
+                        </div>
+                    </div>
+                    <!-- Bagian Kanan -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" name="username" id="username" class="form-control">
+                            <small id="error-username" class="error-text form-text text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" name="password" id="password" class="form-control">
+                            <small id="error-password" class="error-text form-text text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <label>Level Pengguna</label>
+                            <select name="id_level" id="id_level" class="form-control">
+                                <option value="">- Pilih Level -</option>
+                                @foreach ($level as $l)
+                                    <option value="{{ $l->id_level }}">{{ $l->nama_level }}</option>
+                                @endforeach
+                            </select>
+                            <small id="error-id_level" class="error-text form-text text-danger"></small>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -52,6 +60,7 @@
         </div>
     </div>
 </form>
+
 
 <script>
     $(document).ready(function() {

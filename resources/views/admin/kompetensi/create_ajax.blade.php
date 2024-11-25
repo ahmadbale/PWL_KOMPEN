@@ -1,6 +1,5 @@
-<form action="{{ url('/kompetensi/ajax') }}" method="POST" id="form-tambah"> 
-    @csrf <div id="modal-master"
-        class="modal-dialog modal-lg" role="document">
+<form action="{{ url('/kompetensi/ajax') }}" method="POST" id="form-tambah">
+    @csrf <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Tambah Daftar Kompetensi</h5> <button type="button"
@@ -8,18 +7,17 @@
                         aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-
                 <div class="form-group"> <label>Nama Kompetensi</label> <input value="" type="text"
-                        name="nama_kompetensi" id="nama_kompetensi" class="form-control" required> <small id="error-nama_kompetensi"
-                        class="error-text form-text text-danger"></small> </div>
-                <div class="form-group"> <label>Deskripsi Kompetensi</label> <input value="" type="text" name="deskripsi_kompetensi"
-                        id="deskripsi_kompetensi" class="form-control" required> <small id="error-deskripsi_kompetensi"
-                        class="error-text form-text text-danger"></small> </div>
-            <div class="modal-footer"> <button type="button" data-dismiss="modal"
-                    class="btn btn-warning">Batal</button> <button type="submit"
-                    class="btn btn-primary">Simpan</button> </div>
+                        name="nama_kompetensi" id="nama_kompetensi" class="form-control" required> <small
+                        id="error-nama_kompetensi" class="error-text form-text text-danger"></small> </div>
+                <div class="form-group"> <label>Deskripsi Kompetensi</label> <input value="" type="text"
+                        name="deskripsi_kompetensi" id="deskripsi_kompetensi" class="form-control" required> <small
+                        id="error-deskripsi_kompetensi" class="error-text form-text text-danger"></small> </div>
+                <div class="modal-footer"> <button type="button" data-dismiss="modal"
+                        class="btn btn-warning">Batal</button> <button type="submit"
+                        class="btn btn-primary">Simpan</button> </div>
+            </div>
         </div>
-    </div>
 </form>
 <script>
     $(document).ready(function() {

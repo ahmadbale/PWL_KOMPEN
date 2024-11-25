@@ -2,35 +2,21 @@
 
 namespace App\Models;
 
+use App\Models\JenisKompenModel;
+use App\Models\PersonilAkademikModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class KompenModel extends Model
 {
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
     protected $table = 'kompen';
-
-    /**
-     * The primary key associated with the table.
-     *
-     * @var string
-     */
     protected $primaryKey = 'id_kompen';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<string>
-     */
     protected $fillable = [
         'nomor_kompen',
         'nama',
         'deskripsi',
-        'id_period',
+        'id_personil',
         'id_jenis_kompen',
         'kuota',
         'jam_kompen',
@@ -39,12 +25,6 @@ class KompenModel extends Model
         'tanggal_mulai',
         'tanggal_selesai'
     ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'status' => 'boolean',
         'is_selesai' => 'boolean',
@@ -53,17 +33,11 @@ class KompenModel extends Model
         'kuota' => 'integer',
         'jam_kompen' => 'integer',
     ];
-
-    /**
-     * The validation rules for the model.
-     *
-     * @var array<string, string>
-     */
     public static $rules = [
         'nomor_kompen' => 'required|string|max:35|unique:kompen,nomor_kompen',
         'nama' => 'required|string|max:40',
         'deskripsi' => 'required|string|max:255',
-        'id_period' => 'required|exists:period,id_period',
+        'id_personil' => 'required|exists:period,id_personil',
         'id_jenis_kompen' => 'required|exists:jenis_kompen,id_jenis_kompen',
         'kuota' => 'required|integer|min:1',
         'jam_kompen' => 'required|integer|min:1',
@@ -78,17 +52,42 @@ class KompenModel extends Model
         return $this->belongsTo(JenisKompenModel::class, 'id_jenis_kompen', 'id_jenis_kompen');
     }
 
-    public function scopeActive($query)
+    public function personil(): BelongsTo
+    {
+        return $this->belongsTo(PersonilAkademikModel::class, 'id_personil', 'id_personil');
+    }
+
+    public function getPersonilName(): string
+    {
+        return $this->personil->nama;
+    }
+    public function getPersonilUsername(): string
+    {
+        return $this->personil->username;
+    }
+
+    public function getJenisKompenName(): string
+    {
+        return $this->jenisKompen->nama_jenis;
+    }
+
+
+
+
+
+
+
+    public function Active($query)
     {
         return $query->where('status', true);
     }
 
-    public function scopeCompleted($query)
+    public function Completed($query)
     {
         return $query->where('is_selesai', true);
     }
 
-    public function scopeOngoing($query)
+    public function Ongoing($query)
     {
         return $query->where('is_selesai', false);
     }

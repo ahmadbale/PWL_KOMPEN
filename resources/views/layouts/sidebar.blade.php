@@ -18,12 +18,18 @@
         .active:hover{
           background-color: #F1F3FC!important;
         }
+      
+        .sidebar {
+        position: fixed; /* Sidebar tetap di tempat */
+        overflow-y: auto; /* Scroll jika kontennya panjang */
+    }   
     </style>
     <!-- Sidebar Menu -->
+  <div class="sidebar">
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
-          <a href="{{ url('/') }}" class="nav-link ">
+          <a href="{{ url('/') }}" class="nav-link {{ ($activeMenu == 'dashboard')? 'active' : '' }}">
             <i class="nav-icon fas"> <ion-icon name="grid-outline"></ion-icon></i>
             <p>Dashboard</p>
           </a>
@@ -77,12 +83,12 @@
           </ul>
       </li>
 
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a href="{{ url('/tugas') }}" class="nav-link ">
           <i class="nav-icon fas fa-check"></i>
           <p>Verifikasi</p>
         </a>
-      </li> 
+      </li>  --}}
         <li class="nav-item">
           <a href="{{ url('/kompetensi') }}" class="nav-link {{ ($activeMenu == 'kompetensi')? 'active' : '' }}">
             <i class="nav-icon fas fa-tasks"></i>
@@ -94,14 +100,21 @@
             <i class="nav-icon fas fa-bell"></i>
             <p>Notifikasi</p>
           </a>
-        </li>
+        </li> 
         <li class="nav-item">
           <a href="{{ url('/jeniskompen') }}" class="nav-link {{ ($activeMenu == 'jeniskompen')? 'active' : '' }}">
             <i class="nav-icon fas fa-filter"></i>
             <p>Jenis Kompen</p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="{{ url('/kompen') }}" class="nav-link {{ ($activeMenu == 'kompen')? 'active' : '' }}">
+            <i class="nav-icon fas fa-plus-square"></i>
+            <p>Buat Kompen</p>
+          </a>
+        </li>
       </ul>
     </nav>
   </div>
+</div>
   

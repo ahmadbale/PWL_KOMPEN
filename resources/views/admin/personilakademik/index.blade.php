@@ -1,10 +1,16 @@
 <style>
-        .border td, .border th {
+        /* .border td, .border th {
         border: 1pt solid black !important;
-        }
+        } */
+
+        .cont{
+        padding-left: 2%;
+        padding-right: 2%;
+    }
 </style>
 @extends('layouts.template')
 @section('content')
+<div class="cont">
 <div class="col-12 text-left mb-3" id="text">
     <h2><b>Daftar Personil Akademik</b></h2>
 </div>
@@ -54,6 +60,7 @@
             </thead>
         </table>
     </div>
+</div>
 </div>
 <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" databackdrop="static" data-keyboard="false" data-width="75%" aria-hidden="true"></div>
 @endsection
@@ -117,7 +124,29 @@
                     className: "",
                     orderable: false,
                     searchable: false
-                }]
+                }],
+            paging: true,
+            lengthChange: true,
+            searching: true,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            order: [[1, 'asc']],
+            language: {
+                processing: "Memuat data...",
+                lengthMenu: "Tampilkan _MENU_ data per halaman",
+                zeroRecords: "Data tidak ditemukan",
+                info: "Menampilkan halaman _PAGE_ dari _PAGES_",
+                infoEmpty: "Tidak ada data yang tersedia",
+                infoFiltered: "(difilter dari total _MAX_ data)",
+                search: "Cari:",
+                paginate: {
+                    first: "Pertama",
+                    last: "Terakhir",
+                    next: "Selanjutnya",
+                    previous: "Sebelumnya"
+                }
+            }
             });
 
             $('#id_level').on('change', function() {

@@ -2,10 +2,14 @@
 <html lang="en">
     <style>
         .main-sidebar {
-            background-color: #535b5c; /* Warna TEAL sebagai latar belakang utama sidebar */
-            color: #ffffff; /* Warna teks putih agar kontras */
+            background-color: #ffffff;
+            transition: width 0.3s ease, background-color 0.3s ease !important;
+            position:fixed !important;
         }
 
+        .content{
+            background-color: #F1F3FC!important;
+        }
         .logo{
             padding-top: 3%;
             padding-bottom: 5px;
@@ -24,9 +28,11 @@
     text-align: center; 
     padding-bottom: 10%; 
     }
-
+     
     </style>
 <head>
+        <title>Kompen JTI | Polinema</title>
+        <link rel="icon" href="logo-jti.png" type="image">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'KOMPEN') }}</title>
@@ -61,12 +67,13 @@
        <!-- /.navbar --> 
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4 " style="background-color: #ffffff">
+        <aside class="main-sidebar" >
+             <!-- Brand Logo -->
+         <a href="{{ url('/') }}">
+        <img class="logo img-circle" src="{{ asset('logo-jti.png')}}" alt="">
+       </a>
+       <h1 class="sub">KOMPEN</h1>
             <!-- Brand Logo -->
-            <a href="{{ url('/') }}">
-              <img class="logo img-circle" src="{{ asset('logo-jti.png')}}" alt="">
-             </a>
-             <h1 class="sub">KOMPEN</h1>
             <!-- Sidebar -->
             @include('layouts.sidebar')
             <!-- /.sidebar -->

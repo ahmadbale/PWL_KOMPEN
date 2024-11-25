@@ -18,7 +18,7 @@ class KompetensiController extends Controller
             'title' => 'Daftar Kopetensi yang Terdaftar dalam Sistem'
         ];
 
-        $activeMenu = 'Kompetensi';
+        $activeMenu = 'kompetensi';
         $kompetensi = KompetensiModel::all();
         return view('admin.kompetensi.index', compact('breadcrumb', 'page', 'kompetensi', 'activeMenu'));
     }

@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'mahasiswa',
         'passwords' => 'users',
     ],
 
@@ -36,12 +36,12 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'mahasiswa' => [
             'driver' => 'session',
             'provider' => 'mahasiswa',
         ],
 
-        'admin' => [
+        'personil' => [
             'driver' => 'session',
             'provider' => 'personil_akademik',
         ],

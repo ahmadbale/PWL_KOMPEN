@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use illuminate\Database\Eloquent\Factories\HasMany;
 use illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 
-class MahasiswaModel extends Model
+class MahasiswaModel extends Authenticatable 
 {
     protected $table = 'mahasiswa';
     protected $primaryKey = 'id_mahasiswa';
@@ -17,9 +18,7 @@ class MahasiswaModel extends Model
 
     protected $fillable = ['nomor_induk', 'username', 'nama', 'periode_tahun','password','jam_alpha','jam_kompen','jam_kompen_selesai','id_prodi','created_at','updated_at'];
     protected $hidden = ["password"];
-    protected $casts = [
-        'password' => 'hashed'
-    ];
+    protected $casts = ['password' => 'hashed'];
 
     public function prodi(): BelongsTo
     {

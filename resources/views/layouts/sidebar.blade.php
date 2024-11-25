@@ -93,12 +93,41 @@
             <p>Jenis Kompen</p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="{{ url('/kompen') }}" class="nav-link ">
-            <i class="nav-icon fas fa-tasks"></i>
-            <p>Buat Kompen</p>
+        <li class="nav-item has-treeview ">
+          <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tasks"></i>
+              <p class="p1">
+                  Kompen
+                  <i class="right fas fa-angle-left"></i>
+              </p>
           </a>
-        </li>
+          <ul class="nav nav-treeview">
+              <li class="nav-item">
+                  <a href="{{ url('/kompen') }}" class="nav-link {{ (  'kompen') ? 'active' : '' }}">
+                    <i class="nav-icon fas "></i>
+                      <p>Buat Kompen</p>
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a href="{{ url('/pengajuankompen') }}" class="nav-link {{ (  'user') ? 'active' : '' }}">
+                    <i class="nav-icon fas "></i>
+                      <p>Pengajuan Kompen</p>
+                  </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/personilakademik') }}" class="nav-link {{ (  'user') ? 'active' : '' }}">
+                  <i class="nav-icon fas "></i>
+                    <p>Tolak Kompen</p>
+                </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('/personilakademik') }}" class="nav-link {{ (  'user') ? 'active' : '' }}">
+                <i class="nav-icon fas "></i>
+                  <p>Progres Kompen</p>
+              </a>
+          </li>
+          </ul>
+      </li>
       </ul>
     </nav>
   </div>

@@ -39,7 +39,9 @@
                     <select name="id_level" id="id_level" class="form-control">
                         <option value="">- Pilih Level -</option>
                         @foreach ($level as $l)
-                            <option value="{{ $l->id_level }}">{{ $l->nama_level }}</option>
+                            @if ($l->nama_level !== 'Mahasiswa')
+                                <option value="{{ $l->id_level }}">{{ $l->nama_level }}</option>
+                            @endif
                         @endforeach
                     </select>
                     <small id="error-id_level" class="error-text form-text text-danger"></small>

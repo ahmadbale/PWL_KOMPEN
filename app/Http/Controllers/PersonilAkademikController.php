@@ -33,13 +33,19 @@ class PersonilAkademikController extends Controller
     }
 
     public function list(Request $request)
-    {
+    {   
+
         $personil = PersonilAkademikModel::select('id_personil', 'nomor_induk', 'username', 'nama', 'nomor_telp', 'id_level')
             ->with('level');
 
         if ($request->id_level) {
             $personil->where('id_level', $request->id_level);
         }
+
+        $personil->whereHas('level', function ($q) {
+            $q->where('nama_level', '!=', 'Mahasiswa');
+        });
+
         return DataTables::of($personil)
             ->addIndexColumn()
             ->addColumn('aksi', function ($personil) {

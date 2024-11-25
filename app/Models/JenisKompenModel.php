@@ -19,6 +19,4 @@ class JenisKompenModel extends Model
     {
         return $this->hasMany(KompenModel::class, 'id_jenis_kompen', 'id_jenis_kompen');
     }
-
-
 }

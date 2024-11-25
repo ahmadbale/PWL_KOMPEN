@@ -5,8 +5,6 @@
     <div class="card-header">
         <h3 class="card-title">{{ $page->title }}</h3>
         <div class="card-tools">
-            <button type="button" onclick="modalAction('{{ url('/kompen/create_ajax') }}')" class="btn btn-success">
-                Tambah Data
             </button>
         </div>
     </div>
@@ -28,36 +26,14 @@
                 </button>
             </div>
         @endif
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group row">
-                    <label class="col-1 control-label col-form-label">Filter:</label>
-                    <div class="col-3">
-                        {{-- <select class="form-control" id="id_level" name="id_level" required>
-                            <option value="">- Semua -</option>
-                            @foreach ($jenis as $p)
-                            <option value="{{ $p->id_jenis_kompen }}">{{ $p->nama_jenis }}</option>
-                        @endforeach
-                        </select> --}}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <table class="table table-bordered table-striped table-hover table-sm" id="table_kompen">
+
+        <table class="table table-bordered table-striped table-hover table-sm" id="table_pengajuan_kompen">
             <thead>
                 <tr>
                     <th width="5%">No</th>
-                    <th>Nomor Kompen</th>
-                    <th>Nama</th>
-                    <th>Deskripsi</th>
-                    <th>Kuota</th>
-                    <th>Jam Kompen</th>
+                    <th>Nama Kompen</th>
+                    <th>Mahasiswa</th>
                     <th>Status</th>
-                    <th>Pengerjaan</th>
-                    <th width="5%">Jenis Kompen</th>
-                    <th width="5%">Diberikan</th>
-                    <th>Tanggal Mulai</th>
-                    <th>Tanggal Selesai</th>
                     <th width="15%">Aksi</th>
                 </tr>
             </thead>
@@ -70,7 +46,7 @@
 <div id="myModal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <!-- Modal content will be loaded here -->
+            <!-- Konten modal akan dimuat di sini -->
         </div>
     </div>
 </div>
@@ -90,7 +66,6 @@
 @endpush
 
 @push('js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 <script>
@@ -107,15 +82,15 @@
             }
         });
 
-        var dataKompen = $('#table_kompen').DataTable({
+        var dataPengajuanKompen = $('#table_pengajuan_kompen').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ url('/kompen/list') }}",
+                url: "{{ url('pengajuankompen/list') }}",
                 type: "POST",
                 dataType: "json",
                 error: function(xhr, error, thrown) {
-                    console.log('Error:', error);
+                    console.error('Error:', error);
                 }
             },
             columns: [
@@ -126,84 +101,22 @@
                     searchable: false
                 },
                 {
-                    data: "nomor_kompen",
+                    data: "kompen.nama",
                     className: "",
                     orderable: true,
                     searchable: true
                 },
                 {
-                    data: "nama",
+                    data: "mahasiswa.nama",
                     className: "",
-                    orderable: true,
-                    searchable: true
-                },
-                {
-                    data: "deskripsi",
-                    className: "",
-                    orderable: true,
-                    searchable: true
-                },
-                {
-                    data: "kuota",
-                    className: "text-center",
-                    orderable: true,
-                    searchable: true
-                },
-                {
-                    data: "jam_kompen",
-                    className: "text-center",
                     orderable: true,
                     searchable: true
                 },
                 {
                     data: "status",
-                    className: "text-center",
-                    orderable: true,
-                    searchable: true,
-                    render: function(data) {
-                        return data == 1 ? 'Aktif' : 'Nonaktif';
-                    }
-                },
-                {
-                    data: "is_selesai",
-                    className: "text-center",
-                    orderable: true,
-                    searchable: true,
-                    render: function(data) {
-                        return data == 1 ? 'Selesai' : 'Progress';
-                    }
-                },
-                {
-                    data: "jeniskompen.nama_jenis",  
-                    className: "", 
-                    width: "19%", 
-                    orderable: true, 
-                    searchable: true, 
-                },
-                {
-                    data: "personil.nama",  
-                    className: "", 
-                    width: "19%", 
-                    orderable: true, 
-                    searchable: true, 
-                },
-                {
-                    data: "tanggal_mulai",
                     className: "",
                     orderable: true,
-                    searchable: true,
-                    render: function(data) {
-                        return data ? moment(data).format('DD-MM-YYYY HH:mm:ss') : '-';
-                    }
-                },
-                {
-                    data: "tanggal_selesai",
-                    className: "",
-                    orderable: true,
-                    searchable: true,
-                    render: function(data) {
-                        return data ? moment(data).format('DD-MM-YYYY HH:mm:ss') : '-';
-                    }
+                    searchable: true
                 },
                 {
                     data: "aksi",
@@ -237,7 +150,7 @@
         });
 
         $('#myModal').on('hidden.bs.modal', function() {
-            dataKompen.ajax.reload(null, false);
+            dataPengajuanKompen.ajax.reload(null, false); // Reload data tanpa reset paging
         });
     });
 </script>

@@ -27,9 +27,11 @@
                         <select class="form-control" id="id_level" name="id_level" required>
                             <option value="">- Semua -</option>
                             @foreach ($level as $item)
-                                <option value="{{ $item->id_level }}">{{ $item->nama_level }}</option>
+                                @if ($item->nama_level !== 'Mahasiswa') <!-- Cek jika nama level bukan Mahasiswa -->
+                                    <option value="{{ $item->id_level }}">{{ $item->nama_level }}</option>
+                                @endif
                             @endforeach
-                        </select>
+                        </select>                        
                     </div>
                     <small class="form-text text-muted">Level Personil</small>
                 </div>

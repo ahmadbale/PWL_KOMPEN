@@ -57,6 +57,10 @@ class KompenModel extends Model
         return $this->belongsTo(PersonilAkademikModel::class, 'id_personil', 'id_personil');
     }
 
+    public function pengajuankompen(): HasMany {
+        return $this->hasMany(PengajuanKompenModel::class, 'id_kompen', 'id_kompen' );
+    }
+    
     public function getPersonilName(): string
     {
         return $this->personil->nama;

@@ -96,7 +96,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ url('/kompetensi') }}" class="nav-link {{ ($activeMenu == 'tugas')? 'active' : '' }}">
+          <a href="{{ url('/cari_kompen') }}" class="nav-link {{ ($activeMenu == 'cari_tugas')? 'active' : '' }}">
             <i class="nav-icon fas fa-tasks"></i>
             <p>Cari Tugas</p>
           </a>
@@ -113,7 +113,7 @@
             <p>Jenis Kompen</p>
           </a>
         </li>
-        <li class="nav-item has-treeview ">
+        <li class="nav-item has-treeview {{ ($activeMenu == 'kompen') ? 'menu-open' : '' }}">
           <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tasks"></i>
               <p class="p1">

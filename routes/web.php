@@ -38,8 +38,11 @@ Route::group(['prefix' =>'personilakademik'],function(){
 //     Route::get('/',[NotifikasiController::class,'index']);
 // });
 
-Route::group(['prefix' => 'tugas'],function():void{
+Route::group(['prefix' => 'cari_kompen'],function():void{
     Route::get('/',[CariKompenController::class,'index']);
+    Route::post('/list',[CariKompenController::class, 'list']);
+    Route::get('/{id}/show_ajax', [CariKompenController::class, 'show_ajax']); 
+
 });
 Route::group(['prefix' =>'level'],function(){
     Route::get('/',[LevelController::class,'index']);

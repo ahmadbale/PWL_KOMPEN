@@ -47,7 +47,10 @@
                 color: #333;
                 font-weight: 500;
             }
-    
+            
+            .form-group ::placeholder{
+            font-size: 15px;
+            }
             .form-group input {
                 width: 100%;
                 padding: 0.75rem;
@@ -97,11 +100,11 @@
                 @csrf
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required>
+                    <input type="text" id="username" name="username" placeholder="Masukkan Username" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
+                    <input type="password" id="password" name="password" placeholder="Masukkan Password" required>
                 </div>
                 <button type="submit">Login</button>
             </form>

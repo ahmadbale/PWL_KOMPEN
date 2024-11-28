@@ -108,6 +108,12 @@ class BuatKompenController extends Controller
         ]);
     }
 
+    public function show_ajax(string $id)
+    {
+        $kompen = KompenModel::find($id);
+        return view('admin.buat_kompen.show_ajax', compact('kompen'));
+    }
+
     // public function delete_ajax(Request $request, string $id)
     // {
     //     if ($request->ajax() || $request->wantsJson()) {

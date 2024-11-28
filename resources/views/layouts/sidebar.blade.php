@@ -96,23 +96,58 @@
           </a>
         </li>
         <li class="nav-item">
+          <a href="{{ url('/kompetensi') }}" class="nav-link {{ ($activeMenu == 'tugas')? 'active' : '' }}">
+            <i class="nav-icon fas fa-tasks"></i>
+            <p>Cari Tugas</p>
+          </a>
+        </li>
+        {{-- <li class="nav-item">
           <a href="{{ url('/notifikasi') }}" class="nav-link {{ ($activeMenu == 'notifikasi')? 'active' : '' }}">
             <i class="nav-icon fas fa-bell"></i>
             <p>Notifikasi</p>
           </a>
-        </li> 
+        </li>  --}}
         <li class="nav-item">
           <a href="{{ url('/jeniskompen') }}" class="nav-link {{ ($activeMenu == 'jeniskompen')? 'active' : '' }}">
             <i class="nav-icon fas fa-filter"></i>
             <p>Jenis Kompen</p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="{{ url('/kompen') }}" class="nav-link {{ ($activeMenu == 'kompen')? 'active' : '' }}">
-            <i class="nav-icon fas fa-plus-square"></i>
-            <p>Buat Kompen</p>
+        <li class="nav-item has-treeview ">
+          <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tasks"></i>
+              <p class="p1">
+                  Kompen
+                  <i class="right fas fa-angle-left"></i>
+              </p>
           </a>
-        </li>
+          <ul class="nav nav-treeview">
+              <li class="nav-item">
+                  <a href="{{ url('/kompen') }}" class="nav-link {{ (  'kompen') ? 'active' : '' }}">
+                    <i class="nav-icon fas "></i>
+                      <p>Buat Kompen</p>
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a href="{{ url('/pengajuankompen') }}" class="nav-link {{ (  '') ? 'active' : '' }}">
+                    <i class="nav-icon fas "></i>
+                      <p>Pengajuan Kompen</p>
+                  </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/personilakademik') }}" class="nav-link {{ (  '') ? 'active' : '' }}">
+                  <i class="nav-icon fas "></i>
+                    <p>Tolak Kompen</p>
+                </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('/personilakademik') }}" class="nav-link {{ (  '') ? 'active' : '' }}">
+                <i class="nav-icon fas "></i>
+                  <p>Progres Kompen</p>
+              </a>
+          </li>
+          </ul>
+      </li>
       </ul>
     </nav>
   </div>

@@ -6,11 +6,14 @@ use App\Http\Controllers\BuatKompenController;
 use App\Http\Controllers\JenisController;
 use App\Http\Controllers\KompetensiController;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\PersonilAkademikController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\PengajuanKompenController;
 use App\Http\Controllers\ProdiController;
-use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\CariKompenController;
+use App\Models\PengajuanKompenModel;
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'postlogin']);
@@ -31,8 +34,12 @@ Route::group(['prefix' =>'personilakademik'],function(){
     Route::delete('/{id}/delete_ajax', [PersonilAkademikController::class, 'delete_ajax']); // Untuk hapus data level Ajax
 });
 
-Route::group(['prefix' => 'notifikasi'],function():void{
-    Route::get('/',[NotifikasiController::class,'index']);
+// Route::group(['prefix' => 'notifikasi'],function():void{
+//     Route::get('/',[NotifikasiController::class,'index']);
+// });
+
+Route::group(['prefix' => 'tugas'],function():void{
+    Route::get('/',[CariKompenController::class,'index']);
 });
 Route::group(['prefix' =>'level'],function(){
     Route::get('/',[LevelController::class,'index']);
@@ -68,9 +75,6 @@ Route::group(['prefix' => 'prodi'], function(){
     Route::put('/{id}/update_ajax', [ProdiController::class, 'update_ajax']);
     Route::get('/{id}/delete_ajax', [ProdiController::class, 'confirm_ajax']);
     Route::delete('/{id}/delete_ajax', [ProdiController::class, 'delete_ajax']);
-    Route::get('/import',[ProdiController::class,'import']);
-    Route::post('/import_ajax',[ProdiController::class,'import_ajax']);
-    Route::get('/export_excel',[ProdiController::class,'export_excel']);
 });
 
 Route::group(['prefix' => 'kompetensi'], function(){
@@ -106,4 +110,13 @@ Route::group(['prefix' => 'kompen'], function(){
     Route::get('/{id}/delete_ajax', [BuatKompenController::class, 'confirm_ajax']);
     Route::delete('/{id}/delete_ajax', [BuatKompenController::class, 'delete_ajax']);
 });
+
+Route::group(['prefix' => 'pengajuankompen'], function(){
+    Route::get('/', [PengajuanKompenController::class, 'index']);
+    Route::post('/list', [PengajuanKompenController::class, 'list']);
+    Route::post('/ajax', [PengajuanKompenModel::class, 'store_ajax']); // Menampilkan data level baru Ajax
+    Route::get('/{id}/show_ajax', [PengajuanKompenController::class, 'show_ajax']); 
+    Route::post('/update-status', [PengajuanKompenController::class, 'updateStatus'])->name('pengajuankompen.updateStatus');
+});
+
 });

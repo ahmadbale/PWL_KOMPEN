@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class TolakKompenController extends Controller
+class CariKompenController extends Controller
 {
     //
 }

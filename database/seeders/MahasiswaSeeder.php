@@ -18,7 +18,7 @@ class MahasiswaSeeder extends Seeder
     {
         $data = [];
 
-        for ($i = 1; $i <= 30; $i++) {
+        for ($i = 1; $i <= 2; $i++) {
             $data[] = [
                 'nomor_induk' => str($i, 10, '0', STR_PAD_LEFT), // nomor_induk dengan format 10 digit
                 'username' => 'mahasiswa' . $i,
@@ -29,7 +29,7 @@ class MahasiswaSeeder extends Seeder
                 'jam_kompen' => rand(5, 20),
                 'jam_kompen_selesai' => rand(0, 5),
                 'id_prodi' => 3,
-                'id_level' => 2,
+                'id_level' => 5,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];

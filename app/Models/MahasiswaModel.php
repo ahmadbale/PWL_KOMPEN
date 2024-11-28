@@ -16,11 +16,7 @@ class MahasiswaModel extends Authenticatable
 
     use HasFactory;
 
-<<<<<<< HEAD
-    protected $fillable = ['nomor_induk', 'username', 'nama', 'semester','password','jam_alpha','jam_kompen','jam_kompen_selesai','id_prodi','created_at','updated_at'];
-=======
     protected $fillable = ['nomor_induk', 'username', 'nama', 'periode_tahun','password','jam_alpha','jam_kompen','jam_kompen_selesai','id_prodi','created_at','updated_at'];
->>>>>>> fd60cadf1c891c84847424257210cf7e3735a76b
     protected $hidden = ["password"];
     protected $casts = ['password' => 'hashed'];
 
@@ -32,27 +28,5 @@ class MahasiswaModel extends Authenticatable
     {
         return $this->belongsTo(LevelModel::class, 'id_level', 'id_level');
     }
-<<<<<<< HEAD
 }
-=======
 
-    public function getProdiName(): string
-    {
-        return $this->prodi->nama_prodi;
-    }
-    public function getroleName(): string
-    {
-        return $this->level->nama_level;
-    }
-
-    public function hasRole($role): bool
-    {
-        return $this->level->kode_level == $role;
-    }
-
-    public function getRole()
-    {
-        return $this->level->kode_level;
-    }
-}
->>>>>>> fd60cadf1c891c84847424257210cf7e3735a76b

@@ -1,13 +1,24 @@
+<style>
+    /* .no-border td, .no-border th {
+        border-color: black; 
+  } */
+  .cont{
+        padding-left: 2%;
+        padding-right: 2%;
+    }
+</style>
 @extends('layouts.template')
 
 @section('content')
-<div class="card card-outline card-primary">
-    <div class="card-header">
-        <h3 class="card-title">Daftar Prodi</h3>
-        <div class="card-tools">
-            <button onclick="modalAction('{{ url('prodi/create_ajax') }}')" class="btn btn-success">Tambah Personil</button>
+<div class="cont">
+        <div class="col-12 text-left mb-3" id="text">
+            <h2><b>Daftar Prodi</b></h2>
         </div>
-    </div>
+        <div class="card-tools">
+            <button onclick="modalAction('{{ url('prodi/create_ajax') }}')" class="btn btn-success">Tambah Prodi</button>
+        </div>
+    <br>
+    <div class="card card-outline card">
     <div class="card-body">
         @if (session('success'))
             <div class="alert alert-success">
@@ -41,11 +52,12 @@
                     <th>ID</th>
                     <th>Kode Prodi</th>
                     <th>Nama Prodi</th>
-                    <th>Aksi</th>
+                    {{-- <th>Aksi</th> --}}
                 </tr>
             </thead>
         </table>
     </div>
+</div>
 </div>
 <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" databackdrop="static" data-keyboard="false" data-width="75%" aria-hidden="true"></div>
 @endsection
@@ -88,12 +100,36 @@
                     className: "",
                     orderable: true,
                     searchable: true
-                },{
-                    data: "aksi",
-                    className: "",
-                    orderable: false,
-                    searchable: false
-                }]
+                 }
+                //,{
+                //     data: "aksi",
+                //     className: "",
+                //     orderable: false,
+                //     searchable: false
+                // }
+            ],
+            paging: true,
+            lengthChange: true,
+            searching: true,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            order: [[1, 'asc']],
+            language: {
+                processing: "Memuat data...",
+                lengthMenu: "Tampilkan _MENU_ data per halaman",
+                zeroRecords: "Data tidak ditemukan",
+                info: "Menampilkan halaman _PAGE_ dari _PAGES_",
+                infoEmpty: "Tidak ada data yang tersedia",
+                infoFiltered: "(difilter dari total _MAX_ data)",
+                search: "Cari:",
+                paginate: {
+                    first: "Pertama",
+                    last: "Terakhir",
+                    next: "Selanjutnya",
+                    previous: "Sebelumnya"
+                }
+            }
             });
 
             $('#id_prodi').on('change', function() {

@@ -1,4 +1,4 @@
-@empty($mahasiswa)
+@empty($kompen)
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -10,29 +10,25 @@
                     <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
                     Data yang anda cari tidak ditemukan
                 </div>
-                <a href="{{ url('/mahasiswa') }}" class="btn btn-warning">Kembali</a>
+                <a href="{{ url('/cari_kompen') }}" class="btn btn-warning">Kembali</a>
             </div>
         </div>
     </div>
 @else
-    <form action="{{ url('/mahasiswa/' . $mahasiswa->id_mahasiswa . '/detail_ajax') }}" method="POST" id="form-show">
+    <form action="{{ url('/cari_kompen/' . $kompen->id_kompen . '/detail_ajax') }}" method="POST" id="form-show">
     @csrf
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detail Mahasiswa</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Detail Kompen</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <table class="table table-sm table-bordered table-striped">
                     <table class="table table-sm table-bordered table-striped">
-                        <tr><th class="test-right col-3">Nomor Induk </th><td class="col-9">{{ $mahasiswa->nomor_induk }}</td></tr>
-                        <tr><th class="test-right col-3">Nama Lengkap </th><td class="col-9">{{ $mahasiswa->nama }}</td></tr>
-                        <tr><th class="test-right col-3">Tahun Semester </th><td class="col-9">{{ $mahasiswa->periode_tahun }}</td></tr>
-                        <tr><th class="test-right col-3">Jam Alpha </th><td class="col-9">{{ $mahasiswa->jam_alpha}}</td></tr>
-                        <tr><th class="test-right col-3">Jam Kompen </th><td class="col-9">{{ $mahasiswa->jam_kompen }}</td></tr>
-                        <tr><th class="test-right col-3">Jam Kompen Selesai </th><td class="col-9">{{ $mahasiswa->jam_kompen_selesai }}</td></tr>
-                        <tr><th class="test-right col-3">Prodi : </th><td class="col-9">{{ $mahasiswa->prodi->nama_prodi }}</td></tr>
+                        <tr><th class="test-right col-3">Nomor Kompen </th><td class="col-9">{{ $kompen->nomor_kompen }}</td></tr>
+                        <tr><th class="test-right col-3">Nama Kompen </th><td class="col-9">{{ $kompen->nama }}</td></tr>
+                        <tr><th class="test-right col-3">Deskripsi </th><td class="col-9">{{ $kompen->deskripsi }}</td></tr>
                     </table>
                 </table>
             </div>
@@ -59,7 +55,7 @@
                                 title: 'Berhasil',
                                 text: response.message
                             });
-                            dataMahasiswa.ajax.reload(); // Reload datatable
+                            dataKompen.ajax.reload(); // Reload datatable
                         } else {
                             Swal.fire({
                                 icon: 'error',

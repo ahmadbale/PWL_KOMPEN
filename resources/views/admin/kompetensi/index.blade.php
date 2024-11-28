@@ -1,15 +1,22 @@
+<style>
+    .cont{
+        padding-left: 2%;
+        padding-right: 2%;
+    }
+</style>
 @extends('layouts.template')
-
 @section('content')
-<div class="card card-outline card-primary">
-    <div class="card-header">
-        <h3 class="card-title">{{ $page->title }}</h3>
+<div class="cont">
+    <div class="col-12 text-left mb-3" id="text">
+        <h2><b>Daftar Kompetensi</b></h2>
+    </div>
         <div class="card-tools">
             <button type="button" onclick="modalAction('{{ url('kompetensi/create_ajax') }}')" class="btn btn-success">
                  Tambah Data
             </button>
         </div>
-    </div>
+    <br>
+    <div class="card card-outline card">
     <div class="card-body">
         @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -42,7 +49,7 @@
         </table>
     </div>
 </div>
-
+</div>
 <!-- Modal -->
 <div id="myModal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg">

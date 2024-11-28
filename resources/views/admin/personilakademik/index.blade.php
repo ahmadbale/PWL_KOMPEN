@@ -1,13 +1,24 @@
-@extends('layouts.template')
+<style>
+        /* .border td, .border th {
+        border: 1pt solid black !important;
+        } */
 
+        .cont{
+        padding-left: 2%;
+        padding-right: 2%;
+    }
+</style>
+@extends('layouts.template')
 @section('content')
-<div class="card card-outline card-primary">
-    <div class="card-header">
-        <h3 class="card-title">Daftar Personil Akademik</h3>
+<div class="cont">
+<div class="col-12 text-left mb-3" id="text">
+    <h2><b>Daftar Personil Akademik</b></h2>
+</div>
         <div class="card-tools">
             <button onclick="modalAction('{{ url('personilakademik/create_ajax') }}')" class="btn btn-success">Tambah Personil</button>
         </div>
-    </div>
+<br>
+<div class="card card-outline ">
     <div class="card-body">
         @if (session('success'))
             <div class="alert alert-success">
@@ -27,15 +38,17 @@
                         <select class="form-control" id="id_level" name="id_level" required>
                             <option value="">- Semua -</option>
                             @foreach ($level as $item)
-                                <option value="{{ $item->id_level }}">{{ $item->nama_level }}</option>
+                                @if ($item->nama_level !== 'Mahasiswa') <!-- Cek jika nama level bukan Mahasiswa -->
+                                    <option value="{{ $item->id_level }}">{{ $item->nama_level }}</option>
+                                @endif
                             @endforeach
-                        </select>
+                        </select>                        
                     </div>
                     <small class="form-text text-muted">Level Personil</small>
                 </div>
             </div>
         </div>
-        <table class="table table-bordered table-striped table-hover table-sm" id="table_personilakademik">
+        <table class="table table-bordered table-striped table-hover table-sm border" id="table_personilakademik">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -49,6 +62,7 @@
             </thead>
         </table>
     </div>
+</div>
 </div>
 <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" databackdrop="static" data-keyboard="false" data-width="75%" aria-hidden="true"></div>
 @endsection
@@ -80,7 +94,8 @@
                     data: "DT_RowIndex",
                     className: "text-center",
                     orderable: false,
-                    searchable: false
+                    searchable: false,
+                    width: "5%"
                 },{
                     data: "nomor_induk",
                     className: "",
@@ -111,7 +126,29 @@
                     className: "",
                     orderable: false,
                     searchable: false
-                }]
+                }],
+            paging: true,
+            lengthChange: true,
+            searching: true,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            order: [[1, 'asc']],
+            language: {
+                processing: "Memuat data...",
+                lengthMenu: "Tampilkan _MENU_ data per halaman",
+                zeroRecords: "Data tidak ditemukan",
+                info: "Menampilkan halaman _PAGE_ dari _PAGES_",
+                infoEmpty: "Tidak ada data yang tersedia",
+                infoFiltered: "(difilter dari total _MAX_ data)",
+                search: "Cari:",
+                paginate: {
+                    first: "Pertama",
+                    last: "Terakhir",
+                    next: "Selanjutnya",
+                    previous: "Sebelumnya"
+                }
+            }
             });
 
             $('#id_level').on('change', function() {

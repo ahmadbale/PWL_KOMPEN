@@ -6,7 +6,7 @@
 </head>
 <style>
      /* #text{
-        padding-top: 50px;
+        padding-top: 0px;
     } */
 
     body {
@@ -47,7 +47,7 @@
                     <th>No</th>
                     <th>Nomor Induk</th>
                     <th>Nama Lengkap</th>
-                    <th>Semester</th>
+                    <th>Periode</th>
                     <th>Jam Alpha</th>
                     <th>Jam Kompen</th>
                     <th>Jam Kompen Selesai</th>

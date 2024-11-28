@@ -2,72 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-<<<<<<< HEAD
-use App\Http\Controllers\TugasController;
-use App\Http\Controllers\TambahTugasController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\HistoryController;
-use App\Http\Controllers\ProgresController;
-use App\Http\Controllers\NotifikasiController;
-use App\Http\Controllers\VerifikasiTugasController;
-use App\Http\Controllers\VerifikasiController;
-use App\Http\Controllers\TendikController;
-use App\Http\Controllers\MahasiswaController;
-use App\Http\Controllers\DosenController;
-use App\Http\Controllers\KategoriController;
-
-
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-
-// Route::get('login', [AuthController::class, 'login'])->name('login');
-// Route::post('login', [AuthController::class, 'postlogin']);
-// Route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
-
-Route::get('/dashboard', [DashboardController::class, 'index']);
-Route::get('/tugas', [TugasController::class, 'index']);
-Route::get('/history', [HistoryController::class, 'index']);
-Route::get('/progres', [ProgresController::class, 'index']);
-Route::get('/notifikasi', [NotifikasiController::class, 'index']);
-Route::get('/verifikasitugas', [VerifikasiTugasController::class, 'index']);
-Route::get('/verifikasi', [VerifikasiController::class, 'index']);
-Route::get('/tambahtugas', [TambahTugasController::class, 'index']);
-Route::get('/tambahdosen', [DosenController::class, 'index']);
-Route::get('/tambahtendik', [TendikController::class, 'index']);
-Route::get('/kategori', [KategoriController::class, 'index']);
-
-Route::group(['prefix' => 'mahasiswa'], function () {
-Route::get('/', [MahasiswaController::class, 'index']);
-Route::post('/list', [MahasiswaController::class, 'list']);
-Route::get('/create_ajax', [MahasiswaController::class, 'create_ajax']);
-Route::post('/ajax', [MahasiswaController::class, 'store_ajax']);
-Route::get('/{id}/edit_ajax', [MahasiswaController::class, 'edit_ajax']);
-Route::put('/{id}/update_ajax', [MahasiswaController::class, 'update_ajax']);
-Route::get('/{id}/show_ajax', [MahasiswaController::class, 'show_ajax']);
-Route::get('/{id}/delete_ajax', [MahasiswaController::class, 'confirm_ajax']);
-Route::delete('/{id}/delete_ajax', [MahasiswaController::class, 'delete_ajax']);
-Route::get('/import',[MahasiswaController::class,'import']);
-Route::post('/import_ajax',[MahasiswaController::class,'import_ajax']);
-Route::get('/export_excel',[MahasiswaController::class,'export_excel']);
-});
-=======
 use App\Http\Controllers\BuatKompenController;
 use App\Http\Controllers\JenisController;
 use App\Http\Controllers\KompetensiController;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\PersonilAkademikController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\PengajuanKompenController;
 use App\Http\Controllers\ProdiController;
+use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\CariKompenController;
+use App\Models\PengajuanKompenModel;
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'postlogin']);
@@ -88,6 +34,16 @@ Route::group(['prefix' =>'personilakademik'],function(){
     Route::delete('/{id}/delete_ajax', [PersonilAkademikController::class, 'delete_ajax']); // Untuk hapus data level Ajax
 });
 
+// Route::group(['prefix' => 'notifikasi'],function():void{
+//     Route::get('/',[NotifikasiController::class,'index']);
+// });
+
+Route::group(['prefix' => 'cari_kompen'],function():void{
+    Route::get('/',[CariKompenController::class,'index']);
+    Route::post('/list',[CariKompenController::class, 'list']);
+    Route::get('/{id}/show_ajax', [CariKompenController::class, 'show_ajax']); 
+
+});
 Route::group(['prefix' =>'level'],function(){
     Route::get('/',[LevelController::class,'index']);
     Route::post('/list',[LevelController::class, 'list']);
@@ -122,9 +78,6 @@ Route::group(['prefix' => 'prodi'], function(){
     Route::put('/{id}/update_ajax', [ProdiController::class, 'update_ajax']);
     Route::get('/{id}/delete_ajax', [ProdiController::class, 'confirm_ajax']);
     Route::delete('/{id}/delete_ajax', [ProdiController::class, 'delete_ajax']);
-    Route::get('/import',[ProdiController::class,'import']);
-    Route::post('/import_ajax',[ProdiController::class,'import_ajax']);
-    Route::get('/export_excel',[ProdiController::class,'export_excel']);
 });
 
 Route::group(['prefix' => 'kompetensi'], function(){
@@ -154,10 +107,19 @@ Route::group(['prefix' => 'kompen'], function(){
     Route::post('/list', [BuatKompenController::class, 'list']);
     Route::get('/create_ajax', [BuatKompenController::class, 'create_ajax']);
     Route::post('/ajax', [BuatKompenController::class, 'store_ajax']);
+    Route::get('/{id}/show_ajax', [BuatKompenController::class, 'show_ajax']);
     Route::get('/{id}/edit_ajax', [BuatKompenController::class, 'edit_ajax']);
     Route::put('/{id}/update_ajax', [BuatKompenController::class, 'update_ajax']);
     Route::get('/{id}/delete_ajax', [BuatKompenController::class, 'confirm_ajax']);
     Route::delete('/{id}/delete_ajax', [BuatKompenController::class, 'delete_ajax']);
 });
+
+Route::group(['prefix' => 'pengajuankompen'], function(){
+    Route::get('/', [PengajuanKompenController::class, 'index']);
+    Route::post('/list', [PengajuanKompenController::class, 'list']);
+    Route::post('/ajax', [PengajuanKompenModel::class, 'store_ajax']); // Menampilkan data level baru Ajax
+    Route::get('/{id}/show_ajax', [PengajuanKompenController::class, 'show_ajax']); 
+    Route::post('/update-status', [PengajuanKompenController::class, 'updateStatus'])->name('pengajuankompen.updateStatus');
 });
->>>>>>> fd60cadf1c891c84847424257210cf7e3735a76b
+
+});

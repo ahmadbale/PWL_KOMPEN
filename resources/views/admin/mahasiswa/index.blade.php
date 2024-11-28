@@ -1,13 +1,15 @@
 
 @extends('layouts.template')
 <style>
-     #text{
-        padding-top: 50px;
+
+    .cont{
+        padding-left: 2%;
+        padding-right: 2%;
     }
 </style>
 @section('content')
-
-<div class="col-12 text-left mb-3" id="text">
+<div class="cont">
+<div class="col-12 text-left mb-3">
     <h2><b>Tambah Data Mahasiswa</b></h2>
 </div>
 
@@ -18,7 +20,7 @@
     <a href="{{ url('/mahasiswa/export_excel') }}" class="btn btn-success"><i class="fas fa-plus-circle"></i> Export Data</a>
 </div>
 <br>
-<div class="card card-outline ">
+<div class="card card-outline card">
     <div class="card-body">
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
@@ -27,13 +29,13 @@
             <div class="alert alert-danger">{{ session('error') }}</div>
         @endif
        
-        <table class="table table-striped table-hover table-sm mt-3 no-border" id="table_mahasiswa">
+        <table class="table table-striped table-hover table-sm " id="table_mahasiswa">
             <thead>
                 <tr>
                     <th>No</th>
                     <th>Nomor Induk</th>
                     <th>Nama Lengkap</th>
-                    <th>Periode</th>
+                    <th>Tahun Semester</th>
                     <th>Jam Alpha</th>
                     <th>Jam Kompen</th>
                     <th>Jam Kompen Selesai</th>
@@ -46,6 +48,7 @@
             </tbody>
         </table>
     </div>
+</div>
 </div>
 <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" databackdrop="static" data-keyboard="false" data-width="75%" aria-hidden="true"></div>
 @endsection
@@ -81,7 +84,7 @@ function modalAction(url = ''){
                     className: "text-center",
                     width: "5%",
                     orderable: false,
-                    searchable: false
+                    searchable: false,
                 },{ 
                     data: "nomor_induk",  
                     className: "", 
@@ -137,7 +140,29 @@ function modalAction(url = ''){
                     orderable: false, 
                     searchable: false 
                 } 
-            ] 
+            ] ,
+            paging: true,
+            lengthChange: true,
+            searching: true,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            order: [[1, 'asc']],
+            language: {
+                processing: "Memuat data...",
+                lengthMenu: "Tampilkan _MENU_ data per halaman",
+                zeroRecords: "Data tidak ditemukan",
+                info: "Menampilkan halaman _PAGE_ dari _PAGES_",
+                infoEmpty: "Tidak ada data yang tersedia",
+                infoFiltered: "(difilter dari total _MAX_ data)",
+                search: "Cari:",
+                paginate: {
+                    first: "Pertama",
+                    last: "Terakhir",
+                    next: "Selanjutnya",
+                    previous: "Sebelumnya"
+                }
+            }
         });
         
         $('#table-mahasiswa_filter input').unbind().bind().on('keyup', function(e){         if(e.keyCode == 13){ // enter key             \

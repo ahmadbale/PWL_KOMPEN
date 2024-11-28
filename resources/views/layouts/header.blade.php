@@ -12,27 +12,17 @@
             <!-- Isi dengan link jika diperlukan -->
         </li>
     </ul>
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" id="logout" href="#" role="button"><i class="fa fa-sign-out"></i></a>
-        </li>
-    </ul>
   
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- User Profile -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
         <style>
             .avatar { width: 40px; height: 40px; object-fit: cover; }
             .dropdown-menu { min-width: 200px; }
             .user-info { font-size: 0.9rem; }
-<<<<<<< HEAD
-            #logout{
-                padding-left:85rem;
-            }
-
-        </style>  
-=======
         </style>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -47,11 +37,11 @@
                   <div class="d-flex align-items-center">
                       <img src="{{ url('image.png')}}"  class="avatar rounded-circle me-3" alt="{{auth()->user()->nama}}">
                       <div>
-                          <h6 class="mb-0">{{auth()->user()->username}}</h6>
+                          {{-- <h6 class="mb-0">{{auth()->user()->username}}</h6>
                           <small class="text-muted"><strong>
                               {{ auth()->user()->level->nama_level}}
                           </strong>
-                          </small>
+                          </small> --}}
                       </div>
                   </div>
               </div>
@@ -59,11 +49,10 @@
               <a class="dropdown-item py-2" href="{{ url('/profile') }}">
                   <i class="fas fa-user me-2"></i> Edit Profile
               </a>
-              <a class="dropdown-item py-2" href="#" onclick="logout()">
+              <a class="dropdown-item py-2" href="{{ url('/login')}}" onclick="logout()">
                   <i class="fas fa-sign-out-alt me-2"></i> Log Out
               </a>
           </div>
->>>>>>> fd60cadf1c891c84847424257210cf7e3735a76b
             <script>
               function logout() {
                 localStorage.removeItem('authToken');

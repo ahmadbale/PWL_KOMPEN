@@ -35,8 +35,8 @@
                     </div>
                     <table class="table table-sm table-bordered table-stripped">
                         <tr>
-                            <th class="text-right col-3">Kode Kompen : </th>
-                            <td class="col-9">{{ $kompen->kode_kompen }}</td>
+                            <th class="text-right col-3">Nomor Kompen : </th>
+                            <td class="col-9">{{ $kompen->nomor_kompen }}</td>
                         </tr>
                         <tr>
                             <th class="text-right col-3">Nama Kompen : </th>

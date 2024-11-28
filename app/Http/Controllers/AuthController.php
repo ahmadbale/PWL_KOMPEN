@@ -31,7 +31,7 @@ class AuthController extends Controller
             if (Auth::guard('personil')->attempt($credentials)) {
                 return response()->json([
                     'status' => true,
-                    'message' => 'Login Berhasil sebagai personi',
+                    'message' => 'Login Berhasil sebagai Personil Akademik',
                     'redirect' => url('/') // Redirect ke halaman admin
                 ]);
             }

@@ -45,8 +45,6 @@
                     <th>No</th>
                     <th>Mata Kuliah</th>
                     <th>Alpha</th>
-                    <th>Sakit</th>
-                    <th>Izin</th>
                     <th>Total Kompensasi</th>
                 </tr>
             </thead>

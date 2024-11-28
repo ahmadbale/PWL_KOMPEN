@@ -2,23 +2,6 @@
 <html lang="en">
 
 <head>
-<<<<<<< HEAD
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="icon" href="logo-jti.png" type="image">
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f3f5fc;
-            font-family: 'DM Sans', sans-serif;
-        }
-=======
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login Pengguna</title>
@@ -64,7 +47,10 @@
                 color: #333;
                 font-weight: 500;
             }
-    
+            
+            .form-group ::placeholder{
+            font-size: 15px;
+            }
             .form-group input {
                 width: 100%;
                 padding: 0.75rem;
@@ -114,17 +100,16 @@
                 @csrf
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required>
+                    <input type="text" id="username" name="username" placeholder="Masukkan Username" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
+                    <input type="password" id="password" name="password" placeholder="Masukkan Password" required>
                 </div>
                 <button type="submit">Login</button>
             </form>
         </div>
     </body>
->>>>>>> fd60cadf1c891c84847424257210cf7e3735a76b
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
@@ -201,9 +186,5 @@
         });
     </script>
 </body>
-<<<<<<< HEAD
-</html>
-=======
 
 </html>
->>>>>>> fd60cadf1c891c84847424257210cf7e3735a76b

@@ -52,8 +52,8 @@ class BuatKompenController extends Controller
             ->addIndexColumn()
             ->addColumn('aksi', function ($kompen) {
                 $btn = '<button onclick="modalAction(\'' . url('/kompen/' . $kompen->id_kompen . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
-                $btn .= '<button onclick="modalAction(\'' . url('/kompen/' . $kompen->id_kompen . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
-                $btn .= '<button onclick="modalAction(\'' . url('/kompen/' . $kompen->id_kompen . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button>';
+                // $btn .= '<button onclick="modalAction(\'' . url('/kompen/' . $kompen->id_kompen . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
+                // $btn .= '<button onclick="modalAction(\'' . url('/kompen/' . $kompen->id_kompen . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button>';
                 return $btn;
             })
             ->rawColumns(['aksi'])
@@ -108,57 +108,21 @@ class BuatKompenController extends Controller
         ]);
     }
 
-    // public function edit_ajax(string $id)
-    // {
-    //     $kompen = KompenModel::find($id);
-    //     $jenis_kompen = JenisKompenModel::select('id_jenis_kompen', 'nama')->get();
+    public function show_ajax(string $id)
+    {
+        $kompen = KompenModel::find($id);
+        return view('admin.buat_kompen.show_ajax', compact('kompen'));
+    }
 
-    //     if ($kompen) {
-    //         return view('admin.kompen.edit_ajax', [
-    //             'kompen' => $kompen,
-    //             'jenis_kompen' => $jenis_kompen
-    //         ]);
-    //     }
-
-    //     return response()->json([
-    //         'status' => false,
-    //         'message' => 'Data tidak ditemukan'
-    //     ]);
-    // }
-
-    // public function update_ajax(Request $request, string $id)
+    // public function delete_ajax(Request $request, string $id)
     // {
     //     if ($request->ajax() || $request->wantsJson()) {
-    //         $rules = [
-    //             'nomor_kompen' => 'required|max:36|unique:kompen,nomor_kompen,' . $id . ',id_kompen',
-    //             'nama' => 'required|max:40',
-    //             'deskripsi' => 'nullable|max:255',
-    //             'id_personil' => 'required|exists:personil,id_personil',
-    //             'id_jenis_kompen' => 'required|exists:jenis_kompen,id_jenis_kompen',
-    //             'kuota' => 'required|integer|min:1',
-    //             'jam_kompen' => 'required|integer|min:1',
-    //             'status' => 'required|boolean',
-    //             'is_selesai' => 'required|boolean',
-    //             'tanggal_mulai' => 'required|date',
-    //             'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
-    //         ];
-
-    //         $validator = Validator::make($request->all(), $rules);
-
-    //         if ($validator->fails()) {
-    //             return response()->json([
-    //                 'status' => false,
-    //                 'message' => 'Validasi gagal.',
-    //                 'msgField' => $validator->errors(),
-    //             ]);
-    //         }
-
     //         $kompen = KompenModel::find($id);
     //         if ($kompen) {
-    //             $kompen->update($request->all());
+    //             $kompen->delete();
     //             return response()->json([
     //                 'status' => true,
-    //                 'message' => 'Data berhasil diupdate'
+    //                 'message' => 'Data berhasil dihapus'
     //             ]);
     //         }
 
@@ -167,27 +131,6 @@ class BuatKompenController extends Controller
     //             'message' => 'Data tidak ditemukan'
     //         ]);
     //     }
-
-    //     return redirect('/kompen');
+    //     return redirect('/');
     // }
-
-    public function delete_ajax(Request $request, string $id)
-    {
-        if ($request->ajax() || $request->wantsJson()) {
-            $kompen = KompenModel::find($id);
-            if ($kompen) {
-                $kompen->delete();
-                return response()->json([
-                    'status' => true,
-                    'message' => 'Data berhasil dihapus'
-                ]);
-            }
-
-            return response()->json([
-                'status' => false,
-                'message' => 'Data tidak ditemukan'
-            ]);
-        }
-        return redirect('/');
-    }
 }

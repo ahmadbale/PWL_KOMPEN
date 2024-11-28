@@ -26,11 +26,7 @@ class MahasiswaController extends Controller
         $activeMenu = 'mahasiswa';
         $prodi = ProdiModel::all();
         $level = LevelModel::all();
-<<<<<<< HEAD
-        return view('mahasiswa.index', [
-=======
         return view('admin.mahasiswa.index', [
->>>>>>> fd60cadf1c891c84847424257210cf7e3735a76b
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'prodi' => $prodi,
@@ -40,19 +36,7 @@ class MahasiswaController extends Controller
 
     public function list(Request $request)
     {
-<<<<<<< HEAD
-        $mahasiswas = MahasiswaModel::select('id_mahasiswa', 'nomor_induk', 'username', 'nama', 'semester', 'jam_alpha', 'jam_kompen', 'jam_kompen_selesai', 'id_prodi')->with('prodi');
-
-        // if ($request->supplier_id) {
-        //     $stoks->where('supplier_id', $request->supplier_id);
-        // } else if ($request->barang_id) {
-        //     $stoks->where('barang_id', $request->barang_id);
-        // } else if ($request->user_id) {
-        //     $stoks->where('user_id', $request->user_id);
-        // }
-=======
         $mahasiswas = MahasiswaModel::select('id_mahasiswa', 'nomor_induk', 'username', 'nama', 'periode_tahun', 'jam_alpha', 'jam_kompen', 'jam_kompen_selesai', 'id_prodi')->with('prodi');
->>>>>>> fd60cadf1c891c84847424257210cf7e3735a76b
 
         return DataTables::of($mahasiswas)
             // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
@@ -72,11 +56,7 @@ class MahasiswaController extends Controller
         $prodi = ProdiModel::select('id_prodi', 'nama_prodi')->get();
         // $level = LevelModel::select('id_level', 'nama_level')->get();
 
-<<<<<<< HEAD
-        return view('mahasiswa.create_ajax')
-=======
         return view('admin.mahasiswa.create_ajax')
->>>>>>> fd60cadf1c891c84847424257210cf7e3735a76b
             ->with('prodi', $prodi);
         // -> with('level', $level);
     }
@@ -88,11 +68,7 @@ class MahasiswaController extends Controller
                 'nomor_induk' => 'required|max:10|unique:mahasiswa,nomor_induk',
                 'username' => 'required',
                 'nama' => 'required',
-<<<<<<< HEAD
-                'semester' => 'required',
-=======
                 'periode_tahun' => 'required',
->>>>>>> fd60cadf1c891c84847424257210cf7e3735a76b
                 'password' => 'required',
                 'jam_alpha' => 'required',
                 'jam_kompen' => 'required',
@@ -143,11 +119,7 @@ class MahasiswaController extends Controller
     {
         $mahasiswa = MahasiswaModel::find($id);
 
-<<<<<<< HEAD
-        return view('mahasiswa.show_ajax', ['mahasiswa' => $mahasiswa]);
-=======
         return view('admin.mahasiswa.show_ajax', ['mahasiswa' => $mahasiswa]);
->>>>>>> fd60cadf1c891c84847424257210cf7e3735a76b
     }
 
     public function edit_ajax(string $id)
@@ -155,11 +127,7 @@ class MahasiswaController extends Controller
         $mahasiswa = MahasiswaModel::find($id);
         $prodi = ProdiModel::select('id_prodi', 'nama_prodi')->get();
 
-<<<<<<< HEAD
-        return view('mahasiswa.edit_ajax', ['mahasiswa' => $mahasiswa, 'prodi' => $prodi]);
-=======
         return view('admin.mahasiswa.edit_ajax', ['mahasiswa' => $mahasiswa, 'prodi' => $prodi]);
->>>>>>> fd60cadf1c891c84847424257210cf7e3735a76b
     }
 
     public function update_ajax(Request $request, string $id)
@@ -170,11 +138,7 @@ class MahasiswaController extends Controller
                 'nomor_induk' => 'required',
                 'username' => 'required',
                 'nama' => 'required',
-<<<<<<< HEAD
-                'semester' => 'required',
-=======
                 'periode_tahun' => 'required',
->>>>>>> fd60cadf1c891c84847424257210cf7e3735a76b
                 'password' => 'sometimes',
                 'id_prodi' => 'required',
             ];
@@ -213,11 +177,7 @@ class MahasiswaController extends Controller
     {
         $mahasiswa = MahasiswaModel::find($id);
 
-<<<<<<< HEAD
-        return view('mahasiswa.confirm_ajax', ['mahasiswa' => $mahasiswa]);
-=======
         return view('admin.mahasiswa.confirm_ajax', ['mahasiswa' => $mahasiswa]);
->>>>>>> fd60cadf1c891c84847424257210cf7e3735a76b
     }
 
     public function delete_ajax(Request $request, $id)
@@ -242,11 +202,7 @@ class MahasiswaController extends Controller
 
     public function import()
     {
-<<<<<<< HEAD
-        return view('mahasiswa.import');
-=======
         return view('admin.mahasiswa.import');
->>>>>>> fd60cadf1c891c84847424257210cf7e3735a76b
     }
     public function import_ajax(Request $request)
     {
@@ -278,16 +234,10 @@ class MahasiswaController extends Controller
                          'nomor_induk' => $value['A'],
                          'username' => $value['B'],
                          'nama' => $value['C'], 
-<<<<<<< HEAD
-                         'semester' => $value['D'], 
-=======
                          'periode_tahun' => $value['D'], 
->>>>>>> fd60cadf1c891c84847424257210cf7e3735a76b
                          'password' => $value['E'], 
                          'jam_alpha' => $value['F'], 
-                         'jam_kompen' => $value['G'],
-                         'jam_kompen_selesai' => $value['H'],
-                         'prodi' => $value['I'],
+                         'prodi' => $value['G'],
                          'created_at' => now(),
                         ];
                     }
@@ -307,11 +257,7 @@ class MahasiswaController extends Controller
 
     public function export_excel()
     {
-<<<<<<< HEAD
-        $mahasiswa = MahasiswaModel::select('nomor_induk','nama','username','semester','jam_alpha','jam_kompen','jam_kompen_selesai','id_prodi')
-=======
         $mahasiswa = MahasiswaModel::select('nomor_induk','nama','username','periode_tahun','jam_alpha','jam_kompen','jam_kompen_selesai','id_prodi')
->>>>>>> fd60cadf1c891c84847424257210cf7e3735a76b
         ->orderBy('nama')
         ->with('prodi')
         ->get();
@@ -323,11 +269,7 @@ class MahasiswaController extends Controller
         $sheet->setCellValue('B1', 'Nomor Induk');
         $sheet->setCellValue('C1', 'Nama');
         $sheet->setCellValue('D1', 'Username');
-<<<<<<< HEAD
-        $sheet->setCellValue('E1', 'Semester');
-=======
         $sheet->setCellValue('E1', 'periode_tahun');
->>>>>>> fd60cadf1c891c84847424257210cf7e3735a76b
         $sheet->setCellValue('F1', 'Jam Alpha');
         $sheet->setCellValue('G1', 'Jam Kompen');
         $sheet->setCellValue('H1', 'Jam Kompen Selesai');
@@ -342,11 +284,7 @@ class MahasiswaController extends Controller
             $sheet->setCellValue('B' . $baris, $value->nomor_induk);
             $sheet->setCellValue('C' . $baris, $value->nama);
             $sheet->setCellValue('D' . $baris, $value->username);
-<<<<<<< HEAD
-            $sheet->setCellValue('E' . $baris, $value->semester);
-=======
             $sheet->setCellValue('E' . $baris, $value->periode_tahun);
->>>>>>> fd60cadf1c891c84847424257210cf7e3735a76b
             $sheet->setCellValue('F' . $baris, $value->jam_alpha);
             $sheet->setCellValue('G' . $baris, $value->jam_kompen);
             $sheet->setCellValue('H' . $baris, $value->jam_kompen_selesai);

@@ -23,7 +23,6 @@
     background-image: none;
     padding-right: 30px; /* Ruang untuk ikon */
     border-radius: 30px;
-    background-color: rgba(217, 217, 217, 0.3);
     }
 
     .select-icon {

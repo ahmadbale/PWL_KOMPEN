@@ -28,7 +28,22 @@
         @if (session('error'))
             <div class="alert alert-danger">{{ session('error') }}</div>
         @endif
-       
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Filter:</label>
+                    <div class="col-3">
+                        <select class="form-control" id="id_mahasiswa" name="id_mahasiswa" required>
+                            <option value="">- Semua -</option>
+                            @foreach ($mahasiswa as $m)
+                                <option value="{{ $m->id_mahasiswa }}">{{ $m->peroiode_tahun }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <small class="form-text text-muted">Tahun Semester</small>
+                </div>
+            </div>
+        </div>
         <table class="table table-striped table-hover table-sm " id="table_mahasiswa">
             <thead>
                 <tr>
@@ -170,6 +185,9 @@ function modalAction(url = ''){
          }    
          }); 
  
+         $('#id_mahasiswa').on('change', function() {
+                dataMahasiswa.ajax.reload();
+            });
 
     })
 </script>

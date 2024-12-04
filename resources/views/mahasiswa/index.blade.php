@@ -18,6 +18,10 @@
         padding-right: 2%;
     }
 
+    #text{
+        padding-left: 0%;
+    }
+
 </style>
 @section('content')
 <div class="cont">

@@ -6,6 +6,7 @@ use App\Http\Controllers\BuatKompenController;
 use App\Http\Controllers\JenisController;
 use App\Http\Controllers\KompetensiController;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\PersonilAkademikController;
 use App\Http\Controllers\MahasiswaController;
@@ -37,6 +38,10 @@ Route::group(['prefix' =>'personilakademik'],function(){
 // Route::group(['prefix' => 'notifikasi'],function():void{
 //     Route::get('/',[NotifikasiController::class,'index']);
 // });
+
+Route::group(['prefix' => 'profile'],function():void{
+    Route::get('/',[ProfileController::class,'index']);
+});
 
 Route::group(['prefix' => 'cari_kompen'],function():void{
     Route::get('/',[CariKompenController::class,'index']);

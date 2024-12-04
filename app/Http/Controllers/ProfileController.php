@@ -8,7 +8,7 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        $activeMenu = 'progres';
-        return view('progres.index',compact('activeMenu'));
+        $activeMenu = 'profile';
+        return view('admin.profile.index',compact('activeMenu'));
     }
 }

@@ -16,7 +16,9 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- User Profile -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
         <style>
             .avatar { width: 40px; height: 40px; object-fit: cover; }
             .dropdown-menu { min-width: 200px; }

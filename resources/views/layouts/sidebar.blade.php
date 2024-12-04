@@ -37,7 +37,7 @@
 
         <li class="nav-item has-treeview {{ ($activeMenu == 'level' || $activeMenu == 'prodi') ? 'menu-open' : '' }}">
           <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-plus-square"></i>
+              <i class="nav-icon fas fa-user"></i>
               <p class="p1">
                   Manage Pengguna
                   <i class="right fas fa-angle-left"></i>
@@ -61,7 +61,7 @@
 
         <li class="nav-item has-treeview {{ ($activeMenu == 'mahasiswa' || $activeMenu == 'personilakademik') ? 'menu-open' : '' }}">
           <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-plus-square"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p class="p1">
                   Data Pengguna
                   <i class="right fas fa-angle-left"></i>
@@ -97,7 +97,7 @@
         </li>
         <li class="nav-item">
           <a href="{{ url('/cari_kompen') }}" class="nav-link {{ ($activeMenu == 'cari_tugas')? 'active' : '' }}">
-            <i class="nav-icon fas fa-tasks"></i>
+            <i class="nav-icon fas fa-search"></i>
             <p>Cari Tugas</p>
           </a>
         </li>
@@ -123,7 +123,7 @@
           </a>
           <ul class="nav nav-treeview">
               <li class="nav-item">
-                  <a href="{{ url('/kompen') }}" class="nav-link {{ (  'kompen') ? 'active' : '' }}">
+                  <a href="{{ url('/kompen') }}" class="nav-link {{ ($activeMenu == 'kompen')? 'active' : '' }}">
                     <i class="nav-icon fas "></i>
                       <p>Buat Kompen</p>
                   </a>

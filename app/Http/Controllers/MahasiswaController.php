@@ -38,6 +38,11 @@ class MahasiswaController extends Controller
     {
         $mahasiswas = MahasiswaModel::select('id_mahasiswa', 'nomor_induk', 'username', 'nama', 'periode_tahun', 'jam_alpha', 'jam_kompen', 'jam_kompen_selesai', 'id_prodi')->with('prodi');
 
+        if ($request->id_mahasiswa) {
+            $mahasiswas->where('id_mahasiswa', $request->id_mahasiswa);
+        }
+
+
         return DataTables::of($mahasiswas)
             // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
             ->addIndexColumn()

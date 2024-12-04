@@ -13,7 +13,7 @@ class PersonilAkademikModel extends Authenticatable
     
     protected $table = 'personil_akademik';
     protected $primaryKey = 'id_personil';
-    protected $fillable = ['id_personil', 'nomor_induk', 'username', 'nama', 'password', 'nomor_telp', 'id_level'];
+    protected $fillable = ['id_personil', 'nomor_induk', 'username', 'nama', 'nomor_telp', 'id_level', 'password'];
 
     protected $hidden = ['password'];
 

@@ -1,19 +1,17 @@
 <?php
-
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BuatKompenController;
 use App\Http\Controllers\JenisController;
 use App\Http\Controllers\KompetensiController;
 use App\Http\Controllers\LevelController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\NotifikasiController;
+use App\Http\Controllers\CariKompenController;
 use App\Http\Controllers\PersonilAkademikController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\PengajuanKompenController;
 use App\Http\Controllers\ProdiController;
-use App\Http\Controllers\WelcomeController;
-use App\Http\Controllers\CariKompenController;
+use App\Http\Controllers\TolakKompenController;
 use App\Models\PengajuanKompenModel;
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
@@ -22,6 +20,7 @@ Route::get('logout', [AuthController::class, 'logout'])->middleware('auth:person
 
 Route::middleware(['auth:personil,mahasiswa'])->group(function() {
 Route::get('/', [WelcomeController::class, 'index']);
+Route::get('/dashboard-admin', [WelcomeController::class, 'index_admin']);
 
 Route::group(['prefix' =>'personilakademik'],function(){
     Route::get('/',[PersonilAkademikController::class,'index']);
@@ -35,20 +34,6 @@ Route::group(['prefix' =>'personilakademik'],function(){
     Route::delete('/{id}/delete_ajax', [PersonilAkademikController::class, 'delete_ajax']); // Untuk hapus data level Ajax
 });
 
-// Route::group(['prefix' => 'notifikasi'],function():void{
-//     Route::get('/',[NotifikasiController::class,'index']);
-// });
-
-Route::group(['prefix' => 'profile'],function():void{
-    Route::get('/',[ProfileController::class,'index']);
-});
-
-Route::group(['prefix' => 'cari_kompen'],function():void{
-    Route::get('/',[CariKompenController::class,'index']);
-    Route::post('/list',[CariKompenController::class, 'list']);
-    Route::get('/{id}/show_ajax', [CariKompenController::class, 'show_ajax']); 
-
-});
 Route::group(['prefix' =>'level'],function(){
     Route::get('/',[LevelController::class,'index']);
     Route::post('/list',[LevelController::class, 'list']);
@@ -112,11 +97,8 @@ Route::group(['prefix' => 'kompen'], function(){
     Route::post('/list', [BuatKompenController::class, 'list']);
     Route::get('/create_ajax', [BuatKompenController::class, 'create_ajax']);
     Route::post('/ajax', [BuatKompenController::class, 'store_ajax']);
-    Route::get('/{id}/show_ajax', [BuatKompenController::class, 'show_ajax']);
-    Route::get('/{id}/edit_ajax', [BuatKompenController::class, 'edit_ajax']);
-    Route::put('/{id}/update_ajax', [BuatKompenController::class, 'update_ajax']);
-    Route::get('/{id}/delete_ajax', [BuatKompenController::class, 'confirm_ajax']);
-    Route::delete('/{id}/delete_ajax', [BuatKompenController::class, 'delete_ajax']);
+    Route::get('/{id}/show_ajax', [BuatKompenController::class, 'show_ajax']); 
+    Route::post('/update-status', [BuatKompenController::class, 'updateStatus'])->name('kompen.updateStatus');
 });
 
 Route::group(['prefix' => 'pengajuankompen'], function(){
@@ -125,6 +107,20 @@ Route::group(['prefix' => 'pengajuankompen'], function(){
     Route::post('/ajax', [PengajuanKompenModel::class, 'store_ajax']); // Menampilkan data level baru Ajax
     Route::get('/{id}/show_ajax', [PengajuanKompenController::class, 'show_ajax']); 
     Route::post('/update-status', [PengajuanKompenController::class, 'updateStatus'])->name('pengajuankompen.updateStatus');
+});
+
+Route::group(['prefix' => 'cari_kompen'],function():void{
+    Route::get('/',[CariKompenController::class,'index']);
+    Route::post('/list',[CariKompenController::class, 'list']);
+    Route::post('/ajukan_ajax', [CariKompenController::class, 'ajukankompen']);
+    Route::get('/{id}/show_ajax', [CariKompenController::class, 'show_ajax']); 
+    Route::post('/ajukan_kompen', [CariKompenController::class, 'store_pengajuan'])->name('ajukan.kompen');
+});
+
+Route::group(['prefix' => 'tolak_kompen'],function():void{
+    Route::get('/',[TolakKompenController::class,'index']);
+    Route::post('/list',[TolakKompenController::class, 'list']);
+    Route::get('/{id}/show_ajax', [TolakKompenController::class, 'show_ajax']); 
 });
 
 });

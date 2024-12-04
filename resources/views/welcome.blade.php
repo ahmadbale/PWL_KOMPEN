@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 @extends('layouts.template')
 
 @section('content')
@@ -81,8 +82,9 @@
 
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ asset('adminlte/plugins/chart.js/chart.min.js') }}"></script>
 <script>
-    
+
     document.addEventListener('DOMContentLoaded', function () {
         const alpha = 5; // Data Alpha
         const kompensasi = 10; // Data Kompensasi
@@ -115,7 +117,7 @@
                             label: function(context) {
                                 const value = context.parsed;
                                 const percentage = ((value / total) * 100).toFixed(1);
-                                return `${context.label}: ${value} (${percentage}%)`;
+                                return ${context.label}: ${value} (${percentage}%);
                             }
                         }
                     }

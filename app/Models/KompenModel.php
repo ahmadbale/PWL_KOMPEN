@@ -21,32 +21,11 @@ class KompenModel extends Model
         'kuota',
         'jam_kompen',
         'status',
+        'alasan',
         'is_selesai',
         'tanggal_mulai',
         'tanggal_selesai'
     ];
-    protected $casts = [
-        'status' => 'boolean',
-        'is_selesai' => 'boolean',
-        'tanggal_mulai' => 'datetime',
-        'tanggal_selesai' => 'datetime',
-        'kuota' => 'integer',
-        'jam_kompen' => 'integer',
-    ];
-    public static $rules = [
-        'nomor_kompen' => 'required|string|max:35|unique:kompen,nomor_kompen',
-        'nama' => 'required|string|max:40',
-        'deskripsi' => 'required|string|max:255',
-        'id_personil' => 'required|exists:period,id_personil',
-        'id_jenis_kompen' => 'required|exists:jenis_kompen,id_jenis_kompen',
-        'kuota' => 'required|integer|min:1',
-        'jam_kompen' => 'required|integer|min:1',
-        'status' => 'boolean',
-        'is_selesai' => 'boolean',
-        'tanggal_mulai' => 'required|date',
-        'tanggal_selesai' => 'required|date|after:tanggal_mulai',
-    ];
-
     public function jenisKompen(): BelongsTo
     {
         return $this->belongsTo(JenisKompenModel::class, 'id_jenis_kompen', 'id_jenis_kompen');

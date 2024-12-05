@@ -54,8 +54,7 @@ class BuatKompenController extends Controller
         
         if (auth()->user()->level->kode_level !== 'ADM') {
             $kompens->where('id_personil', auth()->user()->id_personil);
-        }
-        
+        }   
         $kompens = $kompens->get();
 
         if ($request->id_jenis_kompen) {

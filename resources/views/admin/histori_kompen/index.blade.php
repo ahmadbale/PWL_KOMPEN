@@ -23,6 +23,20 @@
                     </button>
                 </div>
             @endif
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <div class="col-3 position-relative">
+                            <select class="form-control custom-select" name="id_jenis_kompen" id="id_jenis_kompen" required>
+                                <option value="">Pilih Jenis Kompen</option>
+                                @foreach ($jeniskompen as $item)
+                                    <option value="{{ $item->id_jenis_kompen }}">{{ $item->nama_jenis }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <table class="table table-bordered table-striped table-hover table-sm" id="table_kompen">
                 <thead>
                     <tr>
@@ -37,6 +51,7 @@
                         <th>Diberikan</th>
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Selesai</th>
+                        <th>Status</th>
                         <th width="15%">Aksi</th>
                     </tr>
                 </thead>
@@ -91,9 +106,13 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ url('/pengajuankompen/list_kompen') }}",
+                    url: "{{ url('/histori_kompen/list_kompen') }}",
                     type: "POST",
                     dataType: "json",
+                    data: function(d) {
+                        d.id_jenis_kompen = $('#id_jenis_kompen')
+                    .val(); // Tambahkan nilai dropdown sebagai parameter
+                    },
                     error: function(xhr, error) {
                         console.error('Error:', error);
                     }
@@ -147,6 +166,22 @@
                             return data ? moment(data).format('DD-MM-YYYY HH:mm:ss') : '-';
                         }
                     },
+                    {
+                        data: "status",
+                        render: function(data) {
+                            switch (data) {
+                                case 'Tunggu':
+                                    return `<span class="badge badge-warning">${data}</span>`;
+                                case 'Setuju':
+                                    return `<span class="badge badge-success">${data}</span>`;
+                                case 'Ditolak':
+                                    return `<span class="badge badge-danger">${data}</span>`;
+                                default:
+                                    return `<span class="badge badge-secondary">${data}</span>`;
+                            }
+                        }
+                    },
+
                         {
                             data: "aksi",
                             className: "text-center",
@@ -178,6 +213,10 @@
                         previous: "Sebelumnya"
                     }
                 }
+            });
+
+            $('#id_jenis_kompen').change(function() {
+                dataKompen.ajax.reload(); // Reload data berdasarkan filter
             });
         });
     </script>

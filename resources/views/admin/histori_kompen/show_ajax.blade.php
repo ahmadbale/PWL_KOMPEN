@@ -4,7 +4,7 @@
         <!-- Header -->
         <div class="modal-header" style="background: linear-gradient(45deg, #6a11cb, #2575fc); color: white; border-bottom: none;">
             <h5 class="modal-title" id="exampleModalLabel">
-                <i class="fas fa-info-circle mr-2"></i>Detail Data Pengajuan Kompen
+                <i class="fas fa-info-circle mr-2"></i>Detail Data history Kompen
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
                 <span aria-hidden="true">&times;</span>
@@ -55,34 +55,20 @@
                             <th>Mahasiswa</th>
                             <th>Prodi</th>
                             <th>Jam Kompen</th>
+                            <th>Progres Pertama (75%)</th>
+                            <th>Progres Kedua (100%)</th>
                             <th>Status</th>
                             <th width="15%">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($pengajuankompen as $item)
+                        @foreach ($detailkompen as $item)
                         <tr>
                             <td class="text-center">{{ $loop->iteration }}</td>
                             <td class="text-center">{{ $item->mahasiswa->nama }}</td>
                             <td class="text-center">{{ $item->mahasiswa->prodi->nama_prodi ?? '-' }}</td>\
                             <td class="text-center">{{ $item->mahasiswa->jam_kompen}}</td>
-                            <td class="text-center">
-                                <span class="badge badge-info status-badge-{{ $item->id_pengajuan_kompen }}" style="padding: 0.25rem 0.5rem; font-size: 0.875rem; border-radius: 0.25rem;">{{ $item->status }}</span>
-                            </td>
-                            <td class="text-center">
-                                <form id="updateForm-{{ $item->id_pengajuan_kompen }}" class="update-form" action="{{ url('/pengajuankompen/update-status') }}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="id_pengajuan_kompen" value="{{ $item->id_pengajuan_kompen }}">
-                                    <select name="status" id="status-{{ $item->id_pengajuan_kompen }}" class="form-control form-control-sm" style="margin-bottom: 0.5rem;">
-                                        <option value="pending" {{ $item->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                                        <option value="acc" {{ $item->status == 'acc' ? 'selected' : '' }}>Diterima</option>
-                                        <option value="reject" {{ $item->status == 'reject' ? 'selected' : '' }}>Ditolak</option>
-                                    </select>
-                                    <button type="submit" class="btn btn-primary btn-sm btn-block">Update</button>
-                                    <input type="text" name="id_kompen" value="{{$item->id_kompen}}" hidden>
-                                    <input type="text" name="id_mahasiswa" value="{{$item->id_mahasiswa}}" hidden>
-                                </form>
-                            </td>
+
                         </tr>
                         @endforeach
                     </tbody>

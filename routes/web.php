@@ -12,6 +12,8 @@ use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\PengajuanKompenController;
 use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\TolakKompenController;
+use App\Http\Controllers\ProfileMahasiswaController;
+use App\Http\Controllers\ProfilePersonilController;
 use App\Models\PengajuanKompenModel;
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
@@ -21,6 +23,19 @@ Route::get('logout', [AuthController::class, 'logout'])->middleware('auth:person
 Route::middleware(['auth:personil,mahasiswa'])->group(function() {
 Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/dashboard-admin', [WelcomeController::class, 'index_admin']);
+
+
+Route::get('/profile-pa', [ProfilePersonilController::class, 'index']);
+Route::post('/profile-pa/update_profile/{id}', [ProfilePersonilController::class, 'update_profile']);
+Route::post('/profile-pa/update_password/{id}', [ProfilePersonilController::class, 'update_password']);
+Route::post('/profile-pa/update_picture/{id}', [ProfilePersonilController::class, 'update_picture']);
+
+
+Route::get('/profile-mhs', [ProfileMahasiswaController::class, 'index']);
+Route::post('/profile-mhs/update_profile/{id}', [ProfileMahasiswaController::class, 'update_profile']);
+Route::post('/profile-mhs/update_password/{id}', [ProfileMahasiswaController::class, 'update_password']);
+Route::post('/profile-mhs/update_picture/{id}', [ProfileMahasiswaController::class, 'update_picture']);
+
 
 Route::group(['prefix' =>'personilakademik'],function(){
     Route::get('/',[PersonilAkademikController::class,'index']);

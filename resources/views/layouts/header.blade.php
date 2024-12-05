@@ -1,4 +1,3 @@
-
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -35,14 +34,14 @@
               <div class="px-4 py-3">
                   {{-- profile Dropdown --}}
                   <div class="d-flex align-items-center">
-                      <img src="{{ url('image.png')}}"  class="avatar rounded-circle me-3" alt="{{auth()->user()->Kode}}">
-                      {{-- <div>
-                          <h6 class="mb-0">{{auth()->user()->username}}</h6>
+                      <img src="{{ url('image.png')}}"  class="avatar rounded-circle me-3" alt="{{auth()->user()->nama}}">
+                      <div>
+                          {{-- <h6 class="mb-0">{{auth()->user()->username}}</h6>
                           <small class="text-muted"><strong>
                               {{ auth()->user()->level->nama_level}}
                           </strong>
-                          </small>
-                      </div> --}}
+                          </small> --}}
+                      </div>
                   </div>
               </div>
               <div class="dropdown-divider"></div>
@@ -62,4 +61,3 @@
             </script>
     </ul>
   </nav>
-  

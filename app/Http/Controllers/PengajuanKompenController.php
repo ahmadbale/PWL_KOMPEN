@@ -38,6 +38,10 @@ class PengajuanKompenController extends Controller
             'id_mahasiswa',
             'status',
         )->with('kompen', 'mahasiswa')->get();
+        
+        if ($request->id_pengajuan_kompen){
+            $pengajuankompen->where('id_pengajuan_kompen', $request->id_pengajuan_kompen);
+        }
 
         return DataTables::of($pengajuankompen)
             ->addIndexColumn()

@@ -32,7 +32,7 @@ class AuthController extends Controller
                 return response()->json([
                     'status' => true,
                     'message' => 'Login Berhasil sebagai Personil Akademik',
-                    'redirect' => url('/') // Redirect ke halaman admin
+                    'redirect' => url('/dashboard-admin') // Redirect ke halaman admin
                 ]);
             }
     

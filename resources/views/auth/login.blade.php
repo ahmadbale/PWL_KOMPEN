@@ -45,7 +45,7 @@
                 margin-bottom: 0.5rem;
                 font-size: 0.95rem;
                 color: #333;
-                font-weight: 500;
+                font-weight: 700;
             }
             
             .form-group ::placeholder{

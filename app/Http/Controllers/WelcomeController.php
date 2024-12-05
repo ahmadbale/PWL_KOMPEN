@@ -22,7 +22,7 @@ class WelcomeController extends Controller
             'list' => ['Home', 'Welcome']
         ];
 
-        $activeMenu = 'dashboard';
+        $activeMenu = 'dashboard_admin';
         return view('dahsboard', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
     }
 

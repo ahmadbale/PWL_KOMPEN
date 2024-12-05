@@ -1,15 +1,21 @@
 @extends('layouts.template')
-
+<style>
+    #button-tambah{
+        padding-left: 15px;
+    }
+</style>
 @section('content')
-    <div class="card card-outline card-primary">
-        <div class="card-header">
-            <h3 class="card-title">{{ $page->title }}</h3>
-            <div class="card-tools">
+
+        <div class="col-12 text-left mb-3">
+            <h2><b>Daftar Kompen Jurusan Teknologi Informasi<b></h2>
+        </div>
+            <div class="card-tools" id="button-tambah" >
                 <button type="button" onclick="modalAction('{{ url('/kompen/create_ajax') }}')" class="btn btn-success">
                     Tambah Data
                 </button>
             </div>
-        </div>
+        <br>
+        <div class="card card-outline card">
         <div class="card-body">
             @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -31,6 +37,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group row">
+                        <label class="col-1 control-label col-form-label">Filter:</label>
                         <div class="col-3 position-relative">
                             <select class="form-control custom-select" name="id_jenis_kompen" id="id_jenis_kompen" required>
                                 <option value="">Pilih Jenis Kompen</option>

@@ -1,13 +1,17 @@
 @extends('layouts.template')
+<style>
 
+    .cont{
+        padding-left: 2%;
+        padding-right: 2%;
+    }
+</style>
 @section('content')
-<div class="card card-outline card-primary">
-    <div class="card-header">
-        <h3 class="card-title">{{ $page->title }}</h3>
-        <div class="card-tools">
-            </button>
+<div class="cont">
+        <div class="col-12 text-left mb-3">
+            <h2><b>Daftar Pengajuan Kompen Jurusan Teknologi Informasi</b></h2>
         </div>
-    </div>
+<div class="card card-outline card">
     <div class="card-body">
         @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -26,7 +30,21 @@
                 </button>
             </div>
         @endif
-
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Filter:</label>
+                    <div class="col-3 position-relative">
+                        <select class="form-control custom-select" name="id_pengajuan_kompen" id="id_pengajuan_kompen" required>
+                            <option value="">Pilih Status Kompen</option>
+                            @foreach ($pengajuan_kompen as $item)
+                                <option value="{{ $item->id_pengajuan_kompen }}">{{ $item->status }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
         <table class="table table-bordered table-striped table-hover table-sm" id="table_pengajuan_kompen">
             <thead>
                 <tr>
@@ -41,7 +59,7 @@
         </table>
     </div>
 </div>
-
+</div>
 <!-- Modal -->
 <div id="myModal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg">
@@ -89,6 +107,10 @@
                 url: "{{ url('pengajuankompen/list') }}",
                 type: "POST",
                 dataType: "json",
+                data: function(d) {
+                        d.id_pengajuan_kompen = $('#id_pengajuan_kompen')
+                    .val(); // Tambahkan nilai dropdown sebagai parameter
+                    },
                 error: function(xhr, error, thrown) {
                     console.error('Error:', error);
                 }
@@ -148,10 +170,9 @@
                 }
             }
         });
-
-        $('#myModal').on('hidden.bs.modal', function() {
-            dataPengajuanKompen.ajax.reload(null, false); // Reload data tanpa reset paging
-        });
+        $('#id_pengajuan_kompen').change(function() {
+                dataPengajuanKompen.ajax.reload(); // Reload data berdasarkan filter
+            });
     });
 </script>
 @endpush

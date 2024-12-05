@@ -20,7 +20,8 @@ class KompetensiController extends Controller
 
         $activeMenu = 'kompetensi';
         $kompetensi = KompetensiModel::all();
-        return view('admin.kompetensi.index', compact('breadcrumb', 'page', 'kompetensi', 'activeMenu'));
+        // return view('admin.kompetensi.index', compact('breadcrumb', 'page', 'kompetensi', 'activeMenu' => $activeMenu));
+        return view('admin.kompetensi.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
     }
 
     public function list(Request $request)

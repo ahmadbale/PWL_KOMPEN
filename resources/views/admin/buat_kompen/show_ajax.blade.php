@@ -17,6 +17,38 @@
                 @csrf
                 <input type="hidden" name="id_kompen" value="{{ $kompen->id_kompen }}">
                 <div class="form-group row mt-4">
+                    <div class="modal-body">
+                        <table class="table table-sm table-bordered table-stripped">
+                            <tr>
+                                <th class="text-right col-3">Nomor Kompen :</th>
+                                <td class="col-9">{{ $kompen->nomor_kompen }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-right col-3">Pemberi Tugas :</th>
+                                <td class="col-9">{{ $kompen->personil->nama }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-right col-3">Nama Kompen:</th>
+                                <td class="col-9">{{ $kompen->nama }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-right col-3">Jenis Kompen:</th>
+                                <td class="col-9">{{ $kompen->jeniskompen->nama_jenis }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-right col-3">Deskripsi :</th>
+                                <td class="col-9">{{ $kompen->deskripsi }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-right col-3">Tanggal Mulai :</th>
+                                <td class="col-9">{{ $kompen->tanggal_mulai}}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-right col-3">Tanggal Selesai :</th>
+                                <td class="col-9">{{ $kompen->tanggal_selesai}}</td>
+                            </tr>
+                        </table>
+                    </div>
                     <label for="status" class="col-sm-3 col-form-label text-right font-weight-bold">Status:</label>
                     <div class="col-sm-9">
                         <select name="status" id="status" class="form-control">

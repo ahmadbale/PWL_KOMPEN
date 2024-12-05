@@ -43,7 +43,6 @@ class KompetensiController extends Controller
         })
         ->rawColumns(['aksi'])
         ->make(true);
-    
     }
 
     public function destroy(string $id_kompetensi)

@@ -89,7 +89,9 @@
                     </a>
                 </li>
             @endif
-            @if (auth()->user() && auth()->user()->level && auth()->user()->level->kode_level == "MHS")
+
+
+            @if (auth()->user()->level->kode_level == 'MHS')
             <li class="nav-item">
                 <a href="{{ url('/cari_kompen') }}" class="nav-link">
                     <i class="nav-icon fas fa-tasks"></i>
@@ -108,46 +110,51 @@
                     <p>Kompen Ditolak</p>
                 </a>
             </li>
-
             @endif
-            @if (auth()->user() && auth()->user()->level && auth()->user()->level->kode_level == "DSN")
-                <li class="nav-item has-treeview ">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-tasks"></i>
-                        <p class="p1">
-                            Kompen
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ url('/kompen') }}" class="nav-link {{ 'kompen' ? 'active' : '' }}">
-                                <i class="nav-icon fas "></i>
-                                <p>Buat Kompen</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('/pengajuankompen') }}" class="nav-link {{ 'user' ? 'active' : '' }}">
-                                <i class="nav-icon fas "></i>
-                                <p>Pengajuan Kompen</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('/tolak_kompen') }}"
-                                class="nav-link {{ 'user' ? 'active' : '' }}">
-                                <i class="nav-icon fas "></i>
-                                <p>Tolak Kompen</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('/personilakademik') }}"
-                                class="nav-link {{ 'user' ? 'active' : '' }}">
-                                <i class="nav-icon fas "></i>
-                                <p>Progres Kompen</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+
+
+            @if (auth()->user()->level->kode_level == 'ADM' || auth()->user()->level->kode_level == 'DSN')
+            <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-tasks"></i>
+                    <p>
+                        Kompen Dosen
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ url('/kompen') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Buat Kompen</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('/tolak_kompen') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Kompen Ditolak</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-tasks"></i>
+                    <p>
+                        Kompen Mahasiswa
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ url('/pengajuankompen') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Pengajuan Mahasiswa</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             @endif
         </ul>
     </nav>

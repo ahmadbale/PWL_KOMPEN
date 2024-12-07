@@ -25,7 +25,7 @@
         </style>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="{{ url('/image.png')}}" class="avatar img-fluid rounded-circle" style="width: 30px; height: 30px;"
+                <img src="{{  auth()->user()->image ? asset('storage/photos/' . auth()->user()->image) : asset('image.png ')}}" class="avatar img-fluid rounded-circle" style="width: 30px; height: 30px;"
                 alt="{{auth()->user()->username}}" /> <span class="text-dark">
                   {{auth()->user()->username}}
                 </span>
@@ -34,20 +34,34 @@
               <div class="px-4 py-3">
                   {{-- profile Dropdown --}}
                   <div class="d-flex align-items-center">
-                      <img src="{{ url('image.png')}}"  class="avatar rounded-circle me-3" alt="{{auth()->user()->nama}}">
-                      <div>
-                          {{-- <h6 class="mb-0">{{auth()->user()->username}}</h6>
-                          <small class="text-muted"><strong>
-                              {{ auth()->user()->level->nama_level}}
-                          </strong>
-                          </small> --}}
-                      </div>
+                    <small class="text-muted"><strong>
+                        {{ auth()->user()->level->nama_level}}
+                    </strong>
+                    </small>
                   </div>
               </div>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item py-2" href="{{ url('/profile') }}">
-                  <i class="fas fa-user me-2"></i> Edit Profile
+              @if (auth()->user() && auth()->user()->level && auth()->user()->level->kode_level == "MHS")
+              <a class="dropdown-item py-2" href="{{ url('/profile-mhs') }}">
+                <i class="fas fa-user me-2"></i> Edit Profile
               </a>
+              @endif
+              @if (auth()->user() && auth()->user()->level && auth()->user()->level->kode_level == "ADM")
+              <a class="dropdown-item py-2" href="{{ url('/profile-pa') }}">
+                <i class="fas fa-user me-2"></i> Edit Profile
+              </a>
+              @endif
+              @if (auth()->user() && auth()->user()->level && auth()->user()->level->kode_level == "TDK")
+              <a class="dropdown-item py-2" href="{{ url('/profile-pa') }}">
+                <i class="fas fa-user me-2"></i> Edit Profile
+              </a>
+              @endif
+              @if (auth()->user() && auth()->user()->level && auth()->user()->level->kode_level == "DSN")
+              <a class="dropdown-item py-2" href="{{ url('/profile-pa') }}">
+                <i class="fas fa-user me-2"></i> Edit Profile
+              </a>
+              @endif
+
               <a class="dropdown-item py-2" href="{{ url('/login')}}" onclick="logout()">
                   <i class="fas fa-sign-out-alt me-2"></i> Log Out
               </a>

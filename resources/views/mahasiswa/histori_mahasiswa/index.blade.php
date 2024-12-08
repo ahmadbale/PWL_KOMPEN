@@ -1,11 +1,5 @@
 @extends('layouts.template')
-<style>
 
-    .cont{
-        padding-left: 2%;
-        padding-right: 2%;
-    }
-</style>
 @section('content')
     <div class="card card-outline card-primary">
         <div class="card-header">
@@ -29,18 +23,30 @@
                     </button>
                 </div>
             @endif
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <div class="col-3 position-relative">
+                            <select class="form-control custom-select" name="id_jenis_kompen" id="id_jenis_kompen" required>
+                                <option value="">Pilih Jenis Kompen</option>
+                                @foreach ($jeniskompen as $item)
+                                    <option value="{{ $item->id_jenis_kompen }}">{{ $item->nama_jenis }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <table class="table table-bordered table-striped table-hover table-sm" id="table_kompen">
                 <thead>
                     <tr>
                         <th width="5%">No</th>
                         <th>Nomor Kompen</th>
+                        <th>Pemberi Tugas</th>
                         <th>Nama</th>
                         <th>Deskripsi</th>
-                        <th>Kuota</th>
-                        <th>Jam Kompen</th>
                         <th>Pengerjaan</th>
                         <th>Jenis Kompen</th>
-                        <th>Diberikan</th>
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Selesai</th>
                         <th width="15%">Aksi</th>
@@ -97,9 +103,13 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ url('/pengajuankompen/list_kompen') }}",
+                    url: "{{ url('/histori_mahasiswa/list_kompen') }}",
                     type: "POST",
                     dataType: "json",
+                    data: function(d) {
+                        d.id_jenis_kompen = $('#id_jenis_kompen')
+                    .val(); // Tambahkan nilai dropdown sebagai parameter
+                    },
                     error: function(xhr, error) {
                         console.error('Error:', error);
                     }
@@ -114,18 +124,13 @@
                         data: "nomor_kompen"
                     },
                     {
+                        data: "personil.nama"
+                    },
+                    {
                         data: "nama"
                     },
                     {
                         data: "deskripsi"
-                    },
-                    {
-                        data: "kuota",
-                        className: "text-center"
-                    },
-                    {
-                        data: "jam_kompen",
-                        className: "text-center"
                     },
                     {
                         data: "is_selesai",
@@ -137,9 +142,6 @@
                     {
                         data: "jeniskompen.nama_jenis"
 
-                    },
-                    {
-                        data: "personil.nama"
                     },
                     {
                         data: "tanggal_mulai",
@@ -184,6 +186,10 @@
                         previous: "Sebelumnya"
                     }
                 }
+            });
+
+            $('#id_jenis_kompen').change(function() {
+                dataKompen.ajax.reload(); // Reload data berdasarkan filter
             });
         });
     </script>

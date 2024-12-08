@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KompenDetailModel;
 use App\Models\PengajuanKompenModel;
+use App\Models\KompenModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
@@ -30,21 +32,57 @@ class PengajuanKompenController extends Controller
         ]);
     }
 
+    public function list_kompen(Request $request)
+    {
+        $kompens = KompenModel::with(['personil:id_personil,nama,username', 'jeniskompen:id_jenis_kompen,nama_jenis'])
+        ->select(
+            'id_kompen',
+            'nomor_kompen',
+            'nama',
+            'deskripsi',
+            'id_personil',
+            'id_jenis_kompen',
+            'kuota',
+            'jam_kompen',
+            'status',
+            'is_selesai',
+            'tanggal_mulai',
+            'tanggal_selesai'
+        )->where('status', 'setuju');
+
+        if (auth()->user()->level->kode_level !== 'ADM') {
+            $kompens->where('id_personil', auth()->user()->id_personil);
+        }   
+
+        // $kompens = $kompens->get();
+
+        return DataTables::of($kompens)
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($kompen) {
+                $btn = '<button onclick="modalAction(\'' . url('/pengajuankompen/' . $kompen->id_kompen . '/show_ajax') . '\')" class="btn btn-info btn-sm">Lihat Pengajuan</button> ';
+                return $btn;
+            })
+            ->rawColumns(['aksi'])
+            ->make(true);
+    }
+
     public function list(Request $request)
     {
         $pengajuankompen = PengajuanKompenModel::select(
             'id_pengajuan_kompen',
             'id_kompen',
             'id_mahasiswa',
-            'status',
-        )->with('kompen', 'mahasiswa')->get();
-        
-        if ($request->id_pengajuan_kompen){
-            $pengajuankompen->where('id_pengajuan_kompen', $request->id_pengajuan_kompen);
-        }
+            'status'
+        )
+        ->with('kompen', 'mahasiswa.prodi')
+        ->with(['mahasiswa:id_mahasiswa,nama,nama_prodi,jam_kompen'])->get();
+
 
         return DataTables::of($pengajuankompen)
             ->addIndexColumn()
+            ->addColumn('prodi', function ($pengajuankompen) {
+                return $pengajuankompen->mahasiswa->nama_prodi ?? '-'; // Tampilkan prodi atau tanda "-"
+            })
             ->addColumn('aksi', function ($pengajuankompen) {
                 $btn = '<button onclick="modalAction(\'' . url('/pengajuankompen/' . $pengajuankompen->id_pengajuan_kompen . '/show_ajax') . '\')" class="btn btn-info btn-sm">Pengajuan Kompen</button> ';
                 return $btn;
@@ -52,29 +90,45 @@ class PengajuanKompenController extends Controller
             ->rawColumns(['aksi'])
             ->make(true);
     }
-    public function show_ajax(string $id)
+    public function show_ajax($id)
     {
-        $pengajuankompen = PengajuanKompenModel::find($id);
+        $pengajuankompen = PengajuanKompenModel::select('id_pengajuan_kompen', 'id_kompen', 'id_mahasiswa', 'status')
+        ->where('id_kompen', $id)
+        ->with('mahasiswa', 'kompen')
+        ->get();
+        $kompen = KompenModel::find($id);
 
-        return view('admin.pengajuan_kompen.show_ajax', ['pengajuankompen' => $pengajuankompen]);
+        return view('admin.pengajuan_kompen.show_ajax', ['pengajuankompen' => $pengajuankompen, 'kompen' => $kompen]);
+        
     }
 
     public function updateStatus(Request $request)
     {
         $request->validate([
-            'status' => 'required|in:pending,acc,reject', // Validasi status hanya menerima nilai tertentu
+            'status' => 'required|in:pending,acc,reject',
         ]);
     
-        // Temukan data berdasarkan ID Pengajuan Kompen
         $pengajuankompen = PengajuanKompenModel::findOrFail($request->id_pengajuan_kompen);
     
-        // Update status
-        $pengajuankompen->status = $request->status;
-        $pengajuankompen->save();
+        // Check if status is being changed
+        if ($pengajuankompen->status != $request->status) {
+            // Update status
+            $pengajuankompen->status = $request->status;
     
-        // Redirect kembali ke halaman pengajuan kompen dengan pesan sukses
-        return redirect('/pengajuankompen')->with('success', 'Status berhasil diperbarui.');
+            // Create new record in 'detail_kompen' table if status is changed to 'acc'
+            if ($request->status == 'acc') {
+                KompenDetailModel::create([
+                    'id_kompen' => $request->id_kompen,
+                    'id_mahasiswa' => $request->id_mahasiswa,
+                ]);
+            }
+    
+            $pengajuankompen->save();
+    
+            return redirect('/pengajuankompen')->with('success', 'Status updated.');
+        } else {
+            return redirect('/pengajuankompen')->with('error', 'Status has not been changed.');
+        }
     }
-    
     
 }

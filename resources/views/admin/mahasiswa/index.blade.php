@@ -184,7 +184,7 @@ function modalAction(url = ''){
         });
         
         $('#table-mahasiswa_filter input').unbind().bind().on('keyup', function(e){         if(e.keyCode == 13){ // enter key             \
-        tableBarang.search(this.value).draw();        
+        tableMahasiswa.search(this.value).draw();        
          }    
          }); 
  

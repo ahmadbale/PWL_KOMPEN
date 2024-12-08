@@ -47,6 +47,11 @@ class TolakKompenController extends Controller
             'kompen.jam_kompen',
             'kompen.status'
         )->where('status', 'ditolak');
+
+        if (auth()->user()->level->kode_level !== 'ADM') {
+            $kompens->where('id_personil', auth()->user()->id_personil);
+        }   
+        $kompens = $kompens->get();
         
         if ($request->id_jenis_kompen) {
             $kompens->where('id_jenis_kompen', $request->id_jenis_kompen);

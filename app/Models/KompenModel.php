@@ -36,10 +36,17 @@ class KompenModel extends Model
         return $this->belongsTo(PersonilAkademikModel::class, 'id_personil', 'id_personil');
     }
 
-    public function pengajuankompen(): HasMany {
-        return $this->hasMany(PengajuanKompenModel::class, 'id_kompen', 'id_kompen' );
+    public function pengajuankompen(): HasMany
+    {
+        return $this->hasMany(PengajuanKompenModel::class, 'id_kompen', 'id_kompen');
     }
-    
+
+    public function detailkompen(): HasMany
+    {
+        return $this->hasMany(KompenDetailModel::class, 'id_kompen', 'id_kompen');
+    }
+
+
     public function getPersonilName(): string
     {
         return $this->personil->nama;
@@ -71,9 +78,9 @@ class KompenModel extends Model
 
     public function isAvailable(): bool
     {
-        return $this->status 
-            && !$this->is_selesai 
-            && $this->kuota > 0 
+        return $this->status
+            && !$this->is_selesai
+            && $this->kuota > 0
             && now()->between($this->tanggal_mulai, $this->tanggal_selesai);
     }
 

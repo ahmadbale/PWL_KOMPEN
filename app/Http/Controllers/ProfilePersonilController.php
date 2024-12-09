@@ -14,47 +14,93 @@ class ProfilePersonilController extends Controller
             'title' => 'Data Profil',
             'list' => [
                 ['name' => 'Home', 'url' => url('/')],
-                ['name' => 'Profil', 'url' => url('/profile')]
+                ['name' => 'Profil', 'url' => url('/profile-pa')]
             ]
         ];
         $activeMenu = 'profile';
-        return view('profile', compact('user'), [
+        return view('profile-pa', compact('user'), [
             'breadcrumb' => $breadcrumb,
             'activeMenu' => $activeMenu
         ]);
     }
-    public function update(Request $request, $id)
+
+    public function update_profile(Request $request, $id)
     {
-        request()->validate([
-            'username' => 'required|string|min:3|unique:m_user,username,' . $id . ',user_id',
-            'nama'     => 'required|string|max:100',
-            'old_password' => 'nullable|string',
-            'password' => 'nullable|min:5',
+        $request->validate([
+            'username' => 'required|string|max:20|unique:personil_akademik,username',
+            'nama'     => 'required|string|max:255',
+            'nomor_induk'     => 'required|string|max:18',
+            'nomor_telp' => 'required|string|max:15',
         ]);
-        $personil = PersonilAkademikModel::find($id);
+
+        $personil = PersonilAkademikModel::findOrFail($id);
         $personil->username = $request->username;
         $personil->nama = $request->nama;
+        $personil->nomor_induk = $request->nomor_induk;
+        $personil->nomor_telp = $request->nomor_telp;
+        $personil->save();
+
+        return back()->with('status', 'Profil berhasil diperbarui');
+        // return redirect('/profile-pa')->with('status', 'Profil berhasil diperbarui');
+
+    }
+
+    public function update_password(Request $request, $id)
+    {
+        $request->validate([
+            'old_password' => 'required|string',
+            'new_password'     => 'required|min:8|confirmed',
+        ]);
+
+        $personil = PersonilAkademikModel::findOrFail($id);
+
         if ($request->filled('old_password')) {
             if (Hash::check($request->old_password, $personil->password)) {
-                $personil->update([
-                    'password' => Hash::make($request->password)
-                ]);
+                $personil->password = Hash::make($request->password);
+                $personil->save();
+
+                return back()->with('status', 'Password berhasil diperbarui');
             } else {
                 return back()
-                    ->withErrors(['old_password' => __('Please enter the correct password')])
+                    ->withErrors(['old_password' => __('Password lama tidak sesuai')])
                     ->withInput();
             }
         }
-        if (request()->hasFile('profile_image')) {
-            if ($personil->profile_image && file_exists(storage_path('app/public/photos/' . $personil->profile_image))) {
-                Storage::delete('app/public/photos/' . $personil->profile_image);
-            }
-            $file = $request->file('profile_image');
-            $fileName = $file->hashName() . '.' . $file->getClientOriginalExtension();
-            $request->profile_image->move(storage_path('app/public/photos'), $fileName);
-            $personil->profile_image = $fileName;
-        }
-        $personil->save();
-        return back()->with('status', 'Profile berhasil diperbarui');
+
+        return back()->with('status', 'Tidak ada perubahan pada password');
     }
+
+    public function update_picture(Request $request, $id)
+    {
+        // Validasi file gambar
+        $request->validate([
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        // Ambil data mahasiswa berdasarkan ID
+        $personil = PersonilAkademikModel::findOrFail($id);
+
+        // Cek jika ada file yang di-upload
+        if ($request->hasFile('image')) {
+            // Hapus file lama jika ada
+            if ($personil->image && Storage::exists('public/photos/' . $personil->image)) {
+                Storage::delete('public/photos/' . $personil->image);
+            }
+
+            // Ambil file yang di-upload
+            $file = $request->file('image');
+            $fileName = $file->hashName(); // Generate nama file unik
+
+            // Simpan file di folder 'public/photos' di storage
+            $file->storeAs('public/photos', $fileName); // Simpan gambar ke storage
+
+            // Simpan nama file di database
+            $personil->image = $fileName;
+            $personil->save();
+        }
+
+        // Kembali ke halaman sebelumnya dengan status
+        return back()->with('status', 'Foto profil berhasil diperbarui');
+    }
+
 }

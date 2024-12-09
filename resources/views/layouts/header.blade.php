@@ -2,62 +2,75 @@
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <!-- Isi dengan link jika diperlukan -->
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <!-- Isi dengan link jika diperlukan -->
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+                <i class="fas fa-bars"></i>
+            </a>
         </li>
     </ul>
   
     <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-        <!-- User Profile -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <style>
-            .avatar { width: 40px; height: 40px; object-fit: cover; }
-            .dropdown-menu { min-width: 200px; }
-            .user-info { font-size: 0.9rem; }
-        </style>
+    <ul class="navbar-nav ml-auto align-items-center">
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="{{ url('/image.png')}}" class="avatar img-fluid rounded-circle" style="width: 30px; height: 30px;"
-                alt="{{auth()->user()->username}}" /> <span class="text-dark">
-                  {{auth()->user()->username}}
-                </span>
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="mr-2 d-flex align-items-center">
+                    <img src="{{ auth()->user()->image ? asset('storage/photos/' . auth()->user()->image) : asset('image.png') }}" 
+                         class="rounded-circle mr-2" 
+                         style="width: 35px; height: 35px; object-fit: cover;" 
+                         alt="{{ auth()->user()->username }}" />
+                    <span class="text-dark d-none d-md-inline">
+                        {{ auth()->user()->username }} / {{ auth()->user()->nama }}
+                    </span>
+                </div>
             </a>
-            <div class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarDropdown">
-              <div class="px-4 py-3">
-                  {{-- profile Dropdown --}}
-                  <div class="d-flex align-items-center">
-                      <img src="{{ url('image.png')}}"  class="avatar rounded-circle me-3" alt="{{auth()->user()->Kode}}">
-                      <div>
-                          <h6 class="mb-0">{{auth()->user()->username}}</h6>
-                          <small class="text-muted"><strong>
-                              {{ auth()->user()->level->nama_level}}
-                          </strong>
-                          </small>
-                      </div>
-                  </div>
-              </div>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item py-2" href="{{ url('/profile') }}">
-                  <i class="fas fa-user me-2"></i> Edit Profile
-              </a>
-              <a class="dropdown-item py-2" href="#" onclick="logout()">
-                  <i class="fas fa-sign-out-alt me-2"></i> Log Out
-              </a>
-          </div>
-            <script>
-              function logout() {
-                localStorage.removeItem('authToken');
-                window.location.href = '{{ url('logout')}}';
-                alert('Anda telah berhasil logout!');
-              }
-            </script>
+            
+            <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="userDropdown">
+                <div class="dropdown-header d-flex align-items-center">
+                    <img src="{{ auth()->user()->image ? asset('storage/photos/' . auth()->user()->image) : asset('image.png') }}" 
+                         class="rounded-circle mr-3" 
+                         style="width: 50px; height: 50px; object-fit: cover;" 
+                         alt="{{ auth()->user()->username }}" />
+                    <div>
+                        <h6 class="m-0">{{ auth()->user()->username }}</h6>
+                        <strong>{{ auth()->user()->level->nama_level }}</strong>
+                    </div>
+                </div>
+                
+                <div class="dropdown-divider"></div>
+                
+                @php
+                    $profileRoutes = [
+                        'MHS' => '/profile-mhs',
+                        'ADM' => '/profile-pa',
+                        'TDK' => '/profile-pa',
+                        'DSN' => '/profile-pa'
+                    ];
+                @endphp
+
+                @if(isset($profileRoutes[auth()->user()->level->kode_level]))
+                    <a class="dropdown-item" href="{{ url($profileRoutes[auth()->user()->level->kode_level]) }}">
+                        <i class="fas fa-user mr-2"></i> Edit Profile
+                    </a>
+                @endif
+
+                <a class="dropdown-item text-danger" href="{{ url('/login') }}" onclick="logout()">
+                    <i class="fas fa-sign-out-alt mr-2"></i> Log Out
+                </a>
+            </div>
         </li>
     </ul>
-  </nav>
-  
+</nav>
+
+@push('scripts')
+<script>
+    function logout() {
+        // Clear authentication token
+        localStorage.removeItem('authToken');
+        
+        // Redirect to logout endpoint
+        window.location.href = '{{ url('logout') }}';
+        
+        // Optional: Show logout confirmation
+        toastr.success('Anda telah berhasil logout!');
+    }
+</script>
+@endpush

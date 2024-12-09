@@ -80,6 +80,7 @@ class HistoryKompenController extends Controller
                 'id_mahasiswa',
                 'progres_1',
                 'progres_2',
+                'status'
             )
             ->with('kompen', 'mahasiswa.prodi')
             ->with(['mahasiswa:id_mahasiswa,nama,nama_prodi,jam_kompen'])->get();
@@ -96,7 +97,7 @@ class HistoryKompenController extends Controller
 
             public function show_ajax($id)
             {
-                $detailkompen = KompenDetailModel::select('id_kompen_detail', 'id_kompen','id_mahasiswa', 'progres_1', 'progres_2')
+                $detailkompen = KompenDetailModel::select('id_kompen_detail', 'id_kompen','id_mahasiswa', 'progres_1', 'progres_2', 'status')
                 ->where('id_kompen', $id)
                 ->with('mahasiswa', 'kompen')
                 ->get();
@@ -104,5 +105,40 @@ class HistoryKompenController extends Controller
         
                 return view('admin.histori_kompen.show_ajax', ['detailkompen' => $detailkompen, 'kompen' => $kompen]);
                 
+            }
+
+            public function updateStatus(Request $request)
+            {
+                $request->validate([
+                    'status' => 'required|in:pending,acc,reject',
+                ]);
+            
+                $kompendetail = KompenDetailModel::findOrFail($request->id_kompen_detail);
+                
+                if ($kompendetail->status == 'acc' || $kompendetail->status == 'reject') {
+                    return redirect('/histori_kompen')->with('error', 'Status tidak dapat diubah lagi.');
+                }
+                // Check if status is being changed
+                if ($kompendetail->status != $request->status) {
+                    // Update status
+                    $kompendetail->status = $request->status;
+            
+                    // Create new record in 'detail_kompen' table if status is changed to 'acc'
+                    if ($request->status == 'acc') {
+                        KompenModel::create([
+                            'is_selesai' => 1, // Menggunakan 1 untuk tinyint(1)
+                        ]);
+                    } elseif ($request->status == 'reject') {
+                        KompenModel::create([
+                            'is_selesai' => 0, // Menggunakan 0 untuk tinyint(1)
+                        ]);
+                    }
+            
+                    $kompendetail->save();
+            
+                    return redirect('/histori_kompen')->with('success', 'Status updated.');
+                } else {
+                    return redirect('/histori_kompen')->with('error', 'Status has not been changed.');
+                }
             }
 }

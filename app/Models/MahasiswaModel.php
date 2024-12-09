@@ -17,7 +17,7 @@ class MahasiswaModel extends Authenticatable
 
     use HasFactory;
 
-    protected $fillable = ['nomor_induk', 'username', 'nama', 'periode_tahun','password','jam_alpha','jam_kompen','jam_kompen_selesai','id_prodi','created_at','updated_at'];
+    protected $fillable = ['nomor_induk','image','username', 'nama', 'periode_tahun','password','jam_alpha','jam_kompen','jam_kompen_selesai','id_prodi','created_at','updated_at'];
     protected $hidden = ["password"];
     protected $casts = ['password' => 'hashed'];
 

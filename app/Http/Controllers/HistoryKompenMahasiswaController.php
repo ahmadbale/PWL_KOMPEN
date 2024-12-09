@@ -63,7 +63,15 @@ class HistoryKompenMahasiswaController extends Controller
         return DataTables::of($kompens)
             ->addIndexColumn()
             ->addColumn('aksi', function ($kompen) {
-                $btn = '<button onclick="modalAction(\'' . url('/histori_mahasiswa/' . $kompen->id_kompen . '/show_ajax') . '\')" class="btn btn-info btn-sm">Uploud Progress</button> ';
+                $today = now()->toDateString();
+
+                // Cek apakah tanggal selesai sudah terlewat
+                if ($today > $kompen->tanggal_selesai) {
+                    return '<span class="badge bg-danger">Waktu Sudah Habis</span>';
+                }
+
+                // Jika masih dalam rentang waktu, tampilkan tombol upload progress
+                $btn = '<button onclick="modalAction(\'' . url('/histori_mahasiswa/' . $kompen->id_kompen . '/show_ajax') . '\')" class="btn btn-info btn-sm">Upload Progress</button> ';
                 return $btn;
             })
             ->rawColumns(['aksi'])
@@ -114,17 +122,30 @@ class HistoryKompenMahasiswaController extends Controller
             'progres_1' => 'required|string|max:255',
             'progres_2' => 'required|string|max:255',
         ]);
-    
+
         try {
-            // Cari data berdasarkan ID
+            // Cari data kompen berdasarkan ID
             $detailKompen = KompenDetailModel::findOrFail($id);
-    
+            $kompen = $detailKompen->kompen;
+
+            // Periksa apakah tanggal sekarang masih dalam rentang kompen
+            $today = now()->toDateString();
+            $tanggalSelesai = $kompen->tanggal_selesai;
+
+            // Jika sudah melewati tanggal selesai, kembalikan pesan error
+            if ($today > $tanggalSelesai) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Hayolo kamu sudah lewat tenggat uploud kompen!!!',
+                ], 400);
+            }
+
             // Update data progres
             $detailKompen->update([
                 'progres_1' => $request->input('progres_1'),
                 'progres_2' => $request->input('progres_2'),
             ]);
-    
+
             // Respons sukses
             return response()->json([
                 'status' => true,
@@ -145,5 +166,4 @@ class HistoryKompenMahasiswaController extends Controller
             ], 500);
         }
     }
-    
 }

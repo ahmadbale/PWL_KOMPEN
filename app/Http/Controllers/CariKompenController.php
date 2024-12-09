@@ -52,7 +52,9 @@ class CariKompenController extends Controller
             'kompen.tanggal_selesai',
             'kompen.jam_kompen',
             'kompen.status'
-        )->where('status', 'setuju');
+        )
+        ->where('status', 'setuju')
+        ->whereRaw('(SELECT COUNT(*) FROM pengajuan_kompen WHERE pengajuan_kompen.id_kompen = kompen.id_kompen AND pengajuan_kompen.status != "ditolak") < kompen.kuota');
         
         if ($request->id_jenis_kompen) {
             $kompens->where('id_jenis_kompen', $request->id_jenis_kompen);
@@ -115,6 +117,29 @@ class CariKompenController extends Controller
                     'message' => 'Validasi Gagal',
                     'errors' => $validator->errors()
                 ], 422);
+            }
+    
+            // Find the kompen
+            $kompen = KompenModel::find($request->id_kompen);
+    
+            // Check if kompen exists
+            if (!$kompen) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Kompen tidak ditemukan.'
+                ], 404);
+            }
+    
+            // Check if quota is full
+            $currentPengajuan = PengajuanKompenModel::where('id_kompen', $request->id_kompen)
+                ->where('status', '!=', 'ditolak')
+                ->count();
+    
+            if ($currentPengajuan >= $kompen->kuota) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Kuota sudah terpenuhi'
+                ]);
             }
     
             // Check if the kompen is already submitted by the current user

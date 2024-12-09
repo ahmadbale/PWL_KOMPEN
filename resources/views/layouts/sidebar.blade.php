@@ -167,15 +167,6 @@
 
             </li>
             @endif
-            <p></p>
-            <p></p>
-            <p class="text-center"><strong>Test Fitur</strong></p>
-            <li class="nav-item">
-                <a href="{{ url('/detail_kompen') }}" class="nav-link">
-                    <i class="nav-icon fas fa-tasks"></i>
-                    <p>Detail Kompen</p>
-                </a>
-            </li>
         </ul>
     </nav>
 </div>

@@ -109,12 +109,17 @@ class PengajuanKompenController extends Controller
     
         $pengajuankompen = PengajuanKompenModel::findOrFail($request->id_pengajuan_kompen);
     
-        // Check if status is being changed
+        // Cek apakah status sudah final (acc atau reject)
+        if ($pengajuankompen->status == 'acc' || $pengajuankompen->status == 'reject') {
+            return redirect('/pengajuankompen')->with('error', 'Status tidak dapat diubah lagi.');
+        }
+    
+        // Cek apakah status sedang diubah
         if ($pengajuankompen->status != $request->status) {
             // Update status
             $pengajuankompen->status = $request->status;
     
-            // Create new record in 'detail_kompen' table if status is changed to 'acc'
+            // Buat record baru di tabel 'detail_kompen' jika status berubah menjadi 'acc'
             if ($request->status == 'acc') {
                 KompenDetailModel::create([
                     'id_kompen' => $request->id_kompen,
@@ -124,9 +129,9 @@ class PengajuanKompenController extends Controller
     
             $pengajuankompen->save();
     
-            return redirect('/pengajuankompen')->with('success', 'Status updated.');
+            return redirect('/pengajuankompen')->with('success', 'Status berhasil diperbarui.');
         } else {
-            return redirect('/pengajuankompen')->with('error', 'Status has not been changed.');
+            return redirect('/pengajuankompen')->with('error', 'Status tidak ada perubahan.');
         }
     }
     

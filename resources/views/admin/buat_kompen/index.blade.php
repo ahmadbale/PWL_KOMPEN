@@ -38,9 +38,9 @@
                 <div class="col-md-12">
                     <div class="form-group row">
                         <label class="col-1 control-label col-form-label">Filter:</label>
-                        <div class="col-3 position-relative">
-                            <select class="form-control custom-select" name="id_jenis_kompen" id="id_jenis_kompen" required>
-                                <option value="">Pilih Jenis Kompen</option>
+                        <div class="col-3">
+                            <select class="form-control" name="id_jenis_kompen" id="id_jenis_kompen" required>
+                                <option value="">- Semua -</option>
                                 @foreach ($jeniskompen as $item)
                                     <option value="{{ $item->id_jenis_kompen }}">{{ $item->nama_jenis }}</option>
                                 @endforeach
@@ -131,7 +131,8 @@
                         console.error('Error:', error);
                     }
                 },
-                columns: [{
+                columns: [
+                    {
                         data: "DT_RowIndex",
                         className: "text-center",
                         orderable: false,
@@ -231,8 +232,11 @@
                 }
             });
 
-            $('#id_jenis_kompen').change(function() {
-                dataKompen.ajax.reload(); // Reload data berdasarkan filter
+            // $('#id_jenis_kompen').change(function() {
+            //     dataKompen.ajax.reload(); // Reload data berdasarkan filter
+            // });
+            $('#id_jenis_kompen').on('change', function() {
+                dataKompen.ajax.reload();
             });
         });
     </script>

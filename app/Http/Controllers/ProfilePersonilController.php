@@ -47,29 +47,30 @@ class ProfilePersonilController extends Controller
 
     public function update_password(Request $request, $id)
     {
+        // Validasi input
         $request->validate([
             'old_password' => 'required|string',
-            'new_password'     => 'required|min:8|confirmed',
+            'new_password' => 'required|min:8|confirmed',
         ]);
-
+    
+        // Temukan data personil berdasarkan ID
         $personil = PersonilAkademikModel::findOrFail($id);
-
-        if ($request->filled('old_password')) {
-            if (Hash::check($request->old_password, $personil->password)) {
-                $personil->password = Hash::make($request->password);
-                $personil->save();
-
-                return back()->with('status', 'Password berhasil diperbarui');
-            } else {
-                return back()
-                    ->withErrors(['old_password' => __('Password lama tidak sesuai')])
-                    ->withInput();
-            }
+    
+        // Periksa kecocokan password lama
+        if (Hash::check($request->old_password, $personil->password)) {
+            // Perbarui password dengan hash
+            $personil->password = Hash::make($request->new_password);
+            $personil->save();
+    
+            return back()->with('status', 'Password berhasil diperbarui.');
         }
-
-        return back()->with('status', 'Tidak ada perubahan pada password');
+    
+        // Jika password lama tidak cocok
+        return back()
+            ->withErrors(['old_password' => __('Password lama tidak sesuai.')])
+            ->withInput();
     }
-
+    
     public function update_picture(Request $request, $id)
     {
         // Validasi file gambar

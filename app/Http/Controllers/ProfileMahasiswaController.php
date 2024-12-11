@@ -39,30 +39,54 @@ class ProfileMahasiswaController extends Controller
         return back()->with('status', 'Profil berhasil diperbarui');
     }
 
+    // public function update_password(Request $request, $id)
+    // {
+    //     $request->validate([
+    //         'old_password' => 'required|string',
+    //         'new_password'   => 'required|min:8|confirmed',
+    //     ]);
+
+    //     $mahasiswa = MahasiswaModel::findOrFail($id);
+
+    //     if ($request->filled('old_password')) {
+    //         if (Hash::check($request->old_password, $mahasiswa->password)) {
+    //             $mahasiswa->password = Hash::make($request->password);
+    //             $mahasiswa->save();
+
+    //             return back()->with('status', 'Password berhasil diperbarui');
+    //         } else {
+    //             return back()
+    //                 ->withErrors(['old_password' => __('Password lama tidak sesuai')])
+    //                 ->withInput();
+    //         }
+    //     }
+
+    //     return back()->with('status', 'Tidak ada perubahan pada password');
+    // }
+
     public function update_password(Request $request, $id)
-    {
-        $request->validate([
-            'old_password' => 'required|string',
-            'new_password'   => 'required|min:8|confirmed',
-        ]);
+{
+    $request->validate([
+        'old_password' => 'required|string',
+        'new_password' => 'required|min:8|confirmed',
+    ]);
 
-        $mahasiswa = MahasiswaModel::findOrFail($id);
+    $mahasiswa = MahasiswaModel::findOrFail($id);
 
-        if ($request->filled('old_password')) {
-            if (Hash::check($request->old_password, $mahasiswa->password)) {
-                $mahasiswa->password = Hash::make($request->password);
-                $mahasiswa->save();
+    // Periksa kecocokan password lama
+    if (Hash::check($request->old_password, $mahasiswa->password)) {
+        // Perbarui password
+        $mahasiswa->password = Hash::make($request->new_password);
+        $mahasiswa->save();
 
-                return back()->with('status', 'Password berhasil diperbarui');
-            } else {
-                return back()
-                    ->withErrors(['old_password' => __('Password lama tidak sesuai')])
-                    ->withInput();
-            }
-        }
-
-        return back()->with('status', 'Tidak ada perubahan pada password');
+        return back()->with('status', 'Password berhasil diperbarui');
+    } else {
+        return back()
+            ->withErrors(['old_password' => __('Password lama tidak sesuai')])
+            ->withInput();
     }
+}
+
 
     public function update_picture(Request $request, $id)
     {

@@ -19,24 +19,6 @@
     position: relative;
     }
 
-    .custom-select {
-    background-image: none;
-    padding-right: 30px; /* Ruang untuk ikon */
-    border-radius: 30px;
-    background-color: #ffffff(255, 253, 253, 0.3);
-    }
-
-    .select-icon {
-    position: absolute;
-    right: 10px; /* Sesuaikan posisi ikon */
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none; /* Agar ikon tidak mengganggu klik */
-    font-size: 16px; /* Ukuran ikon sesuai kebutuhan */
-    color: #555; /* Sesuaikan warna ikon */
-    padding-right: 15px;
-    }
-    
 </style>
 <body>
     <div class="cont">
@@ -72,7 +54,6 @@
                             <option value="{{$item->id_jenis_kompen}}">{{ $item->nama_jenis}}</option>
                             @endforeach
                         </select>
-                        <i class="right fas fa-angle-down select-icon"></i>
                     </div>
                 </div>
             </div>

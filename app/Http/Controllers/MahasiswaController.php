@@ -244,7 +244,7 @@ class MahasiswaController extends Controller
                          'periode_tahun' => $value['D'], 
                          'password' => $value['E'], 
                          'jam_alpha' => $value['F'], 
-                         'prodi' => $value['G'],
+                         'id_prodi' => $value['G'],
                          'created_at' => now(),
                         ];
                     }

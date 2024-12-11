@@ -13,6 +13,7 @@ class KompenModel extends Model
     protected $table = 'kompen';
     protected $primaryKey = 'id_kompen';
     protected $fillable = [
+        'id_kompen',
         'nomor_kompen',
         'nama',
         'deskripsi',

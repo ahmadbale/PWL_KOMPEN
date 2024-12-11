@@ -20,7 +20,7 @@ class PersonilAkademikModel extends Authenticatable implements JWTSubject
     
     protected $table = 'personil_akademik';
     protected $primaryKey = 'id_personil';
-    protected $fillable = ['id_personil', 'nomor_induk', 'image', 'username', 'nama', 'nomor_telp', 'id_level',  'password'];
+    protected $fillable = ['id_personil', 'nomor_induk','image', 'username', 'nama', 'nomor_telp', 'id_level', 'password'];
 
     protected $hidden = ['password'];
 

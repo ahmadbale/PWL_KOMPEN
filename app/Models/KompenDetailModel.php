@@ -22,6 +22,7 @@ class KompenDetailModel extends Model
         'id_mahasiswa',
         'progres_1',
         'progres_2',
+        'status'
     ];
 
     // Relasi ke tabel Kompen

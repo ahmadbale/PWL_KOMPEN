@@ -18,7 +18,6 @@
                 <div class="card-body box-profile">
                     <div class="text-center">
                     <img src="{{ auth()->user()->image ? asset('storage/photos/' . auth()->user()->image) : asset('image.png ') }}"
-
                  class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px;" alt="Avatar">
                     </div>
                     <h3 class="profile-username text-center">{{ auth()->user()->nama }}</h3>
@@ -81,7 +80,6 @@
                                         <small id="error-nim" class="error-text form-text text-danger"></small>
                                     </div>
                                 </div>
-
                                 <div class="form-group row">
                                     <label for="prodi" class="col-sm-2 col-form-label">Prodi</label>
                                     <div class="col-sm-10">

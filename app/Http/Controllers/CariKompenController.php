@@ -52,7 +52,9 @@ class CariKompenController extends Controller
             'kompen.tanggal_selesai',
             'kompen.jam_kompen',
             'kompen.status'
-        )->where('status', 'setuju');
+        )
+        ->where('status', 'setuju')
+        ->whereRaw('(SELECT COUNT(*) FROM pengajuan_kompen WHERE pengajuan_kompen.id_kompen = kompen.id_kompen AND pengajuan_kompen.status != "ditolak") < kompen.kuota');
         
         if ($request->id_jenis_kompen) {
             $kompens->where('id_jenis_kompen', $request->id_jenis_kompen);
@@ -100,6 +102,7 @@ class CariKompenController extends Controller
     {
         // Ensure the request is an AJAX or JSON request
         if ($request->ajax() || $request->wantsJson()) {
+    
             // Validation rules
             $rules = [
                 'id_kompen' => 'required'
@@ -108,7 +111,6 @@ class CariKompenController extends Controller
             // Validate the incoming request
             $validator = Validator::make($request->all(), $rules);
     
-            // If validation fails, return error response
             if ($validator->fails()) {
                 return response()->json([
                     'status' => false,
@@ -117,7 +119,43 @@ class CariKompenController extends Controller
                 ], 422);
             }
     
-            // Check if the kompen is already submitted by the current user
+            // Find the kompen
+            $kompen = KompenModel::find($request->id_kompen);
+    
+            // Check if kompen exists
+            if (!$kompen) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Kompen tidak ditemukan.'
+                ], 404);
+            }
+    
+            // Check if quota is full
+            $currentPengajuan = PengajuanKompenModel::where('id_kompen', $request->id_kompen)
+                ->where('status', '!=', 'ditolak')
+                ->count();
+    
+            if ($currentPengajuan >= $kompen->kuota) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Kuota sudah terpenuhi'
+                ]);
+            }
+    
+        // Validasi apakah sudah ada pengajuan yang ditolak untuk user yang sama
+        $pengajuanDitolak = PengajuanKompenModel::where('id_kompen', $request->id_kompen)
+            ->where('id_mahasiswa', auth()->user()->id_mahasiswa)
+            ->where('status', 'ditolak')
+            ->first();
+
+        if ($pengajuanDitolak) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Pengajuan kompen telah ditolak sebelumnya, Anda tidak dapat mengajukan lagi.'
+            ]);
+        }
+    
+            // Check if the kompen is already submitted by the current user with pending status
             $existingPengajuan = PengajuanKompenModel::where('id_kompen', $request->id_kompen)
                 ->where('id_mahasiswa', auth()->user()->id_mahasiswa)
                 ->where('status', 'pending')
@@ -145,10 +183,12 @@ class CariKompenController extends Controller
                 'status' => true,
                 'message' => 'Pengajuan kompen berhasil disimpan.'
             ], 200);
+    
         }
     
         // If not an AJAX request, redirect to home
         return redirect('/cari_kompen')->with('error', 'Akses tidak sah.');
     }
+    
 
 }

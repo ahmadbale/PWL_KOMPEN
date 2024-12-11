@@ -40,6 +40,14 @@
 
 <script>
     $(document).ready(function() {
+        // Setup CSRF Token for AJAX requests
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        // Form validation and AJAX submission
         $("#form-import").validate({
             rules: {
                 file_mahasiswa: {
@@ -48,24 +56,25 @@
                 },
             },
             submitHandler: function(form) {
-                var formData = new FormData(form); // Jadikan form ke FormData untuk menghandle file 
+                var formData = new FormData(form); // Convert form to FormData for file handling
 
                 $.ajax({
-                    url: form.action,
-                    type: form.method,
-                    data: formData, // Data yang dikirim berupa FormData                    
-                    processData: false, // setting processData dan contentType ke false, untuk menghandle file                     
-                    contentType: false,
+                    url: form.action, // Form action URL
+                    type: "POST",    // Explicitly set method to POST
+                    data: formData,   // FormData for sending file
+                    processData: false, // Required for FormData
+                    contentType: false, // Required for FormData
                     success: function(response) {
-                        if (response.status) { // jika sukses                             
-                            $('#myModal').modal('hide');
+                        if (response.status) { // Success response
+                            $('#modal-master').modal('hide');
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Berhasil',
                                 text: response.message
+                            }).then(() => {
+                                window.location.href = "{{ url('/mahasiswa') }}"; // Redirect to index page
                             });
-                            tableMahasiswa.ajax.reload(); // reload datatable                        
-                        } else { // jika error            
+                        } else { // Validation or other errors
                             $('.error-text').text('');
                             $.each(response.msgField, function(prefix, val) {
                                 $('#error-' + prefix).text(val[0]);
@@ -76,9 +85,16 @@
                                 text: response.message
                             });
                         }
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Terjadi kesalahan saat mengirim data.'
+                        });
                     }
                 });
-                return false;
+                return false; // Prevent default form submission
             },
             errorElement: 'span',
             errorPlacement: function(error, element) {

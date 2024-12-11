@@ -47,9 +47,11 @@
                         <th>Deskripsi</th>
                         <th>Pengerjaan</th>
                         <th>Jenis Kompen</th>
+                        <th>Jam Kompen</th>
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Selesai</th>
-                        <th width="15%">Aksi</th>
+                        <th width="15%">Uploud Tugas</th>
+                        <th>Cetak Surat</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -108,7 +110,7 @@
                     dataType: "json",
                     data: function(d) {
                         d.id_jenis_kompen = $('#id_jenis_kompen')
-                    .val(); // Tambahkan nilai dropdown sebagai parameter
+                            .val(); // Tambahkan nilai dropdown sebagai parameter
                     },
                     error: function(xhr, error) {
                         console.error('Error:', error);
@@ -136,13 +138,19 @@
                         data: "is_selesai",
                         className: "text-center",
                         render: function(data) {
-                            return data === 1 ? 'Selesai' : 'Progress';
+                            return data === 1 ? 'Selesai' : 'Menungggu';
                         }
                     },
                     {
                         data: "jeniskompen.nama_jenis"
 
                     },
+                    {
+                        data: "jam_kompen",
+                        render: function(data, type, row) {
+                            return data + " jam";
+                        }
+                    }, 
                     {
                         data: "tanggal_mulai",
                         render: function(data) {
@@ -155,12 +163,12 @@
                             return data ? moment(data).format('DD-MM-YYYY HH:mm:ss') : '-';
                         }
                     },
-                        {
-                            data: "aksi",
-                            className: "text-center",
-                            orderable: false,
-                            searchable: false
-                        }
+                    {
+                        data: "aksi",
+                        className: "text-center",
+                        orderable: false,
+                        searchable: false
+                    }
                 ],
                 paging: true,
                 lengthChange: true,

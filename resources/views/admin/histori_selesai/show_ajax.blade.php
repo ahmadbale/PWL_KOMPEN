@@ -72,15 +72,19 @@
                                 <td class="text-center">{{ $item->mahasiswa->prodi->nama_prodi ?? '-' }}</td>
                                 <td class="text-center">{{ $item->mahasiswa->jam_kompen }}</td>
                                 <td class="text-center">
-                                    @if ($item->progres_2)
-                                        <a href="{{ $item->progres_1 }}" class="btn btn-primary btn-sm">Lihat</a>
+                                    @if ($item->progres_1)
+                                        <button type="button" 
+                                                class="btn btn-primary btn-sm progress-btn" 
+                                                data-link="{{ $item->progres_1 }}">Lihat</button>
                                     @else
                                         <button class="btn btn-secondary btn-sm" disabled>Tunggu</button>
                                     @endif
                                 </td>
                                 <td class="text-center">
                                     @if ($item->progres_2)
-                                        <a href="{{ $item->progres_2 }}" class="btn btn-primary btn-sm">Lihat</a>
+                                        <button type="button" 
+                                                class="btn btn-primary btn-sm progress-btn" 
+                                                data-link="{{ $item->progres_2 }}">Lihat</button>
                                     @else
                                         <button class="btn btn-secondary btn-sm" disabled>Tunggu</button>
                                     @endif
@@ -293,5 +297,36 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // Fungsi untuk membuka link progres
+    document.addEventListener('DOMContentLoaded', function() {
+    // Tambahkan event listener untuk semua tombol progres
+    document.querySelectorAll('.progress-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            var progressLink = this.getAttribute('data-link');
+            
+            if (progressLink) {
+                // Coba membuka link
+                try {
+                    window.open(progressLink, '_blank');
+                } catch (error) {
+                    console.error('Gagal membuka link:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Kesalahan',
+                        text: 'Tidak dapat membuka link progres'
+                    });
+                }
+            } else {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Tidak Ada Progres',
+                    text: 'Belum ada progres untuk ditampilkan'
+                });
+            }
+        });
+    });
+});
+});
 </script>
 @endpush

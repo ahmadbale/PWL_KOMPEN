@@ -38,7 +38,7 @@ class HistoryKompenMahasiswaController extends Controller
     public function list_kompen(Request $request)
     {
         $id = auth()->user()->id_mahasiswa;
-        $kompens = KompenModel::with(['personil:id_personil,nama,username', 'jeniskompen:id_jenis_kompen,nama_jenis', 'detailkompen'])
+        $kompens = KompenModel::with(['personil:id_personil,nama,username', 'jeniskompen:id_jenis_kompen,nama_jenis', 'detailkompen:id_kompen_detail,progres_1,progres_2'])
             ->select(
                 'id_kompen',
                 'nomor_kompen',
@@ -55,21 +55,33 @@ class HistoryKompenMahasiswaController extends Controller
             )->whereHas('detailkompen', function ($query) use ($id) {
                 $query->where('id_mahasiswa', $id);
             });
-
+    
         if ($request->id_jenis_kompen) {
             $kompens->where('id_jenis_kompen', $request->id_jenis_kompen);
         }
-
+    
         return DataTables::of($kompens)
             ->addIndexColumn()
             ->addColumn('aksi', function ($kompen) {
-                $btn = '<button onclick="modalAction(\'' . url('/histori_mahasiswa/' . $kompen->id_kompen . '/show_ajax') . '\')" class="btn btn-info btn-sm">Uploud Progress</button> ';
+                $today = now()->toDateString();
+    
+                // Cek jika kompen sudah selesai
+                if ($kompen->is_selesai == 1) {
+                    return '<span class="badge bg-success">Kompen Telah Selesai</span>';
+                }
+    
+                // Cek apakah tanggal selesai sudah terlewat
+                if ($today > $kompen->tanggal_selesai) {
+                    return '<span class="badge bg-danger">Waktu Sudah Habis</span>';
+                }
+    
+                // Jika masih dalam rentang waktu, tampilkan tombol upload progress
+                $btn = '<button onclick="modalAction(\'' . url('/histori_mahasiswa/' . $kompen->id_kompen . '/show_ajax') . '\')" class="btn btn-info btn-sm">Upload Progress</button> ';
                 return $btn;
             })
             ->rawColumns(['aksi'])
             ->make(true);
     }
-
     public function list(Request $request)
     {
         $DetailKompen = KompenDetailModel::select(
@@ -107,6 +119,47 @@ class HistoryKompenMahasiswaController extends Controller
         return view('mahasiswa.histori_mahasiswa.show_ajax', compact('detailKompen', 'kompen'));
     }
 
+    // public function show_tugas_ajax(string $id)
+    // {
+    //     $detailKompen = KompenDetailModel::select('id_kompen_detail', 'id_kompen', 'id_mahasiswa', 'progres_1', 'progres_2')
+    //         ->where('id_kompen', $id)
+    //         ->whereHas('mahasiswa', function ($query) {
+    //             $query->where('id_mahasiswa', auth()->user()->id_mahasiswa);
+    //         })
+    //         ->with('mahasiswa', 'kompen')
+    //         ->first();
+
+    //     $kompen = KompenModel::find($id);
+
+    //     return view('mahasiswa.histori_mahasiswa.show_tugas_ajax', compact('detailKompen', 'kompen'));
+    // }
+
+    // public function detail_tugas_ajax(Request $request, $id)
+    // {
+    //     if ($request->ajax() || $request->wantsJson()) {
+    //         $detailKompen = KompenDetailModel::find($id)
+    //         ->where('id_kompen',$id)
+    //         ->whereHas('mahasiswa', function($query){
+    //             $query->where('id_mahasiswa', auth()->user()->id_mahasiswa);
+    //         })
+    //         ->with('mahasiswa','kompen')
+    //         ->first();
+
+    //         if ($detailKompen) {
+    //             return response()->json([
+    //                 'status' => true,
+    //                 'message' => 'Data berhasil ditampilkan'
+    //             ]);
+    //         } else {
+    //             return response()->json([
+    //                 'status' => false,
+    //                 'message' => 'Data tidak ditemukan'
+    //             ]);
+    //         }
+    //     }
+    //     return redirect('/histori_mahasiswa');
+    // }
+
     public function updateProgres(Request $request, $id)
     {
         // Validasi input
@@ -114,17 +167,30 @@ class HistoryKompenMahasiswaController extends Controller
             'progres_1' => 'required|string|max:255',
             'progres_2' => 'required|string|max:255',
         ]);
-    
+
         try {
-            // Cari data berdasarkan ID
+            // Cari data kompen berdasarkan ID
             $detailKompen = KompenDetailModel::findOrFail($id);
-    
+            $kompen = $detailKompen->kompen;
+
+            // Periksa apakah tanggal sekarang masih dalam rentang kompen
+            $today = now()->toDateString();
+            $tanggalSelesai = $kompen->tanggal_selesai;
+
+            // Jika sudah melewati tanggal selesai, kembalikan pesan error
+            if ($today > $tanggalSelesai) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Hayolo kamu sudah lewat tenggat uploud kompen!!!',
+                ], 400);
+            }
+
             // Update data progres
             $detailKompen->update([
                 'progres_1' => $request->input('progres_1'),
                 'progres_2' => $request->input('progres_2'),
             ]);
-    
+
             // Respons sukses
             return response()->json([
                 'status' => true,
@@ -145,5 +211,4 @@ class HistoryKompenMahasiswaController extends Controller
             ], 500);
         }
     }
-    
 }

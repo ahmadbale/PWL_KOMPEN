@@ -31,7 +31,7 @@
         @if (session('error'))
             <div class="alert alert-danger">{{ session('error') }}</div>
         @endif
-        {{-- <div class="row">
+        <div class="row">
             <div class="col-md-12">
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Filter:</label>
@@ -39,15 +39,15 @@
                         <select class="form-control" id="id_mahasiswa" name="id_mahasiswa" required>
                             <option value="">- Semua -</option>
                             @foreach ($mahasiswa as $m)
-                                <option value="{{ $m->id_mahasiswa }}">{{ $m->peroiode_tahun }}</option>
+                                <option value="{{ $m->id_mahasiswa }}">{{ $m->periode_tahun }}</option>
                             @endforeach
                         </select>
                     </div>
                     <small class="form-text text-muted">Tahun Semester</small>
                 </div>
             </div>
-        </div> --}}
-        <table class="table table-striped table-hover table-sm " id="table_mahasiswa">
+        </div>
+        <table class="table table-striped table-hover table-sm border" id="table_mahasiswa">
             <thead>
                 <tr>
                     <th>No</th>
@@ -112,7 +112,7 @@ function modalAction(url = ''){
                 },{ 
                     data: "nama",  
                     className: "", 
-                    width: "20%", 
+                    width: "15%", 
                     orderable: true, 
                     searchable: true, 
                 },
@@ -140,7 +140,7 @@ function modalAction(url = ''){
                 { 
                     data: "jam_kompen_selesai",  
                     className: "", 
-                    width: "5%", 
+                    width: "10%", 
                     orderable: true, 
                     searchable: true, 
                 },

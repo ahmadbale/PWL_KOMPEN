@@ -190,7 +190,7 @@
                 </ul>
             </li>
 
-            <li class="nav-item has-treeview {{ ($activeMenu == 'pengajuan_kompen') ? 'menu-open' : '' }}">
+            <li class="nav-item has-treeview {{ ($activeMenu == 'pengajuan_kompen' || $activeMenu == 'histori_kompen' || $activeMenu == 'histori_selesai') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-tasks"></i>
                     <p>
@@ -208,16 +208,16 @@
                 </ul>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ url('/histori_kompen') }}" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
+                        <a href="{{ url('/histori_kompen') }}" class="nav-link {{ ($activeMenu == 'histori_kompen') ? 'active' : '' }}">
+                             <i class="fas fa-chevron-right nav-icon"></i>
                             <p>Histori Progres</p>
                         </a>
                     </li>
                 </ul>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ url('/histori_selesai') }}" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
+                        <a href="{{ url('/histori_selesai') }}" class="nav-link {{ ($activeMenu == 'histori_selesai') ? 'active' : '' }}">
+                             <i class="fas fa-chevron-right nav-icon"></i>
                             <p>Histori Selesai</p>
                         </a>
                     </li>

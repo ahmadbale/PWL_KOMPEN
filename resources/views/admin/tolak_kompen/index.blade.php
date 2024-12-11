@@ -11,9 +11,6 @@
         font-family: 'DM Sans', sans-serif;
     }
 
-    .no-border td, .no-border th {
-        border: none !important;
-    }
 
     .position-relative {
     position: relative;
@@ -58,7 +55,7 @@
                 </div>
             </div>
         </div>
-        <table class="table table-striped table-hover table-sm mt-3 no-border" id="table_tolak_kompen">
+        <table class="table table-striped table-hover table-sm border" id="table_tolak_kompen">
             <thead>
                 <tr>
                     <th>No</th>
@@ -139,7 +136,7 @@
                 {
                     data: "personil.nama",  
                     className: "", 
-                    width: "19%", 
+                    width: "15%", 
                     orderable: true, 
                     searchable: true, 
                 },

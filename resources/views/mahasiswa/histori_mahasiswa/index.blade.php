@@ -1,10 +1,11 @@
 @extends('layouts.template')
 
 @section('content')
-    <div class="card card-outline card-primary">
-        <div class="card-header">
-            <h3 class="card-title">{{ $page->title }}</h3>
+   
+        <div class="col-12 text-left mb-3" id="text">
+            <h2><b>Daftar Histori Kompen</b></h2>
         </div>
+        <div class="card card-outline card">
         <div class="card-body">
             @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -50,7 +51,7 @@
                         <th>Jam Kompen</th>
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Selesai</th>
-                        <th width="15%">Uploud Tugas</th>
+                        <th width="15%">Upload Tugas</th>
                         <th>Cetak Surat</th>
                     </tr>
                 </thead>

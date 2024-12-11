@@ -8,6 +8,7 @@ use App\Http\Controllers\KompetensiController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\CariKompenController;
 use App\Http\Controllers\HistoryKompenController;
+use App\Http\Controllers\HistoryKompenSelesaiController;
 use App\Http\Controllers\HistoryKompenMahasiswaController;
 use App\Http\Controllers\PersonilAkademikController;
 use App\Http\Controllers\MahasiswaController;
@@ -135,6 +136,8 @@ Route::group(['prefix' => 'histori_kompen'], function(){
     Route::post('/list', [HistoryKompenController::class, 'list']);
     Route::get('/{id}/show_ajax', [HistoryKompenController::class, 'show_ajax']);
     Route::post('/update-status', [HistoryKompenController::class, 'updateStatus'])->name('histori_kompen.updateStatus');
+    Route::post('/update-kompen-selesai', [HistoryKompenController::class, 'updateKompenSelesai'])->name('update-kompen-selesai');
+
 });
 
 //History Mahasiswa
@@ -143,8 +146,17 @@ Route::group(['prefix' => 'histori_mahasiswa'], function(){
     Route::post('/list_kompen', [HistoryKompenMahasiswaController::class, 'list_kompen']);
     Route::post('/list', [HistoryKompenMahasiswaController::class, 'list']);
     Route::get('/{id}/show_ajax', [HistoryKompenMahasiswaController::class, 'show_ajax']);
+    // Route::get('/{id}/show_tugas_ajax', [HistoryKompenMahasiswaController::class, 'show_tugas_ajax']);
     Route::put('/{id}/updateProgres', [HistoryKompenMahasiswaController::class, 'updateProgres'])->name('histori_mahasiswa.updateProgres');
 });
+
+Route::group(['prefix' => 'histori_selesai'], function(){
+    Route::get('/', [HistoryKompenSelesaiController::class, 'index']);
+    Route::post('/list_kompen', [HistoryKompenSelesaiController::class, 'list_kompen']);
+    Route::post('/list', [HistoryKompenSelesaiController::class, 'list']);
+    Route::get('/{id}/show_ajax', [HistoryKompenSelesaiController::class, 'show_ajax']);
+});
+
 
 Route::get('/profile-pa', [ProfilePersonilController::class, 'index']);
 Route::post('/profile-pa/update_profile/{id}', [ProfilePersonilController::class, 'update_profile']);

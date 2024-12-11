@@ -158,7 +158,15 @@
                     <li class="nav-item">
                         <a href="{{ url('/histori_kompen') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>History Kompen</p>
+                            <p>Histori Progres</p>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ url('/histori_selesai') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Histori Selesai</p>
                         </a>
                     </li>
                 </ul>

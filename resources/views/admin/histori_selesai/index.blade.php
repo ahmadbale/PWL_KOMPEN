@@ -114,7 +114,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ url('/histori_kompen/list_kompen') }}",
+                    url: "{{ url('/histori_selesai/list_kompen') }}",
                     type: "POST",
                     dataType: "json",
                     data: function(d) {

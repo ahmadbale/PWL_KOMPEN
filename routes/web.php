@@ -9,6 +9,7 @@ use App\Http\Controllers\LevelController;
 use App\Http\Controllers\CariKompenController;
 use App\Http\Controllers\HistoryKompenController;
 use App\Http\Controllers\HistoryKompenSelesaiController;
+use App\Http\Controllers\HistoryKompenMahasiswaSelesaiController;
 use App\Http\Controllers\HistoryKompenMahasiswaController;
 use App\Http\Controllers\PersonilAkademikController;
 use App\Http\Controllers\MahasiswaController;
@@ -149,6 +150,16 @@ Route::group(['prefix' => 'histori_mahasiswa'], function(){
     // Route::get('/{id}/show_tugas_ajax', [HistoryKompenMahasiswaController::class, 'show_tugas_ajax']);
     Route::put('/{id}/updateProgres', [HistoryKompenMahasiswaController::class, 'updateProgres'])->name('histori_mahasiswa.updateProgres');
 });
+
+Route::group(['prefix' => 'histori_mahasiswa_selesai'], function(){
+    Route::get('/', [HistoryKompenMahasiswaSelesaiController::class, 'index'])->name('histori_mahasiswa.index');
+    Route::post('/list_kompen', [HistoryKompenMahasiswaSelesaiController::class, 'list_kompen']);
+    Route::post('/list', [HistoryKompenMahasiswaSelesaiController::class, 'list']);
+    Route::get('/{id}/show_ajax', [HistoryKompenMahasiswaSelesaiController::class, 'show_ajax']);
+    Route::put('/{id}/updateProgres', [HistoryKompenMahasiswaSelesaiController::class, 'updateProgres'])->name('histori_mahasiswa.updateProgres');
+    Route::get('/{id}/export_pdf', [HistoryKompenMahasiswaSelesaiController::class, 'export_pdf']);    
+});
+
 
 Route::group(['prefix' => 'histori_selesai'], function(){
     Route::get('/', [HistoryKompenSelesaiController::class, 'index']);

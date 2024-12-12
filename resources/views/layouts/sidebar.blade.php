@@ -105,14 +105,12 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ url('/tolakkompen') }}" class="nav-link">
+                <a href="{{ url('/histori_mahasiswa_selesai') }}" class="nav-link">
                     <i class="nav-icon fas fa-tasks"></i>
-                    <p>Kompen Ditolak</p>
+                    <p>Kompen Selesai</p>
                 </a>
             </li>
             @endif
-
-
             @if (auth()->user()->level->kode_level == 'ADM' || auth()->user()->level->kode_level == 'DSN')
             <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
@@ -170,9 +168,6 @@
                         </a>
                     </li>
                 </ul>
-
-                
-
             </li>
             @endif
         </ul>

@@ -52,7 +52,7 @@
                     </a>
                 @endif
 
-                <a class="dropdown-item text-danger" href="{{ url('/login') }}" onclick="logout()">
+                <a class="dropdown-item text-danger" href="{{ url('/logout') }}" onclick="logout()">
                     <i class="fas fa-sign-out-alt mr-2"></i> Log Out
                 </a>
             </div>

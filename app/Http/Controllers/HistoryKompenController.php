@@ -67,7 +67,7 @@ class HistoryKompenController extends Controller
         return DataTables::of($kompens)
             ->addIndexColumn()
             ->addColumn('aksi', function ($kompen) {
-                $buttonText = $kompen->is_selesai == 1 ? 'Done' : 'Pekerja';
+                $buttonText = $kompen->is_selesai == 1 ? 'Done' : 'Lihat Pengajuan';
                 $btn = '<button onclick="modalAction(\'' . url('/histori_kompen/' . $kompen->id_kompen . '/show_ajax') . '\')" class="btn btn-info btn-sm">' . $buttonText . '</button> ';
                 return $btn;
             })
@@ -138,29 +138,20 @@ class HistoryKompenController extends Controller
     {
         try {
             $idKompen = $request->input('id_kompen');
-            
+    
             // Validasi input
             if (!$idKompen) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'ID Kompen tidak valid'
-                ], 400);
+                return redirect()->back()->withErrors('ID Kompen tidak valid')->withInput();
             }
     
-            // Cari dan update kompen
+            // Cari dan update data
             $kompen = KompenModel::findOrFail($idKompen);
             $kompen->is_selesai = 1;
             $kompen->save();
     
-            return response()->json([
-                'status' => true,
-                'message' => 'Kompen berhasil diselesaikan'
-            ]);
+            return redirect()->back()->with('success', 'Kompen berhasil diselesaikan.');
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Gagal menyelesaikan kompen: ' . $e->getMessage()
-            ], 500);
+            return redirect()->back()->withErrors('Gagal menyelesaikan kompen: ' . $e->getMessage());
         }
     }
 }

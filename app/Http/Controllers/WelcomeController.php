@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MahasiswaModel;
+use App\Models\KompenModel;
 use Illuminate\Http\Request;
 
 class WelcomeController extends Controller
@@ -12,8 +14,10 @@ class WelcomeController extends Controller
             'list' => ['Home', 'Welcome']
         ];
 
+        $totalMahasiswa = MahasiswaModel::count();
+        $totalKompen = KompenModel::count();
         $activeMenu = 'dashboard';
-        return view('welcome', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        return view('welcome', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'totalMahasiswa' => $totalMahasiswa, 'totalKompen' => $totalKompen]);
     }
 
     public function index_admin() {
@@ -21,9 +25,10 @@ class WelcomeController extends Controller
             'title' => 'Selamat Datang',
             'list' => ['Home', 'Welcome']
         ];
-
+        $totalMahasiswa = MahasiswaModel::count();
         $activeMenu = 'dashboard';
-        return view('dahsboard', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        $totalKompen = KompenModel::count();
+        return view('dahsboard', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'totalMahasiswa' => $totalMahasiswa, 'totalKompen' => $totalKompen]);
     }
 
 }

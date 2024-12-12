@@ -124,7 +124,13 @@ class PengajuanKompenController extends Controller
                 KompenDetailModel::create([
                     'id_kompen' => $request->id_kompen,
                     'id_mahasiswa' => $request->id_mahasiswa,
-                ]);
+                ]); 
+            } 
+            // Hapus record di tabel 'pengajuan_kompen' jika status ditolak
+            elseif ($request->status == 'reject') {
+                $pengajuankompen->delete();
+    
+                return redirect('/pengajuankompen')->with('success', 'Pengajuan kompen berhasil ditolak');
             }
     
             $pengajuankompen->save();

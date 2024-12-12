@@ -51,6 +51,7 @@
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Selesai</th>
                         <th width="15%">Uploud Tugas</th>
+                        <th>Cetak Surat</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -104,7 +105,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ url('/histori_mahasiswa/list_kompen') }}",
+                    url: "{{ url('/histori_mahasiswa_selesai/list_kompen') }}",
                     type: "POST",
                     dataType: "json",
                     data: function(d) {
@@ -167,7 +168,11 @@
                         className: "text-center",
                         orderable: false,
                         searchable: false
+                    },
+                    {
+                        data : "cetak"
                     }
+
                 ],
                 paging: true,
                 lengthChange: true,

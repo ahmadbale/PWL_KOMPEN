@@ -113,9 +113,7 @@
         {{-- Footer --}}
         <div class="modal-footer">
             @if($kompen->is_selesai == 0)
-            <form 
-                action="{{ route('update-kompen-selesai') }}" 
-                method="POST" 
+            <form action="{{ route('update-kompen-selesai') }}"  method="POST" 
                 id="form-update-kompen-selesai"
                 data-id="{{ $kompen->id_kompen }}">
                 @csrf
@@ -130,8 +128,6 @@
             @endif
             <button type="button" data-dismiss="modal" class="btn btn-sm btn-warning">Kembali</button>
         </div>
-    </div>
-</div>
 
 {{-- Styles --}}
 @push('styles')
@@ -164,134 +160,50 @@
         }
     </style>
 @endpush
-
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Update status forms
-    const updateForms = document.querySelectorAll('.update-form');
-    
-    updateForms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            const url = this.action;
-            const idDetailKompen = this.querySelector('input[name="id_kompen_detail"]').value;
-            const statusSelect = this.querySelector(`#status-${idDetailKompen}`);
-            const statusBadge = document.querySelector(`.status-badge-${idDetailKompen}`);
-            
-            fetch(url, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Update status badge
-                    statusBadge.textContent = statusSelect.value === 'acc' ? 'Diterima' : 
-                                              (statusSelect.value === 'reject' ? 'Ditolak' : 'Pending');
-                    
-                    // Show success Sweet Alert
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Berhasil',
-                        text: 'Status pengajuan kompen berhasil diperbarui',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                } else {
-                    // Show error Sweet Alert
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Gagal',
-                        text: data.message || 'Terjadi kesalahan saat memperbarui status'
-                    });
-                }
-            })
-            .catch(error => {
-                // Show error Sweet Alert for network or other errors
+    document.addEventListener('DOMContentLoaded', function() {
+        const formSelesaikanKompen = document.getElementById('form-update-kompen-selesai');
+
+        if (formSelesaikanKompen) {
+            formSelesaikanKompen.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // SweetAlert Konfirmasi
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Kesalahan',
-                    text: 'Terjadi kesalahan dalam memproses permintaan'
+                    title: 'Konfirmasi Penyelesaian Kompen',
+                    text: 'Apakah Anda yakin ingin menandai kompen ini sebagai selesai?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Selesaikan!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.submit(); // Submit form jika konfirmasi
+                    }
                 });
-                console.error('Error:', error);
             });
+        }
+
+        // Tangkap pesan sukses atau error dari session flash
+        @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil',
+            text: '{{ session('success') }}',
+            showConfirmButton: false,
+            timer: 1500
         });
+        @elseif($errors->any())
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal',
+            text: '{{ $errors->first() }}',
+        });
+        @endif
     });
-
-    // Selesaikan Kompen form
-    const formSelesaikanKompen = document.getElementById('form-update-kompen-selesai');
-    
-    if (formSelesaikanKompen) {
-        formSelesaikanKompen.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Tampilkan konfirmasi Sweet Alert
-            Swal.fire({
-                title: 'Konfirmasi Penyelesaian Kompen',
-                text: 'Apakah Anda yakin ingin menandai kompen ini sebagai selesai?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, Selesaikan!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Ambil URL dan data dari form
-                    const url = this.action;
-                    const formData = new FormData(this);
-
-                    // Kirim request dengan fetch
-                    fetch(url, {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    })
-                    .then(response => {
-                        // Pastikan response dapat diproses
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        // Cek status berdasarkan struktur respons umum Laravel
-                        if (data.status || data.success) {
-                            Swal.fire(
-                                'Berhasil!',
-                                data.message || 'Kompen berhasil diselesaikan',
-                                'success'
-                            ).then(() => {
-                                // Reload halaman atau update UI
-                                location.reload();
-                            });
-                        } else {
-                            Swal.fire(
-                                'Gagal!',
-                                data.message || 'Gagal menyelesaikan kompen',
-                                'error'
-                            );
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        Swal.fire(
-                            'Error!',
-                            'Terjadi kesalahan saat memproses permintaan.',
-                            'error'
-                        );
-                    });
-                }
-            });
-        });
-    }
 </script>
 @endpush

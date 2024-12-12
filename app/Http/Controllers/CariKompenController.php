@@ -142,29 +142,28 @@ class CariKompenController extends Controller
                 ]);
             }
     
-        // Validasi apakah sudah ada pengajuan yang ditolak untuk user yang sama
-        $pengajuanDitolak = PengajuanKompenModel::where('id_kompen', $request->id_kompen)
-            ->where('id_mahasiswa', auth()->user()->id_mahasiswa)
-            ->where('status', 'ditolak')
-            ->first();
-
-        if ($pengajuanDitolak) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Pengajuan kompen telah ditolak sebelumnya, Anda tidak dapat mengajukan lagi.'
-            ]);
-        }
-    
-            // Check if the kompen is already submitted by the current user with pending status
+            // Check if the student has already submitted a pengajuan for this specific kompen
             $existingPengajuan = PengajuanKompenModel::where('id_kompen', $request->id_kompen)
                 ->where('id_mahasiswa', auth()->user()->id_mahasiswa)
-                ->where('status', 'pending')
                 ->first();
     
             if ($existingPengajuan) {
                 return response()->json([
                     'status' => false,
                     'message' => 'Anda sudah pernah mengajukan kompen ini sebelumnya.'
+                ]);
+            }
+    
+            // Validasi apakah sudah ada pengajuan yang ditolak untuk user yang sama
+            $pengajuanDitolak = PengajuanKompenModel::where('id_kompen', $request->id_kompen)
+                ->where('id_mahasiswa', auth()->user()->id_mahasiswa)
+                ->where('status', 'ditolak')
+                ->first();
+    
+            if ($pengajuanDitolak) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Pengajuan kompen telah ditolak sebelumnya, Anda tidak dapat mengajukan lagi.'
                 ]);
             }
     
@@ -183,12 +182,10 @@ class CariKompenController extends Controller
                 'status' => true,
                 'message' => 'Pengajuan kompen berhasil disimpan.'
             ], 200);
-    
         }
     
         // If not an AJAX request, redirect to home
         return redirect('/cari_kompen')->with('error', 'Akses tidak sah.');
     }
-    
 
 }

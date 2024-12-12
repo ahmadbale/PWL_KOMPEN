@@ -21,11 +21,11 @@
                 <div class="icon" style="top: 50%; transform: translateY(-50%); right: 20px;">
                     <i class="fas fa-users fa-3x text-white"></i>
                 </div>
-                <h3 style="font-size: 2.5rem;">150</h3>
-                <p style="font-weight: bold;">Pengguna Terdaftar</p>
+                <h3 style="font-size: 2.5rem;">{{ $totalPersonil }}</h3>
+                <p style="font-weight: bold;">Total Personil Akademik</p>
             </div>
          
-            <a href="/users" class="small-box-footer" style="background: rgba(255,255,255,0.1); padding: 10px; font-weight: bold;">
+            <a href="{{ url('/personilakademik') }}" class="small-box-footer" style="background: rgba(255,255,255,0.1); padding: 10px; font-weight: bold;">
                 Info lebih lanjut <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
@@ -38,11 +38,11 @@
                 <div class="icon" style="top: 50%; transform: translateY(-50%); right: 20px;">
                     <i class="fas fa-tasks fa-3x text-white"></i>
                 </div>
-                <h3 style="font-size: 2.5rem;">53<sup style="font-size: 1.2rem;">%</sup></h3>
-                <p style="font-weight: bold;">Progres Tugas</p>
+                <h3 style="font-size: 2.5rem;">{{ $totalMahasiswa }}</h3>
+                <p style="font-weight: bold;">Total Mahasiswa</p>
             </div>
            
-            <a href="/tasks" class="small-box-footer" style="background: rgba(255,255,255,0.1); padding: 10px; font-weight: bold;">
+            <a href="{{ url('/mahasiswa') }}" class="small-box-footer" style="background: rgba(255,255,255,0.1); padding: 10px; font-weight: bold;">
                 Info lebih lanjut <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
@@ -55,8 +55,8 @@
                 <div class="icon" style="top: 50%; transform: translateY(-50%); right: 20px;">
                     <i class="fas fa-bell fa-3x text-white"></i>
                 </div>
-                <h3 style="font-size: 2.5rem;">44</h3>
-                <p style="font-weight: bold;">Notifikasi Baru</p>
+                <h3 style="font-size: 2.5rem;">{{$totalKompen}}</h3>
+                <p style="font-weight: bold;">Total Tugas Kompen</p>
             </div>
             <a href="/notifications" class="small-box-footer" style="background: rgba(255,255,255,0.1); padding: 10px; font-weight: bold;">
                 Info lebih lanjut <i class="fas fa-arrow-circle-right"></i>
@@ -71,10 +71,10 @@
                 <div class="icon" style="top: 50%; transform: translateY(-50%); right: 20px;">
                     <i class="fas fa-exclamation-triangle fa-3x text-white"></i>
                 </div>
-                <h3 style="font-size: 2.5rem;">65</h3>
-                <p style="font-weight: bold;">Masalah Dilaporkan</p>
+                <h3 style="font-size: 2.5rem;">{{$totalKompetensi}}</h3>
+                <p style="font-weight: bold;">Total Kompetensi</p>
             </div>
-            <a href="/reports" class="small-box-footer" style="background: rgba(255,255,255,0.1); padding: 10px; font-weight: bold;">
+            <a href="{{ url('/kompetensi') }}" class="small-box-footer" style="background: rgba(255,255,255,0.1); padding: 10px; font-weight: bold;">
                 Info lebih lanjut <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>

@@ -22,8 +22,8 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="{{  auth()->user()->image ? asset('storage/photos/' . auth()->user()->image) : asset('image.png ')}}" class="avatar img-fluid rounded-circle" style="width: 30px; height: 30px;"
-                alt="{{auth()->user()->username}}" /> <span class="text-dark">
-                  {{auth()->user()->username}}
+                alt="{{auth()->user()->nama}}" /> <span class="text-dark">
+                  {{auth()->user()->nama}}
                 </span>
             </a>
             <div class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarDropdown">

@@ -27,6 +27,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group row">
+                        <label class="col-1 control-label col-form-label">Filter:</label>
                         <div class="col-3 position-relative">
                             <select class="form-control custom-select" name="id_jenis_kompen" id="id_jenis_kompen" required>
                                 <option value="">Pilih Jenis Kompen</option>

@@ -35,6 +35,7 @@ class PengajuanKompenModel extends Model
     {
         return $this->belongsTo(KompenModel::class, 'id_kompen', 'id_kompen');
     }
+    
 
     public function getMahasiswaName(): string
     {

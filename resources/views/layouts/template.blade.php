@@ -44,16 +44,29 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}"> --}}
+    <link rel="stylesheet" href="{{ url('/')}}/plugins/fontawesome-free/css/all.min.css">
+    {{-- contoh link
+    <link rel="stylesheet" href="{{ url('/')}}/plugins/fontawesome-free/css/all.min.css"> --}}
+    
     {{-- Database --}}
-    <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}"> --}}
+
+    <link rel="stylesheet" href="{{ url('/')}}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="{{ url('/')}}/plugins/datatables-responsive/css/responsive.bootstrap4.minss">
+    <link rel="stylesheet" href="{{ url('/')}}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     {{-- SweetAlert2 --}}
-    <link rel="stylesheet" href="{{asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}} ">
+    {{-- <link rel="stylesheet" href="{{asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}} "> --}}
+    <link rel="stylesheet" href="{{url('/')}}/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}"> --}}
+    <link rel="stylesheet" href="{{ url('/')}}/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 
     @stack('css')
@@ -103,11 +116,16 @@
     <!-- ./wrapper -->
 
     <!-- jQuery -->
-    <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
+    {{-- <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script> --}}
+    <script src="{{ url('/')}}/plugins/jquery/jquery.min.js"></script>
+    {{-- contoh link
+    <script src="{{ url('/')}}/plugins/jquery/jquery.min.js"></script> --}}
+
     <!-- Bootstrap 4 -->
-    <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    {{-- <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
+    <script src="{{ url('/')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     {{-- Database & plugins --}}
-    <script src="{{ asset('adminlte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    {{-- <script src="{{ asset('adminlte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
@@ -118,14 +136,31 @@
     <script src="{{ asset('adminlte/plugins/pdfmake/vfs_fonts.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.colvis.min.js') }}"></script>
+    <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.colvis.min.js') }}"></script> --}}
+
+    <script src="{{ url('/')}}/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="{{ url('/')}}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="{{ url('/')}}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="{{ url('/')}}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="{{ url('/')}}/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="{{ url('/')}}/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="{{ url('/')}}/plugins/jszip/jszip.min.js"></script>
+    <script src="{{ url('/')}}/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="{{ url('/')}}/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="{{ url('/')}}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="{{ url('/')}}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="{{ url('/')}}/plugins/datatables-buttons/js/buttons.colvis.min.js"></script>
     {{-- jQuery-validation --}}
-    <script src="{{asset('adminlte/plugins/jquery-validation/jquery.validate.min.js')}} "></script>
-    <script src="{{asset('adminlte/plugins/jquery-validation/additional-methods.min.js')}}"></script>
+    {{-- <script src="{{asset('adminlte/plugins/jquery-validation/jquery.validate.min.js')}} "></script>
+    <script src="{{asset('adminlte/plugins/jquery-validation/additional-methods.min.js')}}"></script> --}}
+    <script src="{{url('/')}}/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="{{url('/')}}/plugins/jquery-validation/additional-methods.min.js"></script>
     {{-- SweetAlert2 --}}
-    <script src="{{asset('adminlte/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
+    {{-- <script src="{{asset('adminlte/plugins/sweetalert2/sweetalert2.min.js')}}"></script> --}}
+    <script src="{{url('/')}}/plugins/sweetalert2/sweetalert2.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
+    {{-- <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script> --}}
+    <script src="{{ url('/')}}/dist/js/adminlte.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script>

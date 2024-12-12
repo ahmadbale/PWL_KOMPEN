@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body">
                 <!-- ID Personil (Hidden Input) -->
-                    <input name='id_personil' id="id_personil" type="text" value="{{ auth()->user()->id_personil}}" hidden>
+                <input name='id_personil' id="id_personil" type="text" value="{{ auth()->user()->id_personil}}" hidden>
                 <!-- Nama -->
                 <div class="form-group">
                     <label for="nama">Nama</label>
@@ -38,18 +38,6 @@
                     <input type="number" name="jam_kompen" id="jam_kompen" class="form-control" required>
                     <small id="error-jam_kompen" class="error-text form-text text-danger"></small>
                 </div>
-
-                <!-- Status -->
-                <div class="form-group">
-                    <label for="status">Status</label>
-                    <select name="status" id="status" class="form-control" required>
-                        <option value="">- Pilih Status -</option>
-                        <option value="1">Aktif</option>
-                        <option value="0">Nonaktif</option>
-                    </select>
-                    <small id="error-status" class="error-text form-text text-danger"></small>
-                </div>
-
                 <!-- jenis kompen -->
                 <div class="form-group">
                     <label for="id_jenis_kompen">Jenis Kompen</label>
@@ -65,14 +53,14 @@
                 <!-- Tanggal Mulai -->
                 <div class="form-group">
                     <label for="tanggal_mulai">Tanggal Mulai</label>
-                    <input type="date" name="tanggal_mulai" id="tanggal_mulai" class="form-control" required>
+                    <input type="datetime-local" name="tanggal_mulai" id="tanggal_mulai" class="form-control" required>
                     <small id="error-tanggal_mulai" class="error-text form-text text-danger"></small>
                 </div>
 
                 <!-- Tanggal Selesai -->
                 <div class="form-group">
                     <label for="tanggal_selesai">Tanggal Selesai</label>
-                    <input type="date" name="tanggal_selesai" id="tanggal_selesai" class="form-control" required>
+                    <input type="datetime-local" name="tanggal_selesai" id="tanggal_selesai" class="form-control" required>
                     <small id="error-tanggal_selesai" class="error-text form-text text-danger"></small>
                 </div>
             </div>
@@ -115,9 +103,6 @@
                     required: true,
                     number: true,
                     min: 1
-                },
-                status: {
-                    required: true
                 },
                 tanggal_mulai: {
                     required: true,

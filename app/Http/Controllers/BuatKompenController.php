@@ -22,18 +22,21 @@ class BuatKompenController extends Controller
         ];
 
         $activeMenu = 'kompen';
+        $jeniskompen = JenisKompenModel::all();
         $kompens = KompenModel::all();
         return view('admin.buat_kompen.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'kompens' => $kompens,
-            'activeMenu' => $activeMenu
+            'activeMenu' => $activeMenu,
+            'jeniskompen' => $jeniskompen
         ]);
     }
 
     public function list(Request $request)
     {
-        $kompens = KompenModel::select(
+        $kompens = KompenModel::with(['personil:id_personil,nama,username', 'jeniskompen:id_jenis_kompen,nama_jenis'])
+        ->select(
             'id_kompen',
             'nomor_kompen',
             'nama',
@@ -46,19 +49,27 @@ class BuatKompenController extends Controller
             'is_selesai',
             'tanggal_mulai',
             'tanggal_selesai'
-        )->with('personil', 'jeniskompen');
+        )
+        ->where('status', 'tunggu');
+        
+        if (auth()->user()->level->kode_level !== 'ADM') {
+            $kompens->where('id_personil', auth()->user()->id_personil);
+        }   
+        $kompens = $kompens->get();
+
+        if ($request->id_jenis_kompen) {
+            $kompens->where('id_jenis_kompen', $request->id_jenis_kompen);
+        }
 
         return DataTables::of($kompens)
             ->addIndexColumn()
             ->addColumn('aksi', function ($kompen) {
-                $btn = '<button onclick="modalAction(\'' . url('/kompen/' . $kompen->id_kompen . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
-                // $btn .= '<button onclick="modalAction(\'' . url('/kompen/' . $kompen->id_kompen . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
-                // $btn .= '<button onclick="modalAction(\'' . url('/kompen/' . $kompen->id_kompen . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button>';
+                $btn = '<button onclick="modalAction(\'' . url('/kompen/' . $kompen->id_kompen . '/show_ajax') . '\')" class="btn btn-info btn-sm">Proses Verif</button> ';
                 return $btn;
             })
             ->rawColumns(['aksi'])
             ->make(true);
-    }
+        }
 
     public function create_ajax()
     {
@@ -77,7 +88,6 @@ class BuatKompenController extends Controller
             'deskripsi' => 'required|min:5|max:255',
             'kuota' => 'required|numeric|min:1',
             'jam_kompen' => 'required|numeric|min:1',
-            'status' => 'required|boolean',
             'id_jenis_kompen' => 'required',
             'tanggal_mulai' => 'required|date',
             'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
@@ -94,7 +104,6 @@ class BuatKompenController extends Controller
         $kompen->deskripsi = $request->deskripsi;
         $kompen->kuota = $request->kuota;
         $kompen->jam_kompen = $request->jam_kompen;
-        $kompen->status = $request->status;
         $kompen->id_jenis_kompen = $request->id_jenis_kompen;
         $kompen->id_personil = $request->id_personil;
         $kompen->tanggal_mulai = $request->tanggal_mulai;
@@ -108,29 +117,38 @@ class BuatKompenController extends Controller
         ]);
     }
 
+    
     public function show_ajax(string $id)
     {
         $kompen = KompenModel::find($id);
-        return view('admin.buat_kompen.show_ajax', compact('kompen'));
+
+        return view('admin.buat_kompen.show_ajax', ['kompen' => $kompen]);
     }
 
-    // public function delete_ajax(Request $request, string $id)
-    // {
-    //     if ($request->ajax() || $request->wantsJson()) {
-    //         $kompen = KompenModel::find($id);
-    //         if ($kompen) {
-    //             $kompen->delete();
-    //             return response()->json([
-    //                 'status' => true,
-    //                 'message' => 'Data berhasil dihapus'
-    //             ]);
-    //         }
-
-    //         return response()->json([
-    //             'status' => false,
-    //             'message' => 'Data tidak ditemukan'
-    //         ]);
-    //     }
-    //     return redirect('/');
-    // }
+    public function updateStatus(Request $request)
+    {
+        // Validasi input dari request
+        $request->validate([
+            'status' => 'required|in:setuju,ditolak,pending', // Validasi status hanya menerima nilai tertentu
+            'alasan' => 'required|string|max:255',
+            
+        ]);
+    
+        try {
+            // Temukan data berdasarkan ID Pengajuan Kompen
+            $kompen = KompenModel::findOrFail($request->id_kompen);
+    
+            // Update status
+            $kompen->status = $request->status;
+            $kompen->alasan = $request->alasan;
+            $kompen->save();
+    
+            // Redirect dengan pesan sukses
+            return redirect('/kompen')->with('success', 'Status berhasil diperbarui.');
+        } catch (\Exception $e) {
+            // Tangani error, misalnya jika data tidak ditemukan atau kesalahan lainnya
+            return redirect('/kompen')->with('error', 'Terjadi kesalahan saat memperbarui status. ' . $e->getMessage());
+        }
+    }
+    
 }

@@ -45,6 +45,16 @@ return [
             'driver' => 'session',
             'provider' => 'personil_akademik',
         ],
+
+        'api_mahasiswa' => [
+            'driver' => 'jwt', // Gunakan JWT jika Anda menginginkan otentikasi berbasis token
+            'provider' => 'mahasiswa',
+        ],
+    
+        'api_personil' => [
+            'driver' => 'jwt',
+            'provider' => 'personil_akademik',
+        ],
     ],
     /*
     |--------------------------------------------------------------------------

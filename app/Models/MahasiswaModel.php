@@ -6,11 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use illuminate\Database\Eloquent\Factories\HasMany;
 use illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany as RelationsHasMany;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 
-class MahasiswaModel extends Authenticatable 
+class MahasiswaModel extends Authenticatable implements JWTSubject
 {
+
+    public function getJWTIdentifier(){
+        return $this->getKey();
+    }
+    public function getJWTCustomClaims(){
+        return [];
+    }
     protected $table = 'mahasiswa';
     protected $primaryKey = 'id_mahasiswa';
 
@@ -28,5 +37,23 @@ class MahasiswaModel extends Authenticatable
     {
         return $this->belongsTo(LevelModel::class, 'id_level', 'id_level');
     }
-}
 
+    public function getProdiName(): string
+    {
+        return $this->prodi->nama_prodi;
+    }
+    public function getroleName(): string
+    {
+        return $this->level->nama_level;
+    }
+
+    public function hasRole($role): bool
+    {
+        return $this->level->kode_level == $role;
+    }
+
+    public function getRole()
+    {
+        return $this->level->kode_level;
+    }
+}

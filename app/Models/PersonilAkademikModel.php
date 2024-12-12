@@ -6,14 +6,21 @@ use App\Models\LevelModel;
 use App\Models\KompenModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class PersonilAkademikModel extends Authenticatable
+class PersonilAkademikModel extends Authenticatable implements JWTSubject
 {
+    public function getJWTIdentifier(){
+        return $this->getKey();
+    }
+    public function getJWTCustomClaims(){
+        return [];
+    }
     
     protected $table = 'personil_akademik';
     protected $primaryKey = 'id_personil';
-    protected $fillable = ['id_personil', 'nomor_induk', 'username', 'nama', 'nomor_telp', 'id_level'];
+    protected $fillable = ['id_personil', 'nomor_induk', 'image', 'username', 'nama', 'nomor_telp', 'id_level',  'password'];
 
     protected $hidden = ['password'];
 

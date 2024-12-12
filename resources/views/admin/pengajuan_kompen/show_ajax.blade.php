@@ -1,133 +1,190 @@
-@empty($pengajuankompen)
-    <div id="modal-master" class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="background-color: #f8d7da; color: #721c24; border-bottom: 1px solid #f5c6cb;">
-                <h5 class="modal-title" id="exampleModalLabel">
-                    <i class="fas fa-exclamation-triangle mr-2"></i>Kesalahan
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: #721c24;">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" style="background-color: #fff3cd; color: #856404;">
-                <div class="alert alert-danger" style="background-color: #f8d7da; border-color: #f5c6cb;">
-                    <h5><i class="icon fas fa-ban mr-2"></i>Kesalahan!!!</h5>
-                    <p style="margin-bottom: 0;">Data pengajuan kompensasi yang Anda cari tidak ditemukan.</p>
-                </div>
-                <a href="{{ url('/pengajuankompen') }}" class="btn btn-warning mt-3" style="background-color: #ffc107; border-color: #ffc107; color: #212529;">
-                    <i class="fas fa-arrow-left mr-2"></i>Kembali
-                </a>
-            </div>
+<!-- Modal Content -->
+<div id="modal-master" class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <!-- Header -->
+        <div class="modal-header" style="background: linear-gradient(45deg, #6a11cb, #2575fc); color: white; border-bottom: none;">
+            <h5 class="modal-title" id="exampleModalLabel">
+                <i class="fas fa-info-circle mr-2"></i>Detail Data Pengajuan Kompen
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-    </div>
-@else
-    <div id="modal-master" class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="background-color: #e9ecef; border-bottom: 1px solid #dee2e6;">
-                <h5 class="modal-title" id="exampleModalLabel" style="color: #495057;">
-                    <i class="fas fa-info-circle mr-2"></i>Detail Data Pengajuan Kompen
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: #495057;">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" style="background-color: #f8f9fa;">
-                <div class="alert alert-info" style="background-color: #d1ecf1; border-color: #bee5eb; color: #0c5460;">
-                    <h5><i class="icon fas fa-info mr-2"></i>Status Pengajuan</h5>
-                    <p style="margin-bottom: 0;">Berikut adalah Status Pengajuan</p>
-                </div>
-                <form id="updateForm" action="{{ url('/pengajuankompen/update-status') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="id_pengajuan_kompen" value="{{ $pengajuankompen->id_pengajuan_kompen }}">
-                    <div class="form-group row mt-4">
-                        <label for="status" class="col-sm-3 col-form-label text-right font-weight-bold">Status:</label>
-                        <div class="col-sm-9">
-                            <select name="status" id="status" class="form-control" style="border: 1px solid #ced4da; border-radius: 0.25rem;">
-                                <option value="pending" {{ $pengajuankompen->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                                <option value="acc" {{ $pengajuankompen->status == 'acc' ? 'selected' : '' }}>Diterima</option>
-                                <option value="reject" {{ $pengajuankompen->status == 'reject' ? 'selected' : '' }}>Ditolak</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer" style="border-top: 1px solid #dee2e6; padding-top: 1rem;">
-                        <button type="submit" class="btn btn-primary" style="background-color: #007bff; border-color: #007bff;">
-                            <i class="fas fa-save mr-2"></i>Simpan Perubahan
-                        </button>
-                        <button type="button" data-dismiss="modal" class="btn btn-warning" style="background-color: #ffc107; border-color: #ffc107; color: #212529;">
-                            <i class="fas fa-times mr-2"></i>Kembali
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-@endempty
 
+        <!-- Body -->
+        <div class="modal-body" style="background: #f4f6f9; color: #495057;">
+            <div class="alert alert-info" style="background: #d9f7ff; color: #0056b3; border: 1px solid #bee5eb; border-radius: 8px;">
+                <h5><i class="icon fas fa-info-circle mr-2"></i>Status Pengajuan</h5>
+                <p style="margin-bottom: 0;">Berikut adalah Status Pengajuan Anda</p>
+            </div>
+
+            <div class="form-group row mt-4">
+                <div class="modal-body">
+                    <table class="table table-sm table-bordered table-striped">
+                        <tr>
+                            <th class="text-right col-3" style="background-color: #f1f1f1;">Nomor Kompen :</th>
+                            <td class="col-9">{{ $kompen->nomor_kompen }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-right col-3" style="background-color: #f1f1f1;">Nama Kompen:</th>
+                            <td class="col-9">{{ $kompen->nama }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-right col-3" style="background-color: #f1f1f1;">Jenis Kompen:</th>
+                            <td class="col-9">{{ $kompen->jeniskompen->nama_jenis }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-right col-3" style="background-color: #f1f1f1;">Deskripsi :</th>
+                            <td class="col-9">{{ $kompen->deskripsi }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-right col-3" style="background-color: #f1f1f1;">Tanggal Mulai :</th>
+                            <td class="col-9">{{ $kompen->tanggal_mulai }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-right col-3" style="background-color: #f1f1f1;">Tanggal Selesai :</th>
+                            <td class="col-9">{{ $kompen->tanggal_selesai }}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <table class="table table-bordered table-hover table-sm mt-4">
+                    <thead style="background: #6a11cb; color: white; text-align: center;">
+                        <tr>
+                            <th width="5%">No</th>  
+                            <th>Mahasiswa</th>
+                            <th>Prodi</th>
+                            <th>Jam Kompen</th>
+                            <th>Status</th>
+                            <th width="15%">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($pengajuankompen as $item)
+                        <tr>
+                            <td class="text-center">{{ $loop->iteration }}</td>
+                            <td class="text-center">{{ $item->mahasiswa->nama }}</td>
+                            <td class="text-center">{{ $item->mahasiswa->prodi->nama_prodi ?? '-' }}</td>\
+                            <td class="text-center">{{ $item->mahasiswa->jam_kompen}}</td>
+                            <td class="text-center">
+                                <span class="badge badge-info status-badge-{{ $item->id_pengajuan_kompen }}" style="padding: 0.25rem 0.5rem; font-size: 0.875rem; border-radius: 0.25rem;">{{ $item->status }}</span>
+                            </td>
+                            <td class="text-center">
+                                <form id="updateForm-{{ $item->id_pengajuan_kompen }}" class="update-form" action="{{ url('/pengajuankompen/update-status') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="id_pengajuan_kompen" value="{{ $item->id_pengajuan_kompen }}">
+                                    <select name="status" id="status-{{ $item->id_pengajuan_kompen }}" class="form-control form-control-sm" style="margin-bottom: 0.5rem;">
+                                        <option value="pending" {{ $item->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                                        <option value="acc" {{ $item->status == 'acc' ? 'selected' : '' }}>Diterima</option>
+                                        <option value="reject" {{ $item->status == 'reject' ? 'selected' : '' }}>Ditolak</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-primary btn-sm btn-block">Update</button>
+                                    <input type="text" name="id_kompen" value="{{$item->id_kompen}}" hidden>
+                                    <input type="text" name="id_mahasiswa" value="{{$item->id_mahasiswa}}" hidden>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="modal-footer" style="background: #f9f9f9; border-top: none;">
+            <button type="button" data-dismiss="modal" class="btn btn-secondary">Kembali</button>
+        </div>
+    </div>
+</div>
+
+<!-- Styles -->
 <style>
     .modal-content {
-        border-radius: 0.5rem;
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     }
+
     .btn {
-        border-radius: 0.25rem;
-        transition: all 0.2s ease-in-out;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
     }
+
     .btn:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     }
-    .form-control:focus {
-        border-color: #80bdff;
-        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+
+    .table thead th {
+        border: none;
+    }
+
+    .table tbody tr:hover {
+        background: rgba(106, 17, 203, 0.05);
+    }
+
+    .alert {
+        border-radius: 8px;
     }
 </style>
+
+<!-- Include SweetAlert2 from CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('updateForm');
-    const statusSelect = document.getElementById('status');
-    const submitButton = form.querySelector('button[type="submit"]');
-
-    statusSelect.addEventListener('change', function() {
-        submitButton.classList.add('btn-pulse');
-        setTimeout(() => submitButton.classList.remove('btn-pulse'), 500);
-    });
-
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menyimpan...';
-        submitButton.disabled = true;
-        
-        // Simulate form submission (replace with actual AJAX call)
-        setTimeout(() => {
-            submitButton.innerHTML = '<i class="fas fa-check mr-2"></i>Tersimpan!';
-            submitButton.classList.remove('btn-primary');
-            submitButton.classList.add('btn-success');
-            setTimeout(() => {
-                // Reset button state (in real scenario, you might close the modal here)
-                submitButton.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan Perubahan';
-                submitButton.classList.remove('btn-success');
-                submitButton.classList.add('btn-primary');
-                submitButton.disabled = false;
-            }, 2000);
-        }, 1500);
+    const updateForms = document.querySelectorAll('.update-form');
+    
+    updateForms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const url = this.action;
+            const idPengajuanKompen = this.querySelector('input[name="id_pengajuan_kompen"]').value;
+            const statusSelect = this.querySelector(`#status-${idPengajuanKompen}`);
+            const statusBadge = document.querySelector(`.status-badge-${idPengajuanKompen}`);
+            
+            fetch(url, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Update status badge
+                    statusBadge.textContent = statusSelect.value === 'acc' ? 'Diterima' : 
+                                              (statusSelect.value === 'reject' ? 'Ditolak' : 'Pending');
+                    
+                    // Show success Sweet Alert
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: 'Status pengajuan kompen berhasil diperbarui',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                } else {
+                    // Show error Sweet Alert
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal',
+                        text: data.message || 'Terjadi kesalahan saat memperbarui status'
+                    });
+                }
+            })
+            .catch(error => {
+                // Show error Sweet Alert for network or other errors
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Kesalahan',
+                    text: 'Terjadi kesalahan dalam memproses permintaan'
+                });
+                console.error('Error:', error);
+            });
+        });
     });
 });
 </script>
-
-<style>
-@keyframes pulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7);
-    }
-    70% {
-        box-shadow: 0 0 0 10px rgba(0, 123, 255, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
-    }
-}
-.btn-pulse {
-    animation: pulse 0.5s;
-}
-</style>

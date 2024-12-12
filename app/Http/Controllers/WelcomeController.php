@@ -15,4 +15,15 @@ class WelcomeController extends Controller
         $activeMenu = 'dashboard';
         return view('welcome', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
     }
+
+    public function index_dosen() {
+        $breadcrumb = (object) [
+            'title' => 'Selamat Datang',
+            'list' => ['Home', 'Welcome']
+        ];
+
+        $activeMenu = 'dashboard_dosen';
+        return view('dahsboard', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+    }
+
 }

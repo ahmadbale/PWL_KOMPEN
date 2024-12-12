@@ -3,6 +3,10 @@
         padding-left: 2%;
         padding-right: 2%;
     }
+
+    #text{
+        padding-left: 0%;
+    }
 </style>
 @extends('layouts.template')
 @section('content')

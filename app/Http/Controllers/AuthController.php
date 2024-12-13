@@ -11,7 +11,7 @@ class AuthController extends Controller
     public function login()
     {
         if (Auth::guard('personil')->check() || Auth::guard('mahasiswa')->check()) {
-            return redirect('/');
+            return redirect('/login');
         }
         return view('auth.login');
     }
@@ -19,7 +19,7 @@ class AuthController extends Controller
     {
         if ($request->ajax() || $request->wantsJson()) {
             $credentials = $request->only('username', 'password');
-
+    
             if (Auth::guard('mahasiswa')->attempt($credentials)) {
                 return response()->json([
                     'status' => true,
@@ -27,16 +27,30 @@ class AuthController extends Controller
                     'redirect' => url('/') // Redirect ke halaman mahasiswa
                 ]);
             }
-            // Coba autentikasi sebagai admin
+    
             if (Auth::guard('personil')->attempt($credentials)) {
-                return response()->json([
-                    'status' => true,
-                    'message' => 'Login Berhasil sebagai Personil Akademik',
-                    'redirect' => url('/dashboard-admin') // Redirect ke halaman admin
-                ]);
+                $user = Auth::guard('personil')->user();
+    
+                if ($user->level->kode_level === 'ADM') {
+                    return response()->json([
+                        'status' => true,
+                        'message' => 'Login Berhasil sebagai Admin',
+                        'redirect' => url('/dahsboardadm') // Redirect ke halaman admin
+                    ]);
+                } elseif ($user->level->kode_level === 'DSN') {
+                    return response()->json([
+                        'status' => true,
+                        'message' => 'Login Berhasil sebagai Dosen',
+                        'redirect' => url('/dahsboarddsn') // Redirect ke halaman dosen
+                    ]);
+                } else {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Level pengguna tidak dikenali',
+                    ], 403); // Forbidden jika level tidak dikenali
+                }
             }
     
-            // Jika login gagal untuk kedua guard
             return response()->json([
                 'status' => false,
                 'message' => 'Login Gagal. Username atau password salah.'

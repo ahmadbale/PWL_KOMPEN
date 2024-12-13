@@ -9,146 +9,121 @@ use App\Models\JenisKompenModel;
 use App\Models\PengajuanKompenModel;
 use App\Models\PersonilAkademikModel;
 use Yajra\DataTables\Facades\DataTables;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class CariKompenController extends Controller
 {
+    // Menampilkan daftar kompen (JSON)
     public function index()
     {
-        $breadcrumb = (object) [
-            'title' => 'Daftar Kompen',
-            'list' => ['Home', 'Kompen']
-        ];
-
-        $page = (object) [
-            'title' => 'Daftar Kompen Jurusan Teknologi Informasi'
-        ];
-
-       
-        $activeMenu = 'cari_tugas';
-        $jeniskompen = JenisKompenModel::all();
-        $kompens = KompenModel::all();
-        $personil = PersonilAkademikModel::all();
-        return view('mahasiswa.cari_kompen.index', [
-            'breadcrumb' => $breadcrumb,
-            'page' => $page,
-            'kompens' => $kompens,
-            'activeMenu' => $activeMenu,
-            'jeniskompen' => $jeniskompen,
-            'personil' => $personil
+        return response()->json([
+            'status' => true,
+            'message' => 'Daftar Kompen',
+            'data' => KompenModel::with(['personil', 'jeniskompen'])->get()
         ]);
     }
 
-    public function list(Request $request )
+    // Menampilkan daftar kompen dengan DataTables
+    public function list(Request $request)
     {
         $kompens = KompenModel::with(['personil:id_personil,nama,username', 'jeniskompen:id_jenis_kompen,nama_jenis'])
-        ->select(
-            'kompen.id_kompen',
-            'kompen.id_personil',
-            'kompen.nama',
-            'kompen.id_jenis_kompen',
-            'kompen.kuota',
-            'kompen.tanggal_mulai',
-            'kompen.tanggal_selesai',
-            'kompen.jam_kompen',
-            'kompen.status'
-        )->where('status', 'setuju');
-        
+            ->select(
+                'id_kompen', 'id_personil', 'nama', 
+                'id_jenis_kompen', 'kuota', 'tanggal_mulai', 
+                'tanggal_selesai', 'jam_kompen', 'status'
+            )->where('status', 'setuju');
+
+        // Filter berdasar request
         if ($request->id_jenis_kompen) {
             $kompens->where('id_jenis_kompen', $request->id_jenis_kompen);
-        }elseif ($request->id_personil) {
-            $kompens->where('id_personil',$request->id_personil);
         }
-        
+
+        if ($request->id_personil) {
+            $kompens->where('id_personil', $request->id_personil);
+        }
+
         return DataTables::of($kompens)
             ->addIndexColumn()
             ->addColumn('aksi', function ($cari_kompen) {
-                $btn = '<button onclick="modalAction(\'' . url('/cari_kompen/' . $cari_kompen->id_kompen . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
-                return $btn;
+                return '<button onclick="modalAction(\'' . url('/api/kompen/' . $cari_kompen->id_kompen . '/detail') . '\')" class="btn btn-info btn-sm">Detail</button>';
             })
             ->rawColumns(['aksi'])
             ->make(true);
     }
+
+    // Menampilkan detail kompen (JSON)
     public function detail_ajax(Request $request, $id)
     {
-        if ($request->ajax() || $request->wantsJson()) {
-            $kompen = KompenModel::find($id);
-            if ($kompen) {
-                return response()->json([
-                    'status' => true,
-                    'message' => 'Data berhasil ditampilkan'
-                ]);
-            } else {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Data tidak ditemukan'
-                ]);
-            }
+        $kompen = KompenModel::with(['personil', 'jeniskompen'])->find($id);
+
+        if (!$kompen) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data tidak ditemukan'
+            ], 404);
         }
-        return redirect('/mahasiswa');
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Data berhasil ditampilkan',
+            'data' => $kompen
+        ]);
     }
 
+    // Menampilkan detail kompen untuk modal view
     public function show_ajax(string $id)
     {
         $kompen = KompenModel::find($id);
 
+        if (!$kompen) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data tidak ditemukan'
+            ], 404);
+        }
+
         return view('mahasiswa.cari_kompen.show_ajax', ['kompen' => $kompen]);
     }
-    
 
+    // Menyimpan pengajuan kompen
     public function store_pengajuan(Request $request)
     {
-        // Ensure the request is an AJAX or JSON request
-        if ($request->ajax() || $request->wantsJson()) {
-            // Validation rules
-            $rules = [
-                'id_kompen' => 'required'
-            ];
-    
-            // Validate the incoming request
-            $validator = Validator::make($request->all(), $rules);
-    
-            // If validation fails, return error response
-            if ($validator->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Validasi Gagal',
-                    'errors' => $validator->errors()
-                ], 422);
-            }
-    
-            // Check if the kompen is already submitted by the current user
-            $existingPengajuan = PengajuanKompenModel::where('id_kompen', $request->id_kompen)
-                ->where('id_mahasiswa', auth()->user()->id_mahasiswa)
-                ->where('status', 'pending')
-                ->first();
-    
-            if ($existingPengajuan) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Anda sudah pernah mengajukan kompen ini sebelumnya.'
-                ]);
-            }
-    
-            // Prepare pengajuan data
-            $pengajuan = [
-                'id_kompen' => $request->id_kompen,
-                'id_mahasiswa' => auth()->user()->id_mahasiswa,
-                'status' => 'pending',
-            ];
-    
-            // Create the pengajuan record
-            PengajuanKompenModel::create($pengajuan);
-    
-            // Return success response
+        // Validasi request
+        $validator = Validator::make($request->all(), [
+            'id_kompen' => 'required|exists:kompen,id_kompen'
+        ]);
+
+        if ($validator->fails()) {
             return response()->json([
-                'status' => true,
-                'message' => 'Pengajuan kompen berhasil disimpan.'
-            ], 200);
+                'status' => false,
+                'message' => 'Validasi Gagal',
+                'errors' => $validator->errors()
+            ], 422);
         }
-    
-        // If not an AJAX request, redirect to home
-        return redirect('/cari_kompen')->with('error', 'Akses tidak sah.');
+
+        // Cek apakah pengajuan sudah ada
+        $existingPengajuan = PengajuanKompenModel::where('id_kompen', $request->id_kompen)
+            ->where('id_mahasiswa', auth()->user()->id_mahasiswa)
+            ->where('status', 'pending')
+            ->first();
+
+        if ($existingPengajuan) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Anda sudah pernah mengajukan kompen ini sebelumnya.'
+            ]);
+        }
+
+        // Simpan pengajuan
+        PengajuanKompenModel::create([
+            'id_kompen' => $request->id_kompen,
+            'id_mahasiswa' => auth()->user()->id_mahasiswa,
+            'status' => 'pending',
+        ]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Pengajuan kompen berhasil disimpan.'
+        ], 200);
     }
 }

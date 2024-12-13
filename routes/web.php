@@ -18,6 +18,8 @@ use App\Http\Controllers\TolakKompenController;
 use App\Http\Controllers\ProfileMahasiswaController;
 use App\Http\Controllers\ProfilePersonilController;
 use App\Models\PengajuanKompenModel;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardDosenController;
 
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
@@ -25,8 +27,10 @@ Route::post('login', [AuthController::class, 'postlogin']);
 Route::get('logout', [AuthController::class, 'logout'])->middleware('auth:personil,mahasiswa');
 
 Route::middleware(['auth:personil,mahasiswa'])->group(function() {
-Route::get('/', [WelcomeController::class, 'index']);
-Route::get('/dashboard-admin', [WelcomeController::class, 'index_admin']);
+    Route::get('/', [DashboardController::class, 'index']);
+    Route::get('/dahsboardadm', [WelcomeController::class, 'index']);
+    Route::get('/dahsboarddsn', [DashboardDosenController::class, 'index'])->name('dahsboard.dosen');
+    
 
 
 Route::get('/profile-pa', [ProfilePersonilController::class, 'index']);

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Support\Str;
 use App\Models\KompenModel;
 use App\Models\JenisKompenModel;

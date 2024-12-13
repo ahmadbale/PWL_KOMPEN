@@ -24,7 +24,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             @if (auth()->user() && auth()->user()->level && auth()->user()->level->kode_level == "MHS")
             <li class="nav-item">
-                <a href="{{ url('/') }}" class="nav-link {{ ($activeMenu == 'dashboard') ? 'active' : '' }}">
+                <a href="{{ url('/') }}" class="nav-link {{ ($activeMenu == 'dahsboardmhs') ? 'active' : '' }}">
                     <i class="nav-icon fas"> <ion-icon name="grid-outline"></ion-icon></i>
                     <p>Dashboard</p>
                 </a>
@@ -32,7 +32,7 @@
             @endif
             @if (auth()->user() && auth()->user()->level && auth()->user()->level->kode_level == "ADM")
             <li class="nav-item">
-                <a href="{{ url('/dashboard-admin') }}" class="nav-link {{ ($activeMenu == 'dashboard_admin') ? 'active' : '' }}">
+                <a href="{{ url('/dahsboardadm') }}" class="nav-link {{ ($activeMenu == 'dahsboardadm') ? 'active' : '' }}">
                     <i class="nav-icon fas"> <ion-icon name="grid-outline"></ion-icon></i>
                     <p>Dashboard</p>
                 </a>
@@ -161,7 +161,7 @@
             @endif
             @if (auth()->user()->level->kode_level == 'DSN')
             <li class="nav-item">
-                <a href="{{ url('/dashboard-admin') }}" class="nav-link {{ ($activeMenu == 'dashboard_admin') ? 'active' : '' }}">
+                <a href="{{ url('/dahsboarddsn') }}" class="nav-link {{ ($activeMenu == 'dahsboarddsn') ? 'active' : '' }}">
                     <i class="nav-icon fas"> <ion-icon name="grid-outline"></ion-icon></i>
                     <p>Dashboard</p>
                 </a>

@@ -47,7 +47,7 @@ class LoginController extends Controller
             'user' => auth()->guard($guard)->user(),
             'token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth($guard)->factory()->getTTL() * 60, // Waktu kedaluwarsa token dalam detik
+            //'expires_in' => auth($guard)->factory()->getTTL() * 60, // Waktu kedaluwarsa token dalam detik
         ], 200);
     }
 }

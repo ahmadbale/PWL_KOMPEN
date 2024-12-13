@@ -1,20 +1,31 @@
 <?php
-
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
-use App\Models\PersonilAkademikModel;
-use App\Models\MahasiswaModel;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 class DashboardController extends Controller
 {
-  
-    public function index() {
-    $activeMenu = 'dashboard';
-     
+    public function index()
+    {
+        // Mendapatkan ID pengguna yang sedang login
+        $userId = Auth::id();
 
-       
+        // Mendapatkan data kompensasi hanya untuk mahasiswa yang login
+        $kompensasiData = DB::table('mahasiswa')
+            ->where('id_mahasiswa', $userId)
+            ->select('nama', 'jam_alpha', 'jam_kompen')
+            ->get();
 
-       return view('dashboard',['activeMenu' => $activeMenu]);
-       
-
+        // Menghitung total alpha dan kompensasi
+        $totalAlpha = $kompensasiData->sum('jam_alpha');
+        $totalKompensasi = $kompensasiData->sum('jam_kompen');
+        $activeMenu = 'dahsboardmhs';
+        return view('welcome', [
+            'kompensasiData' => $kompensasiData,
+            'totalAlpha' => $totalAlpha,
+            'totalKompensasi' => $totalKompensasi,
+            'activeMenu' => $activeMenu
+        ]);
     }
 }

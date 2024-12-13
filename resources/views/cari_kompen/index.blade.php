@@ -14,6 +14,26 @@
     .position-relative {
     position: relative;
     }
+<<<<<<< HEAD
+=======
+
+    .custom-select {
+    background-image: none;
+    padding-right: 30px; /* Ruang untuk ikon */
+    border-radius: 30px;
+    }
+
+    .select-icon {
+    position: absolute;
+    right: 10px; /* Sesuaikan posisi ikon */
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* Agar ikon tidak mengganggu klik */
+    font-size: 16px; /* Ukuran ikon sesuai kebutuhan */
+    color: #555; /* Sesuaikan warna ikon */
+    padding-right: 15px;
+    }
+>>>>>>> 3039dc52cbb50321d66edc1dd94ec5ba1cc6b261
     
 </style>
 <body>

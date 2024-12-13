@@ -190,7 +190,6 @@ class HistoryKompenMahasiswaController extends Controller
                 'progres_1' => $request->input('progres_1'),
                 'progres_2' => $request->input('progres_2'),
             ]);
-
             // Respons sukses
             return response()->json([
                 'status' => true,

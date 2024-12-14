@@ -119,7 +119,7 @@
                     </ul>
                 </li>
     
-                <li class="nav-item has-treeview {{ ($activeMenu == 'pengajuan_kompen') ? 'menu-open' : '' }}">
+                <li class="nav-item has-treeview {{ ($activeMenu == 'pengajuan_kompen' || $activeMenu == 'histori_kompen' || $activeMenu== 'histori_selesai') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-tasks"></i>
                         <p>

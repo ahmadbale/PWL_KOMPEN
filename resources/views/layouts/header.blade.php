@@ -26,14 +26,15 @@
                   {{auth()->user()->nama}}
                 </span>
             </a>
-            <div class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarDropdown">
-              <div class="px-4 py-3">
-                  {{-- profile Dropdown --}}
-                  <div class="d-flex align-items-center">
-                    <small class="text-muted"><strong>
-                        {{ auth()->user()->level->nama_level}}
-                    </strong>
-                    </small>
+            <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="userDropdown">
+              <div class="dropdown-header d-flex align-items-center">
+                  <img src="{{ auth()->user()->image ? asset('storage/photos/' . auth()->user()->image) : asset('image.png') }}" 
+                       class="rounded-circle mr-3" 
+                       style="width: 50px; height: 50px; object-fit: cover;" 
+                       alt="{{ auth()->user()->username }}" />
+                  <div>
+                      <h6 class="m-0">{{ auth()->user()->username }}</h6>
+                      <strong>{{ auth()->user()->level->nama_level }}</strong>
                   </div>
               </div>
               <div class="dropdown-divider"></div>

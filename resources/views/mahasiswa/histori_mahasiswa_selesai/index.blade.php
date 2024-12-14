@@ -1,10 +1,11 @@
 @extends('layouts.template')
 
 @section('content')
-    <div class="card card-outline card-primary">
-        <div class="card-header">
-            <h3 class="card-title">{{ $page->title }}</h3>
+ 
+        <div class="col-12 text-left mb-3" id="text">
+            <h2><b>Daftar Kompen Selesai</b></h2>
         </div>
+        <div class="card card-outline card">
         <div class="card-body">
             @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">

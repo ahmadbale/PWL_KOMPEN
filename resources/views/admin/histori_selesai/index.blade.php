@@ -30,20 +30,20 @@
                         <label class="col-1 control-label col-form-label">Filter:</label>
                         <div class="col-3 position-relative">
                             <select class="form-control custom-select" name="id_jenis_kompen" id="id_jenis_kompen" required>
-                                <option value="">Pilih Jenis Kompen</option>
+                                <option value="">- Semua -</option>
                                 @foreach ($jeniskompen as $item)
                                     <option value="{{ $item->id_jenis_kompen }}">{{ $item->nama_jenis }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-3 position-relative">
+                        {{-- <div class="col-3 position-relative">
                             <select class="form-control custom-select" name="id_jenis_kompen" id="id_jenis_kompen" required>
                                 <option value="">Status Pengerjaan</option>
                                 @foreach ($kompens as $item)
                                     <option value="{{ $item->id_kompen }}">{{ $item->is_selesai}}</option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

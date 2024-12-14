@@ -55,6 +55,8 @@ Route::group(['prefix' =>'personilakademik'],function(){
     Route::put('/{id}/update_ajax', [PersonilAkademikController::class, 'update_ajax']); // Menyimpan perubahan data level Ajax
     Route::get('/{id}/delete_ajax', [PersonilAkademikController::class, 'confirm_ajax']); // Untuk tampilkan form confirm delete level Ajax
     Route::delete('/{id}/delete_ajax', [PersonilAkademikController::class, 'delete_ajax']); // Untuk hapus data level Ajax
+    Route::get('/import',[PersonilAkademikController::class,'import']);
+    Route::post('/import_ajax',[PersonilAkademikController::class,'import_ajax']);
 });
 
 Route::group(['prefix' =>'level'],function(){

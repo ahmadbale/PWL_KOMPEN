@@ -24,23 +24,6 @@
             <h2><b>Silahkan Cari Tugas Kompen yang tersedia</b></h2>
         </div>
         <br>
-        {{-- <div class="row">
-            <div class="col-md-12">
-                <div class="form-group row">
-                    <div class="col-3 position-relative">
-                        <select class="form-control custom-select" name="id_jenis_kompen" id="id_jenis_kompen" required>
-                            <option value="">Pilih Personill</option>
-                            @foreach ($personil as $item )
-                            <option value="{{$item->id_personil}}">{{ $item->nama}}</option>
-                            @endforeach
-                        </select>
-                        <i class="right fas fa-angle-down select-icon"></i>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-
-        
 <div class="card card-outline card">
     <div class="card-body">
         @if (session('success'))
@@ -55,7 +38,7 @@
                     <label class="col-1 control-label col-form-label">Filter:</label>
                     <div class="col-3 position-relative">
                         <select class="form-control custom-select" name="id_jenis_kompen" id="id_jenis_kompen" required>
-                            <option value="">Pilih Jenis Kompen</option>
+                            <option value="">- Semua -</option>
                             @foreach ($jeniskompen as $item )
                             <option value="{{$item->id_jenis_kompen}}">{{ $item->nama_jenis}}</option>
                             @endforeach

@@ -20,6 +20,7 @@
 </div>
         <div class="card-tools">
             <button onclick="modalAction('{{ url('personilakademik/create_ajax') }}')" class="btn btn-success">Tambah Personil</button>
+            <button onclick="modalAction('{{ url('/personilakademik/import') }}')" class="btn btn-success"><i class="fas fa-plus-circle"></i> Import Data</button> 
         </div>
 <br>
 <div class="card card-outline ">

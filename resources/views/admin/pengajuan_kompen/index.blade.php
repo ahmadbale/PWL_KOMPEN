@@ -21,7 +21,6 @@
                     </button>
                 </div>
             @endif
-
             @if (session('error'))
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     {{ session('error') }}
@@ -30,6 +29,21 @@
                     </button>
                 </div>
             @endif
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-1 control-label col-form-label">Filter:</label>
+                        <div class="col-3 position-relative">
+                            <select class="form-control custom-select" name="id_jenis_kompen" id="id_jenis_kompen" required>
+                                <option value="">- Semua -</option>
+                                @foreach ($jeniskompen as $item )
+                                <option value="{{$item->id_jenis_kompen}}">{{ $item->nama_jenis}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <table class="table table-bordered table-striped table-hover table-sm" id="table_kompen">
                 <thead>
                     <tr>
@@ -101,6 +115,9 @@
                     url: "{{ url('/pengajuankompen/list_kompen') }}",
                     type: "POST",
                     dataType: "json",
+                    data: function(d) {
+                        d.id_jenis_kompen = $('#id_jenis_kompen').val(); 
+                    },
                     error: function(xhr, error) {
                         console.error('Error:', error);
                     }
@@ -186,6 +203,10 @@
                     }
                 }
             });
+
+            $('#id_jenis_kompen').change(function() {
+            dataKompen.ajax.reload(); // Reload data berdasarkan filter
         });
+    });
     </script>
 @endpush

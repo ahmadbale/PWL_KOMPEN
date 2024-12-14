@@ -211,6 +211,7 @@ class MahasiswaController extends Controller
     {
         return view('admin.mahasiswa.import');
     }
+   
     public function import_ajax(Request $request)
     {
         if ($request->ajax() || $request->wantsJson()) {

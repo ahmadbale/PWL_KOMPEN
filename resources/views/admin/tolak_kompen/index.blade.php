@@ -46,7 +46,7 @@
                     <label class="col-1 control-label col-form-label">Filter:</label>
                     <div class="col-3 position-relative">
                         <select class="form-control custom-select" name="id_jenis_kompen" id="id_jenis_kompen" required>
-                            <option value="">Pilih Jenis Kompen</option>
+                            <option value="">- Semua -</option>
                             @foreach ($jeniskompen as $item )
                             <option value="{{$item->id_jenis_kompen}}">{{ $item->nama_jenis}}</option>
                             @endforeach

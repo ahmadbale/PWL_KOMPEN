@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\KompenDetailModel;
 use App\Models\PengajuanKompenModel;
 use App\Models\KompenModel;
+use App\Models\JenisKompenModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
@@ -23,11 +24,13 @@ class PengajuanKompenController extends Controller
         ];
 
         $activeMenu = 'pengajuan_kompen';
+        $jeniskompen = JenisKompenModel::all();
         $pengajuan_kompen = PengajuanKompenModel::all();
         return view('admin.pengajuan_kompen.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'pengajuan_kompen' => $pengajuan_kompen,
+            'jeniskompen' => $jeniskompen,
             'activeMenu' => $activeMenu
         ]);
     }
@@ -53,6 +56,11 @@ class PengajuanKompenController extends Controller
         if (auth()->user()->level->kode_level !== 'ADM') {
             $kompens->where('id_personil', auth()->user()->id_personil);
         }   
+
+          
+        if ($request->id_jenis_kompen) {
+            $kompens->where('id_jenis_kompen', $request->id_jenis_kompen);
+        }
 
         // $kompens = $kompens->get();
 

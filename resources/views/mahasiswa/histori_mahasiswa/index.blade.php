@@ -149,7 +149,7 @@
                         render: function(data, type, row) {
                             return data + " jam";
                         }
-                    }, 
+                    },
                     {
                         data: "tanggal_mulai",
                         render: function(data) {

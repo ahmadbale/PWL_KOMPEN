@@ -21,7 +21,7 @@
         }
         .header-table {
             border: none;
-            margin-bottom: 20px;
+            margin-bottom: 40px;
         }
         .header-table td {
             border: none;
@@ -32,18 +32,16 @@
             height: auto;
         }
         .form-content {
-            margin-top: 20px;
+            margin-top: 40px;
         }
         .form-row {
             margin: 10px 0;
         }
-        .signature-section {
-            margin-top: 30px;
-            text-align: right;
-        }
         .footer-note {
-            margin-top: 20px;
-            font-size: 0.9em;
+            margin-top: 60%; 
+            margin-bottom: 25px;
+            color-adjust: grey;
+            font-size: 12px;
         }
     </style>
 </head>
@@ -51,14 +49,19 @@
     <table class="header-table">
         <tr>
             <td width="15%" class="text-center">
-                <img src="{{ public_path('assets/polinema-bw.png') }}" class="logo">
+                <img src="{{ asset('polinema.png') }}" class="logo">
             </td>
             <td width="85%" class="text-center">
                 <div style="font-size: 12px; font-weight: bold;">KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET DAN TEKNOLOGI</div>
                 <div style="font-size: 14px; font-weight: bold;">POLITEKNIK NEGERI MALANG</div>
-                <div style="font-size: 12px; font-weight: bold;">PROGRAM STUDI TEKNIK INFORMATIKA</div>
+                <div style="font-size: 12px; font-weight: bold;">JURUSAN TEKNOLOGI INFORMASI</div>
                 <div style="font-size: 12px;">Jl. Soekarno Hatta No.9 Malang 65141</div>
                 <div style="font-size: 12px;">Telp. 0341404424 Fax. 0341404420, http://www.poltek-malang.ac.id</div>
+            </td>
+            <td width="15%" class="text-center">
+                {{-- {{ $qrCode }}  --}}
+                <img src="data:image/png;base64,{{ $qrCode }}" alt="QR kode"> 
+
             </td>
         </tr>
     </table>
@@ -102,9 +105,9 @@
                     <td style="border: none;">{{ $kompen->kelas }}</td>
                 </tr>
                 <tr>
-                    <td style="border: none;">Semester</td>
+                    <td style="border: none;">Angkatan</td>
                     <td style="border: none;">:</td>
-                    <td style="border: none;">{{ $kompen->mahasiswa->periode }}</td>
+                    <td style="border: none;">{{ $kompen->mahasiswa->periode_tahun }}</td>
                 </tr>
                 <tr>
                     <td style="border: none;">Pekerjaan</td>
@@ -119,15 +122,25 @@
             </table>
         </div>
 
-        <div class="signature-section">
-            <p>Malang, {{ date('d F Y') }}</p>
-            <p>Yang memberikan rekomendasi,</p>
-            <br><br><br>
-            <p>({{ $kompen->kompen->personil->nama }})</p>
-            <p>NIP. {{ $kompen->kompen->personil->nomor_induk }}</p>
+        <div style="margin-top: 60px;  margin-bottom: 60px" class="ttd" id="ttd">
+            <div style="text-align: left;">
+                <div style="float: left; width: 50%;">
+                    <p>Mengetahui</p>
+                    <p>Ka. Program Studi</p>
+                    <br><br><br>
+                    <p>(Hendra Pradibta, SE., M.Se)</p>
+                    <p>NIP. 198305212006041003</p>
+                </div>
+                <div style="float: right; width: 50%; text-align:right;">
+                    <p>Malang, {{ date('d F Y') }}</p>
+                    <p>Yang memberikan rekomendasi,</p>
+                    <br><br><br>
+                    <p>({{ $kompen->kompen->personil->nama }})</p>
+                    <p>NIP. {{ $kompen->kompen->personil->nomor_induk }}</p>
+                </div>
+            </div>
         </div>
-
-        <div class="footer-note">
+        <div style="margin-top:13%" class="footer-note">
             <p>{{ $kompen->kompen->nomor_kompen }}</p>
             <p>NB: Form ini wajib disimpan untuk keperluan bebas tanggungan</p>
         </div>

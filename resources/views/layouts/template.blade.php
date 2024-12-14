@@ -64,7 +64,6 @@
             <a href="{{ url('/') }}">
               <img class="logo img-circle" src="{{ asset('logo-jti.png')}}" alt="">
              </a>
-             <h1 class="sub">KOMPEN</h1>
             <!-- Sidebar -->
             @include('layouts.sidebar')
             <!-- /.sidebar -->

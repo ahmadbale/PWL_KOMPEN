@@ -12,6 +12,7 @@ use Yajra\DataTables\Facades\DataTables;
 use Barryvdh\DomPDF\Facade\Pdf;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Illuminate\Support\Facades\DB;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class HistoryKompenMahasiswaSelesaiController extends Controller
 {
@@ -190,11 +191,27 @@ class HistoryKompenMahasiswaSelesaiController extends Controller
             ->with('kompen', 'mahasiswa','kompen.personil')
             ->first();
         
-        $pdf = Pdf::loadView('mahasiswa.histori_mahasiswa_selesai.export_pdf', ['kompen'=> $kompen]);
+        // Generate QR Code with a URL (I used the kompen number as an example)
+        $qrCode = QrCode::size(100)
+            ->generate('
+            Nomor Kompen : '.$kompen->kompen->nomor_kompen. '
+            Status Kompen : '.$kompen->kompen->is_selesai .'
+            Mahasiswa : '.$kompen->mahasiswa->nama .'
+            Pemberi Tugas : '.$kompen->kompen->personil->nama.'
+            Tugas : '.$kompen->kompen->nama.'
+            Deskripsi Kompen : '.$kompen->kompen->deskripsi.'
+            ');
+        
+        // Load PDF view and pass both kompen and qrCode
+        $pdf = Pdf::loadView('mahasiswa.histori_mahasiswa_selesai.export_pdf', [
+            'kompen' => $kompen,
+            'qrCode' => base64_encode($qrCode)
+        ]);
+        
         $pdf->setPaper('a4', 'potrait');
         $pdf->setOption("isRemoteEnabled", true);
         $pdf->render();
-
-        return $pdf->stream('Data Detail Penjualan '.date('Y-m-d H:i:s').'.pdf');
+    
+        return $pdf->stream('Kompensasi_'.date('Y-m-d H:i:s').'.pdf');
     }
 }

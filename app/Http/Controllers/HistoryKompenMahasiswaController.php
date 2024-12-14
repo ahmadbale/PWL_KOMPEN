@@ -38,7 +38,7 @@ class HistoryKompenMahasiswaController extends Controller
     public function list_kompen(Request $request)
     {
         $id = auth()->user()->id_mahasiswa;
-        $kompens = KompenModel::with(['personil:id_personil,nama,username', 'jeniskompen:id_jenis_kompen,nama_jenis', 'detailkompen:id_kompen_detail,progres_1,progres_2'])
+        $kompens = KompenModel::with(['personil:id_personil,nama,username', 'jeniskompen:id_jenis_kompen,nama_jenis', 'detailkompen:id_kompen_detail,progres_1,progres_2,status'])
             ->select(
                 'id_kompen',
                 'nomor_kompen',
@@ -51,7 +51,8 @@ class HistoryKompenMahasiswaController extends Controller
                 'status',
                 'is_selesai',
                 'tanggal_mulai',
-                'tanggal_selesai'
+                'tanggal_selesai',
+                'status'
             )->whereHas('detailkompen', function ($query) use ($id) {
                 $query->where('id_mahasiswa', $id);
             })
@@ -90,7 +91,7 @@ class HistoryKompenMahasiswaController extends Controller
             'id_kompen',
             'id_mahasiswa',
             'progres_1',
-            'progres_2',
+            'progres_2'
         )
             ->with('kompen', 'mahasiswa.prodi')
             ->with(['mahasiswa:id_mahasiswa,nama,nama_prodi,jam_kompen'])->get();

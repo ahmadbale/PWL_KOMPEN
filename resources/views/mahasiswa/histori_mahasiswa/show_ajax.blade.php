@@ -39,6 +39,11 @@
                         <input value="{{ $detailKompen->progres_2 }}" type="text" name="progres_2" id="progres_2" class="form-control" required {{ $detailKompen->progres_1 ? '' : 'disabled' }}>
                         <small id="error-progres_2" class="error-text form-text text-danger"></small>
                     </div>
+                    <div class="form-group">
+                        <label>Status <span class="text-danger">*</span></label>
+                        <input value="{{ $detailKompen->status }}" type="text" name="status" id="status" class="form-control" hidden {{ $detailKompen->status ? '' : 'disabled' }}>
+                        <small id="error-status" class="error-text form-text text-danger"></small>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>

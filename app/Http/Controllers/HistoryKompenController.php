@@ -66,7 +66,7 @@ class HistoryKompenController extends Controller
         return DataTables::of($kompens)
             ->addIndexColumn()
             ->addColumn('aksi', function ($kompen) {
-                $buttonText = $kompen->is_selesai == 1 ? 'Done' : 'Pekerja';
+                $buttonText = $kompen->is_selesai == 1 ? 'Done' : 'Lihat Pengajuan';
                 $btn = '<button onclick="modalAction(\'' . url('/histori_kompen/' . $kompen->id_kompen . '/show_ajax') . '\')" class="btn btn-info btn-sm">' . $buttonText . '</button> ';
                 return $btn;
             })

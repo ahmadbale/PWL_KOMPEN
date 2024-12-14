@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\PersonilAkademikModel;
 use App\Models\MahasiswaModel;
 use App\Models\KompenModel;
+use Illuminate\Http\Request;
+use App\Models\PersonilAkademikModel;
 use App\Models\KompetensiModel;
 class WelcomeController extends Controller
 {

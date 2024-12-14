@@ -58,9 +58,6 @@
                 <h3 style="font-size: 2.5rem;">{{$totalKompen}}</h3>
                 <p style="font-weight: bold;">Total Tugas Kompen</p>
             </div>
-            <a href="/notifications" class="small-box-footer" style="background: rgba(255,255,255,0.1); padding: 10px; font-weight: bold;">
-                Info lebih lanjut <i class="fas fa-arrow-circle-right"></i>
-            </a>
         </div>
     </div>
 
@@ -81,4 +78,16 @@
     </div>
 </div>
 
+@push('styles')
+<style>
+    .card {
+        transition: transform 0.2s ease-in-out;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+</style>
+@endpush
 @endsection

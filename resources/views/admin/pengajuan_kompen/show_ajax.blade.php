@@ -78,6 +78,8 @@
                                         <option value="reject" {{ $item->status == 'reject' ? 'selected' : '' }}>Ditolak</option>
                                     </select>
                                     <button type="submit" class="btn btn-primary btn-sm btn-block">Update</button>
+                                    <input type="text" name="id_kompen" value="{{$item->id_kompen}}" hidden>
+                                    <input type="text" name="id_mahasiswa" value="{{$item->id_mahasiswa}}" hidden>
                                 </form>
                             </td>
                         </tr>

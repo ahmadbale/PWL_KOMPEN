@@ -125,7 +125,7 @@
                     dataType: "json",
                     data: function(d) {
                         d.id_jenis_kompen = $('#id_jenis_kompen')
-                    .val(); // Tambahkan nilai dropdown sebagai parameter
+                            .val(); // Tambahkan nilai dropdown sebagai parameter
                     },
                     error: function(xhr, error) {
                         console.error('Error:', error);
@@ -163,8 +163,10 @@
                         }
                     },
                     {
-                        data: "jeniskompen.nama_jenis"
-
+                        data: "jeniskompen.nama_jenis",
+                        render: function(data, type, row) {
+                            return row.jeniskompen ? row.jeniskompen.nama_jenis : '-';
+                        }
                     },
                     {
                         data: "personil.nama"

@@ -128,7 +128,7 @@
                     type="submit" 
                     class="btn btn-sm btn-success btn-selesaikan-kompen mr-2"
                 >
-                    <i class="mr-1"></i> Selesaikan Kompen
+                    <i class="mr-1"></i> Menyelesaikan Kompen
                 </button>
             </form>
             @endif

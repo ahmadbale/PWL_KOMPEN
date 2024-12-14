@@ -30,19 +30,14 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Progres 1 <span class="text-danger">*</span></label>
+                        <label>Progres 1</label>
                         <input value="{{ $detailKompen->progres_1 }}" type="text" name="progres_1" id="progres_1" class="form-control" required>
                         <small id="error-progres_1" class="error-text form-text text-danger"></small>
                     </div>
                     <div class="form-group">
-                        <label>Progres 2 <span class="text-danger">*</span></label>
-                        <input value="{{ $detailKompen->progres_2 }}" type="text" name="progres_2" id="progres_2" class="form-control" required {{ $detailKompen->progres_1 ? '' : 'disabled' }}>
+                        <label>Progres 2</label>
+                        <input value="{{ $detailKompen->progres_2 }}" type="text" name="progres_2" id="progres_2" class="form-control" required>
                         <small id="error-progres_2" class="error-text form-text text-danger"></small>
-                    </div>
-                    <div class="form-group">
-                        <label>Status <span class="text-danger">*</span></label>
-                        <input value="{{ $detailKompen->status }}" type="text" name="status" id="status" class="form-control" hidden {{ $detailKompen->status ? '' : 'disabled' }}>
-                        <small id="error-status" class="error-text form-text text-danger"></small>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -54,17 +49,6 @@
     </form>
     <script>
         $(document).ready(function() {
-            // Tambahkan event listener untuk progres_1
-            $('#progres_1').on('input', function() {
-                // Aktifkan input progres_2 jika progres_1 memiliki nilai
-                if ($(this).val().trim() !== '') {
-                    $('#progres_2').prop('disabled', false);
-                } else {
-                    // Nonaktifkan dan kosongkan progres_2 jika progres_1 kosong
-                    $('#progres_2').prop('disabled', true).val('');
-                }
-            });
-
             $("#form-edit").validate({
                 rules: {
                     progres_1: {
@@ -74,16 +58,6 @@
                     progres_2: {
                         required: true,
                         maxlength: 255
-                    }
-                },
-                messages: {
-                    progres_1: {
-                        required: "Progres 1 harus diisi",
-                        maxlength: "Progres 1 maksimal 255 karakter"
-                    },
-                    progres_2: {
-                        required: "Progres 2 harus diisi",
-                        maxlength: "Progres 2 maksimal 255 karakter"
                     }
                 },
                 submitHandler: function(form) {

@@ -48,6 +48,8 @@ class KompenModel extends Model
     }
 
 
+
+
     public function getPersonilName(): string
     {
         return $this->personil->nama;

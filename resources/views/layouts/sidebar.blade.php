@@ -153,9 +153,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ url('/tolakkompen') }}" class="nav-link {{ ($activeMenu == 'tolak_kompen') ? 'active' : '' }}">
+                <a href="{{ url('/histori_mahasiswa_selesai') }}" class="nav-link">
                     <i class="nav-icon fas fa-tasks"></i>
-                    <p>Kompen Ditolak</p>
+                    <p>Kompen Selesai</p>
                 </a>
             </li>
             @endif

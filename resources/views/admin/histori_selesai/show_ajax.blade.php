@@ -72,19 +72,15 @@
                                 <td class="text-center">{{ $item->mahasiswa->prodi->nama_prodi ?? '-' }}</td>
                                 <td class="text-center">{{ $item->mahasiswa->jam_kompen }}</td>
                                 <td class="text-center">
-                                    @if ($item->progres_1)
-                                        <button type="button" 
-                                                class="btn btn-primary btn-sm progress-btn" 
-                                                data-link="{{ $item->progres_1 }}">Lihat</button>
+                                    @if ($item->progres_2)
+                                        <a href="{{ $item->progres_1 }}" class="btn btn-primary btn-sm">Lihat</a>
                                     @else
                                         <button class="btn btn-secondary btn-sm" disabled>Tunggu</button>
                                     @endif
                                 </td>
                                 <td class="text-center">
                                     @if ($item->progres_2)
-                                        <button type="button" 
-                                                class="btn btn-primary btn-sm progress-btn" 
-                                                data-link="{{ $item->progres_2 }}">Lihat</button>
+                                        <a href="{{ $item->progres_2 }}" class="btn btn-primary btn-sm">Lihat</a>
                                     @else
                                         <button class="btn btn-secondary btn-sm" disabled>Tunggu</button>
                                     @endif

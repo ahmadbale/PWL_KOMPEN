@@ -48,13 +48,13 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ url('/level') }}" class="nav-link {{ ($activeMenu == 'level') ? 'active' : '' }}">
-                                <i class="nav-icon fas "></i>
+                                <i class="fas fa-chevron-right nav-icon "></i>
                                 <p>Data Level Personil</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('/prodi') }}" class="nav-link {{ ($activeMenu == 'prodi') ? 'active' : '' }}">
-                                <i class="nav-icon fas "></i>
+                                <i class="fas fa-chevron-right nav-icon "></i>
                                 <p>Data Prodi Mahasiswa</p>
                             </a>
                         </li>
@@ -71,13 +71,13 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ url('/mahasiswa') }}" class="nav-link {{ ($activeMenu == 'mahasiswa') ? 'active' : '' }}">
-                                <i class="nav-icon fas "></i>
+                                <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>Data Mahasiswa</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('/personilakademik') }}" class="nav-link {{ ($activeMenu == 'personilakademik') ? 'active' : '' }}">
-                                <i class="nav-icon fas "></i>
+                                <i class="fas fa-chevron-right nav-icon "></i>
                                 <p>Data Personil</p>
                             </a>
                         </li>
@@ -158,19 +158,19 @@
             @if (auth()->user()->level->kode_level == 'MHS')
             <li class="nav-item">
                 <a href="{{ url('/cari_kompen') }}" class="nav-link {{ ($activeMenu == 'cari_tugas') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-tasks"></i>
+                    <i class="nav-icon fas fa-search"></i>
                     <p>Cari Tugas</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ url('/histori_mahasiswa') }}" class="nav-link">
-                    <i class="nav-icon fas fa-tasks"></i>
+                    <i class="nav-icon fas fa-history"></i>
                     <p>Histori Kompen</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ url('/histori_mahasiswa_selesai') }}" class="nav-link">
-                    <i class="nav-icon fas fa-tasks"></i>
+                    <i class="nav-icon fas fa-check-square"></i>
                     <p>Kompen Selesai</p>
                 </a>
             </li>

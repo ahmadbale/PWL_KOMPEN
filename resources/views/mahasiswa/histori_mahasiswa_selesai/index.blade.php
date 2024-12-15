@@ -27,9 +27,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group row">
+                        <label class="col-1 control-label col-form-label">Filter:</label>
                         <div class="col-3 position-relative">
                             <select class="form-control custom-select" name="id_jenis_kompen" id="id_jenis_kompen" required>
-                                <option value="">Pilih Jenis Kompen</option>
+                                <option value="">- Semua -</option>
                                 @foreach ($jeniskompen as $item)
                                     <option value="{{ $item->id_jenis_kompen }}">{{ $item->nama_jenis }}</option>
                                 @endforeach
@@ -51,7 +52,7 @@
                         <th>Jam Kompen</th>
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Selesai</th>
-                        <th width="15%">Uploud Tugas</th>
+                        <th width="15%">Status</th>
                         <th>Cetak Surat</th>
                     </tr>
                 </thead>

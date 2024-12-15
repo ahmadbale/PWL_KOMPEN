@@ -53,7 +53,6 @@
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Selesai</th>
                         <th width="15%">Upload Tugas</th>
-                        <th>Cetak Surat</th>
                     </tr>
                 </thead>
                 <tbody></tbody>

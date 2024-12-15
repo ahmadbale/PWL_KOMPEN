@@ -11,6 +11,7 @@ use App\Http\Controllers\HistoryKompenController;
 use App\Http\Controllers\HistoryKompenSelesaiController;
 use App\Http\Controllers\HistoryKompenMahasiswaSelesaiController;
 use App\Http\Controllers\HistoryKompenMahasiswaController;
+use App\Http\Controllers\KompetensiMahasiswaController;
 use App\Http\Controllers\PersonilAkademikController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\PengajuanKompenController;
@@ -166,6 +167,15 @@ Route::group(['prefix' => 'histori_selesai'], function(){
     Route::post('/list_kompen', [HistoryKompenSelesaiController::class, 'list_kompen']);
     Route::post('/list', [HistoryKompenSelesaiController::class, 'list']);
     Route::get('/{id}/show_ajax', [HistoryKompenSelesaiController::class, 'show_ajax']);
+});
+
+Route::group(['prefix' => 'kompetensi_mahasiswa'], function(){
+    Route::get('/', [KompetensiMahasiswaController::class, 'index']);
+    Route::post('/list', [KompetensiMahasiswaController::class, 'list']);
+    Route::get('/create_ajax', [KompetensiMahasiswaController::class, 'create_ajax']);
+    Route::post('/ajax', [KompetensiMahasiswaController::class, 'store_ajax']);
+    Route::get('/{id}/delete_ajax', [KompetensiMahasiswaController::class, 'confirm_ajax']);
+    Route::delete('/{id}/delete_ajax', [KompetensiController::class, 'delete_ajax']);
 });
 
 

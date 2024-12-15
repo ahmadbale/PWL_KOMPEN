@@ -93,6 +93,12 @@
 
             @if (auth()->user()->level->kode_level == 'MHS')
             <li class="nav-item">
+                <a href="{{ url('/kompetensi_mahasiswa') }}" class="nav-link">
+                    <i class="nav-icon fas fa-tasks"></i>
+                    <p>Pilih Kompetensi</p>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{ url('/cari_kompen') }}" class="nav-link">
                     <i class="nav-icon fas fa-tasks"></i>
                     <p>Cari Tugas</p>

@@ -23,7 +23,7 @@ class HistoryKompenMahasiswaController extends Controller
             'title' => 'Daftar Histori Kompen Jurusan Teknologi Informasi'
         ];
 
-        $activeMenu = 'kompen';
+        $activeMenu = 'histori_mahasiswa';
         $jeniskompen = JenisKompenModel::all();
         $kompens = KompenModel::all();
         return view('mahasiswa.histori_mahasiswa.index', [

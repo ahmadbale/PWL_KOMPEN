@@ -19,8 +19,8 @@
     <h2><b>Daftar Personil Akademik</b></h2>
 </div>
         <div class="card-tools">
-            <button onclick="modalAction('{{ url('personilakademik/create_ajax') }}')" class="btn btn-success">Tambah Personil</button>
-            <button onclick="modalAction('{{ url('/personilakademik/import') }}')" class="btn btn-success"><i class="fas fa-plus-circle"></i> Import Data</button> 
+            <button onclick="modalAction('{{ url('personilakademik/create_ajax') }}')" class="btn btn-success"><i class="fas fa-plus-circle"></i> Tambah Data</button>
+            <button onclick="modalAction('{{ url('/personilakademik/import') }}')" class="btn btn-success"> Import Data</button> 
         </div>
 <br>
 <div class="card card-outline ">
@@ -47,9 +47,9 @@
                                     <option value="{{ $item->id_level }}">{{ $item->nama_level }}</option>
                                 @endif
                             @endforeach
-                        </select>                        
+                        </select>             
+                        <small class="form-text text-muted">Level Pengguna</small>           
                     </div>
-                    <small class="form-text text-muted">Level Personil</small>
                 </div>
             </div>
         </div>

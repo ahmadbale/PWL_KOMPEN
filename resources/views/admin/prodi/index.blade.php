@@ -19,7 +19,7 @@
             <h2><b>Daftar Prodi</b></h2>
         </div>
         <div class="card-tools">
-            <button onclick="modalAction('{{ url('prodi/create_ajax') }}')" class="btn btn-success">Tambah Prodi</button>
+            <button onclick="modalAction('{{ url('prodi/create_ajax') }}')" class="btn btn-success"><i class="fas fa-plus-circle"></i> Tambah Prodi</button>
         </div>
     <br>
     <div class="card card-outline card">

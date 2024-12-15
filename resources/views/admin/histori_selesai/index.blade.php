@@ -35,6 +35,7 @@
                                     <option value="{{ $item->id_jenis_kompen }}">{{ $item->nama_jenis }}</option>
                                 @endforeach
                             </select>
+                            <small class="form-text text-muted">Jenis Kompen</small>
                         </div>
                         {{-- <div class="col-3 position-relative">
                             <select class="form-control custom-select" name="id_jenis_kompen" id="id_jenis_kompen" required>

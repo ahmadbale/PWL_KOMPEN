@@ -10,7 +10,7 @@
             <h2><b>Daftar Kompen Jurusan Teknologi Informasi<b></h2>
         </div>
             <div class="card-tools" id="button-tambah" >
-                <button type="button" onclick="modalAction('{{ url('/kompen/create_ajax') }}')" class="btn btn-success">
+                <button type="button" onclick="modalAction('{{ url('/kompen/create_ajax') }}')" class="btn btn-success"><i class="fas fa-plus-circle"></i> 
                     Tambah Data
                 </button>
             </div>
@@ -45,6 +45,7 @@
                                     <option value="{{ $item->id_jenis_kompen }}">{{ $item->nama_jenis }}</option>
                                 @endforeach
                             </select>
+                            <small class="form-text text-muted">Jenis Kompen</small>
                         </div>
                     </div>
                 </div>

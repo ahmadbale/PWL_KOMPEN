@@ -40,8 +40,9 @@ class MahasiswaController extends Controller
     {
         $mahasiswa = MahasiswaModel::select('id_mahasiswa', 'nomor_induk', 'username', 'nama', 'periode_tahun', 'jam_alpha', 'jam_kompen', 'jam_kompen_selesai', 'id_prodi')->with('prodi');
 
-        if ($request->id_mahasiswa) {
-            $mahasiswa->where('id_mahasiswa', $request->id_mahasiswa);
+        
+        if ($request->id_prodi) {
+            $mahasiswa->where('id_prodi', $request->id_prodi);
         }
 
 

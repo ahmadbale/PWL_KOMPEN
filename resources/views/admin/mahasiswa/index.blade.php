@@ -19,8 +19,8 @@
 <div class="card-tools">
     <button onclick="modalAction('{{ url('/mahasiswa/create_ajax') }}')" class="btn btn-success"><i class="fas fa-plus-circle"></i> Tambah Data
     </button> 
-    <button onclick="modalAction('{{ url('/mahasiswa/import') }}')" class="btn btn-success"><i class="fas fa-plus-circle"></i> Import Data</button> 
-    <a href="{{ url('/mahasiswa/export_excel') }}" class="btn btn-success"><i class="fas fa-plus-circle"></i> Export Data</a>
+    <button onclick="modalAction('{{ url('/mahasiswa/import') }}')" class="btn btn-success"> Import Data</button> 
+    <a href="{{ url('/mahasiswa/export_excel') }}" class="btn btn-success"> <i class="fa fa-file-excel"></i> Export Data</a>
 </div>
 <br>
 <div class="card card-outline card">
@@ -36,14 +36,14 @@
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Filter:</label>
                     <div class="col-3">
-                        <select class="form-control" id="id_mahasiswa" name="id_mahasiswa" required>
+                        <select class="form-control" id="id_prodi" name="id_prodi" required>
                             <option value="">- Semua -</option>
-                            @foreach ($mahasiswa as $m)
-                                <option value="{{ $m->id_mahasiswa }}">{{ $m->periode_tahun }}</option>
+                            @foreach ($prodi as $p)
+                                <option value="{{ $p->id_prodi }}">{{ $p->nama_prodi }}</option>
                             @endforeach
                         </select>
+                        <small class="form-text text-muted">Prodi</small>
                     </div>
-                    <small class="form-text text-muted">Tahun Semester</small>
                 </div>
             </div>
         </div>
@@ -91,7 +91,7 @@ function modalAction(url = ''){
                 "dataType": "json",
                 "type" : "POST",
                 "data" : function (d){
-                    d.id_mahasiswa = $('#id_mahasiswa').val();
+                    d.id_prodi = $('#id_prodi').val();
                 }
          },
 
@@ -188,7 +188,7 @@ function modalAction(url = ''){
          }    
          }); 
  
-         $('#id_mahasiswa').on('change', function() {
+         $('#id_prodi').on('change', function() {
                 dataMahasiswa.ajax.reload();
             });
 

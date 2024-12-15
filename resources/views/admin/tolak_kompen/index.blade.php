@@ -20,18 +20,14 @@
 <body>
     <div class="cont">
         <div class="col-12 text-left mb-3">
-            <h2><b>Kompen Yang ditolak</b></h2>
+            <h2><b>Daftar Kompen Ditolak</b></h2>
         </div>
-        <br>
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group row">
                 </div>
             </div>
-        </div>
-        
-
-        
+    </div>
 <div class="card card-outline ">
     <div class="card-body">
         @if (session('success'))
@@ -51,6 +47,7 @@
                             <option value="{{$item->id_jenis_kompen}}">{{ $item->nama_jenis}}</option>
                             @endforeach
                         </select>
+                        <small class="form-text text-muted">Jenis Kompen</small>
                     </div>
                 </div>
             </div>

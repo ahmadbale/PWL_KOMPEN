@@ -40,6 +40,7 @@
                                 <option value="{{$item->id_jenis_kompen}}">{{ $item->nama_jenis}}</option>
                                 @endforeach
                             </select>
+                            <small class="form-text text-muted">Jenis Kompen</small>
                         </div>
                     </div>
                 </div>

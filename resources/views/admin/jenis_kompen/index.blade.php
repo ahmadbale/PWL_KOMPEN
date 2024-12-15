@@ -15,7 +15,7 @@
     <h2><b>Daftar Jenis Kompen</b></h2>
 </div>
         <div class="card-tools">
-            <button type="button" onclick="modalAction('{{ url('jeniskompen/create_ajax') }}')" class="btn btn-success">
+            <button type="button" onclick="modalAction('{{ url('jeniskompen/create_ajax') }}')" class="btn btn-success"><i class="fas fa-plus-circle"></i> 
                  Tambah Data
             </button>
         </div>

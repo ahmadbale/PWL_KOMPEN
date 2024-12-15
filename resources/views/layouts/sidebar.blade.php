@@ -107,7 +107,7 @@
                         <li class="nav-item">
                             <a href="{{ url('/kompen') }}" class="nav-link {{ ($activeMenu == 'kompen') ? 'active' : '' }}">
                               <i class="fas fa-chevron-right nav-icon"></i>
-                                <p>Buat Kompen</p>
+                                <p>Pengajuan Kompen</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -118,7 +118,6 @@
                         </li>
                     </ul>
                 </li>
-    
                 <li class="nav-item has-treeview {{ ($activeMenu == 'pengajuan_kompen' || $activeMenu == 'histori_kompen' || $activeMenu== 'histori_selesai') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-tasks"></i>
@@ -153,8 +152,6 @@
                     </ul>       
                 </li>
             @endif
-
-
             @if (auth()->user()->level->kode_level == 'MHS')
             <li class="nav-item">
                 <a href="{{ url('/cari_kompen') }}" class="nav-link {{ ($activeMenu == 'cari_tugas') ? 'active' : '' }}">
@@ -163,13 +160,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ url('/histori_mahasiswa') }}" class="nav-link">
+                <a href="{{ url('/histori_mahasiswa') }}" class="nav-link {{ ($activeMenu == 'histori_mahasiswa') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-history"></i>
                     <p>Histori Kompen</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ url('/histori_mahasiswa_selesai') }}" class="nav-link">
+                <a href="{{ url('/histori_mahasiswa_selesai') }}" class="nav-link {{ ($activeMenu == 'histori_mahasiswa_selesai') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-check-square"></i>
                     <p>Kompen Selesai</p>
                 </a>

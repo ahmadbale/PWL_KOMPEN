@@ -58,6 +58,11 @@
                 <h3 style="font-size: 2.5rem;">{{$totalKompen}}</h3>
                 <p style="font-weight: bold;">Total Tugas Kompen</p>
             </div>
+
+             
+            <a href="{{ url('/kompen') }}" class="small-box-footer" style="background: rgba(255,255,255,0.1); padding: 10px; font-weight: bold;">
+                Info lebih lanjut <i class="fas fa-arrow-circle-right"></i>
+            </a>
         </div>
     </div>
 

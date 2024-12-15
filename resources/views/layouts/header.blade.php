@@ -63,12 +63,23 @@
                   <i class="fas fa-sign-out-alt me-2"></i> Log Out
               </a>
           </div>
-            <script>
-              function logout() {
-                localStorage.removeItem('authToken');
-                window.location.href = '{{ url('logout')}}';
-                alert('Anda telah berhasil logout!');
-              }
-            </script>
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+          <script>
+  function logout() {
+    // Hapus token dari localStorage
+    localStorage.removeItem('authToken');
+
+    // Tampilkan SweetAlert sukses tanpa konfirmasi
+    Swal.fire(
+      'Logged Out!',
+      'Anda telah berhasil logout.',
+      'success'
+    ).then(() => {
+      // Redirect ke halaman logout setelah SweetAlert selesai
+      window.location.href = '{{ url('logout') }}';
+    });
+  }
+</script>
+   
     </ul>
   </nav>

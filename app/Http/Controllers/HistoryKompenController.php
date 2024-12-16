@@ -134,47 +134,39 @@ class HistoryKompenController extends Controller
     }
 
     public function updateKompenSelesai(Request $request)
-    {
-        try {
-            $idKompen = $request->input('id_kompen');
-    
-            // Validasi input
-            if (!$idKompen) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'ID Kompen tidak valid'
-                ], 400);
-            }
-    
-            // Cek apakah ada detail kompen dengan status pending
-            $pendingDetails = KompenDetailModel::where('id_kompen', $idKompen)
-                ->where('status', 'pending')
-                ->count();
-    
-            // Jika masih ada detail kompen yang pending, kembalikan error
-            if ($pendingDetails > 0) {
-                return response()->json([
-                    'status' => 'pending_exists',
-                    'message' => 'Tidak dapat menyelesaikan kompen. Masih terdapat pengajuan dengan status pending.',
-                    'pending_count' => $pendingDetails
-                ], 422);
-            }
-    
-            // Cari dan update data
-            $kompen = KompenModel::findOrFail($idKompen);
-            $kompen->is_selesai = 1;
-            $kompen->save();
-    
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Kompen berhasil diselesaikan.'
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Gagal menyelesaikan kompen: ' . $e->getMessage()
-            ], 500);
+{
+    try {
+        $idKompen = $request->input('id_kompen');
+
+        // Validasi input
+        if (!$idKompen) {
+            // Flash error message and redirect back
+            return redirect()->back()->with('error', 'ID Kompen tidak valid');
         }
+
+        // Cek apakah ada detail kompen dengan status pending
+        $pendingDetails = KompenDetailModel::where('id_kompen', $idKompen)
+            ->where('status', 'pending')
+            ->count();
+
+        // Jika masih ada detail kompen yang pending, kembalikan error
+        if ($pendingDetails > 0) {
+            return redirect()->back()->with('warning', 'Tidak dapat menyelesaikan kompen. Masih terdapat pengajuan dengan status pending.')->with('pending_count', $pendingDetails);
+        }
+
+        // Cari dan update data
+        $kompen = KompenModel::findOrFail($idKompen);
+        $kompen->is_selesai = 1;
+        $kompen->save();
+
+        // Flash success message
+        return redirect()->back()->with('success', 'Kompen berhasil diselesaikan.');
+
+    } catch (\Exception $e) {
+        // Flash error message
+        return redirect()->back()->with('error', 'Gagal menyelesaikan kompen: ' . $e->getMessage());
     }
+    }
+
     
 }

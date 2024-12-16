@@ -106,47 +106,83 @@
             </div>
         </div>
 
-        {{-- Footer --}}
-        <div class="modal-footer">
-            @if($kompen->is_selesai == 0)
-            <form action="{{ route('update-kompen-selesai') }}" method="POST" id="form-update-kompen-selesai">
-                @csrf
-                <input type="hidden" name="id_kompen" value="{{ $kompen->id_kompen }}">
-                <button type="submit" class="btn btn-sm btn-success btn-selesaikan-kompen">
-                    <i class="fas fa-check mr-1"></i> Selesaikan Kompen
-                </button>
-            </form>
-            @endif
-            <button type="button" data-dismiss="modal" class="btn btn-sm btn-warning">Kembali</button>
-        </div>
-    </div>
+     {{-- Flash Messages --}}
+@if(session('success'))
+<script>
+    Swal.fire({
+        title: 'Berhasil',
+        text: '{{ session('success') }}',
+        icon: 'success',
+        confirmButtonText: 'Tutup'
+    });
+</script>
+@endif
+
+@if(session('error'))
+<script>
+    Swal.fire({
+        title: 'Gagal',
+        text: '{{ session('error') }}',
+        icon: 'error',
+        confirmButtonText: 'Tutup'
+    });
+</script>
+@endif
+
+@if(session('warning'))
+<script>
+    // Get the pending count from the session
+    let pendingCount = @json(session('pending_count'));
+    
+    // Show warning message with the pending count
+    Swal.fire({
+        title: 'Peringatan',
+        text: '{{ session('warning') }}' + ' (Terdapat ' + pendingCount + ' pengajuan pending)',
+        icon: 'warning',
+        confirmButtonText: 'Tutup'
+    });
+</script>
+@endif
+
+{{-- Footer --}}
+<div class="modal-footer">
+@if($kompen->is_selesai == 0)
+<form action="{{ route('update-kompen-selesai') }}" method="POST" id="form-update-kompen-selesai">
+    @csrf
+    <input type="hidden" name="id_kompen" value="{{ $kompen->id_kompen }}">
+    <button type="submit" class="btn btn-sm btn-success btn-selesaikan-kompen">
+        <i class="fas fa-check mr-1"></i> Selesaikan Kompen
+    </button>
+</form>
+@endif
+<button type="button" data-dismiss="modal" class="btn btn-sm btn-warning">Kembali</button>
 </div>
 
 {{-- Include SweetAlert2 --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const formSelesaikanKompen = document.getElementById('form-update-kompen-selesai');
+document.addEventListener('DOMContentLoaded', function() {
+    const formSelesaikanKompen = document.getElementById('form-update-kompen-selesai');
 
-        if (formSelesaikanKompen) {
-            formSelesaikanKompen.addEventListener('submit', function(e) {
-                e.preventDefault();
+    if (formSelesaikanKompen) {
+        formSelesaikanKompen.addEventListener('submit', function(e) {
+            e.preventDefault();
 
-                Swal.fire({
-                    title: 'Konfirmasi',
-                    text: 'Apakah Anda yakin ingin menyelesaikan kompen ini?',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Ya, Selesaikan!',
-                    cancelButtonText: 'Batal'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        this.submit();
-                    }
-                });
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: 'Apakah Anda yakin ingin menyelesaikan kompen ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Selesaikan!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.submit();
+                }
             });
-        }
-    });
+        });
+    }
+});
 </script>

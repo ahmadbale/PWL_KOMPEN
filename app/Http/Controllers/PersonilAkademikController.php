@@ -149,7 +149,7 @@ class PersonilAkademikController extends Controller
             $rules = [
                 'id_level' => 'required|integer|nullable',
                 'nomor_induk' => 'nullable|string|max:18|unique:personil_akademik,nomor_induk',
-                'username' => 'nullable|string|max:20|unique:personil_akademik,username',
+                'username' => 'nullable|string|max:20',
                 'nama' => 'nullable|string|max:255',
                 'password' => 'nullable|string|max:255',
                 'nomor_telp' => 'nullable|string|max:15'

@@ -63,7 +63,7 @@
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Selesai</th>
                         <th>Status</th>
-                        <th width="15%">Aksi</th>
+                        <th width="15%">Pekerja Kompen</th>
                     </tr>
                 </thead>
                 <tbody></tbody>

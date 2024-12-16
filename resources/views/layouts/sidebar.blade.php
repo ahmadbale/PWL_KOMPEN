@@ -172,8 +172,14 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ url('/histori_mahasiswa_selesai') }}" class="nav-link {{ ($activeMenu == 'histori_mahasiswa_selesai') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-check-square"></i>
+                <a href="{{ url('/histori_mahasiswa_tolak') }}" class="nav-link">
+                    <i class="nav-icon fas fa-tasks"></i>
+                    <p>Kompen Tolak</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url('/histori_mahasiswa_selesai') }}" class="nav-link">
+                    <i class="nav-icon fas fa-tasks"></i>
                     <p>Kompen Selesai</p>
                 </a>
             </li>

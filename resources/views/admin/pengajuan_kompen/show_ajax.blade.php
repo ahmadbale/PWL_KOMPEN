@@ -55,6 +55,7 @@
                             <th>Mahasiswa</th>
                             <th>Prodi</th>
                             <th>Jam Kompen</th>
+                            <th>Kompetensi</th>
                             <th>Status</th>
                             <th width="15%">Aksi</th>
                         </tr>
@@ -66,6 +67,15 @@
                             <td class="text-center">{{ $item->mahasiswa->nama }}</td>
                             <td class="text-center">{{ $item->mahasiswa->prodi->nama_prodi ?? '-' }}</td>\
                             <td class="text-center">{{ $item->mahasiswa->jam_kompen}}</td>
+                            <td class="text-center">
+                                @if ($item->mahasiswa->kompetensi_mahasiswa)
+                                    @foreach ($item->mahasiswa->kompetensi_mahasiswa as $kompetensi)
+                                        <span class="badge badge-primary" style="margin-right: 5px;">{{ $kompetensi->nama_kompetensi }}</span>
+                                    @endforeach
+                                @else
+                                    -
+                                @endif
+                            </td>
                             <td class="text-center">
                                 <span class="badge badge-info status-badge-{{ $item->id_pengajuan_kompen }}" style="padding: 0.25rem 0.5rem; font-size: 0.875rem; border-radius: 0.25rem;">{{ $item->status }}</span>
                             </td>

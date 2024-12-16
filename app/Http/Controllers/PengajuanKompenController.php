@@ -74,30 +74,47 @@ class PengajuanKompenController extends Controller
             ->make(true);
     }
 
-    public function list(Request $request)
-    {
-        $pengajuankompen = PengajuanKompenModel::select(
-            'id_pengajuan_kompen',
-            'id_kompen',
-            'id_mahasiswa',
-            'status'
-        )
-        ->with('kompen', 'mahasiswa.prodi')
-        ->with(['mahasiswa:id_mahasiswa,nama,nama_prodi,jam_kompen'])->get();
+public function list(Request $request)
+{
+    $pengajuankompen = PengajuanKompenModel::select(
+        'id_pengajuan_kompen',
+        'id_kompen',
+        'id_mahasiswa',
+        'status'
+    )
+    ->with('kompen', 'mahasiswa.prodi', 'kompetensi_mahasiswa')
+    ->with([
+        'kompen', 
+        'mahasiswa' => function($query) {
+            $query->select('id_mahasiswa', 'nama', 'nama_prodi', 'jam_kompen');
+        },
+        'mahasiswa.prodi',
+        'kompetensi_mahasiswa' => function($query) {
+            $query->select('id_mahasiswa', 'id_kompetensi', 'nama_kompetensi', 'deskripsi_kompetensi');
+        }
+    ])
+    ->get();
 
-
-        return DataTables::of($pengajuankompen)
-            ->addIndexColumn()
-            ->addColumn('prodi', function ($pengajuankompen) {
-                return $pengajuankompen->mahasiswa->nama_prodi ?? '-'; // Tampilkan prodi atau tanda "-"
-            })
-            ->addColumn('aksi', function ($pengajuankompen) {
-                $btn = '<button onclick="modalAction(\'' . url('/pengajuankompen/' . $pengajuankompen->id_pengajuan_kompen . '/show_ajax') . '\')" class="btn btn-info btn-sm">Pengajuan Kompen</button> ';
-                return $btn;
-            })
-            ->rawColumns(['aksi'])
-            ->make(true);
-    }
+    return DataTables::of($pengajuankompen)
+        ->addIndexColumn()
+        ->addColumn('kompetensi_mahasiswa', function($pengajuankompen){
+            $kompetensiMahasiswa = $pengajuankompen->kompetensi_mahasiswa;
+            $kompetensiList = '';
+            foreach ($kompetensiMahasiswa as $kompetensi) {
+                $kompetensiList .= $kompetensi->nama_kompetensi . ', ';
+            }
+            return rtrim($kompetensiList, ', ');
+        })
+        ->addColumn('prodi', function ($pengajuankompen) {
+            return $pengajuankompen->mahasiswa->nama_prodi ?? '-'; // Tampilkan prodi atau tanda "-"
+        })
+        ->addColumn('aksi', function ($pengajuankompen) {
+            $btn = '<button onclick="modalAction(\'' . url('/pengajuankompen/' . $pengajuankompen->id_pengajuan_kompen . '/show_ajax') . '\')" class="btn btn-info btn-sm">Pengajuan Kompen</button> ';
+            return $btn;
+        })
+        ->rawColumns(['aksi'])
+        ->make(true);
+}
     public function show_ajax($id)
     {
         $pengajuankompen = PengajuanKompenModel::select('id_pengajuan_kompen', 'id_kompen', 'id_mahasiswa', 'status')

@@ -69,7 +69,7 @@ class HistoryKompenMahasiswaTolakController extends Controller
         if ($request->id_jenis_kompen) {
             $kompens->where('id_jenis_kompen', $request->id_jenis_kompen);
         }
-    
+        
         return DataTables::of($kompens)
         ->addIndexColumn()
         ->addColumn('aksi', function ($kompen) {

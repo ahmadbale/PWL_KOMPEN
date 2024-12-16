@@ -1,10 +1,10 @@
 @extends('layouts.template')
 
 @section('content')
-    <div class="card card-outline card-primary">
-        <div class="card-header">
-            <h3 class="card-title">{{ $page->title }}</h3>
-        </div>
+<div class="col-12 text-left mb-3" id="text">
+    <h2><b>Daftar Kompen Ditolak</b></h2>
+</div>
+<div class="card card-outline card">
         <div class="card-body">
             @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -26,13 +26,15 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group row">
+                        <label class="col-1 control-label col-form-label">Filter:</label>
                         <div class="col-3 position-relative">
                             <select class="form-control custom-select" name="id_jenis_kompen" id="id_jenis_kompen" required>
-                                <option value="">Pilih Jenis Kompen</option>
+                                <option value="">- Semua -</option>
                                 @foreach ($jeniskompen as $item)
                                     <option value="{{ $item->id_jenis_kompen }}">{{ $item->nama_jenis }}</option>
                                 @endforeach
                             </select>
+                            <small class="form-text text-muted">Jenis Kompen</small>
                         </div>
                     </div>
                 </div>
@@ -50,7 +52,7 @@
                         <th>Jam Kompen</th>
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Selesai</th>
-                        <th width="15%">Uploud Tugas</th>
+                        <th width="15%">Status</th>
                     </tr>
                 </thead>
                 <tbody></tbody>

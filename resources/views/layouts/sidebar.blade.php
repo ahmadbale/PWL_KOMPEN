@@ -155,13 +155,13 @@
             @if (auth()->user()->level->kode_level == 'MHS')
             <li class="nav-item">
                 <a href="{{ url('/kompetensi_mahasiswa') }}" class="nav-link">
-                    <i class="nav-icon fas fa-tasks"></i>
+                    <i class="nav-icon fas fa-tag"></i>
                     <p>Pilih Kompetensi</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ url('/cari_kompen') }}" class="nav-link {{ ($activeMenu == 'cari_tugas') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-tasks"></i>
+                    <i class="nav-icon fas fa-search"></i>
                     <p>Cari Tugas</p> 
                 </a>
             </li>
@@ -173,13 +173,13 @@
             </li>
             <li class="nav-item">
                 <a href="{{ url('/histori_mahasiswa_tolak') }}" class="nav-link">
-                    <i class="nav-icon fas fa-tasks"></i>
+                    <i class="nav-icon fas fa-times"></i>
                     <p>Kompen Tolak</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ url('/histori_mahasiswa_selesai') }}" class="nav-link">
-                    <i class="nav-icon fas fa-tasks"></i>
+                    <i class="nav-icon fas fa-check"></i>
                     <p>Kompen Selesai</p>
                 </a>
             </li>

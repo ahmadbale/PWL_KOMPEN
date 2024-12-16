@@ -48,7 +48,8 @@ class PengajuanKompenController extends Controller
             'is_selesai',
             'tanggal_mulai',
             'tanggal_selesai'
-        )->where('status', 'setuju');
+        )->where('status', 'setuju')
+        ->where('is_selesai', 0);
 
         if (auth()->user()->level->kode_level !== 'ADM') {
             $kompens->where('id_personil', auth()->user()->id_personil);

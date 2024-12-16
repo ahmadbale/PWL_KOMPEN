@@ -67,7 +67,7 @@ class HistoryKompenController extends Controller
         return DataTables::of($kompens)
             ->addIndexColumn()
             ->addColumn('aksi', function ($kompen) {
-                $buttonText = $kompen->is_selesai == 1 ? 'Done' : 'Lihat Pengajuan';
+                $buttonText = $kompen->is_selesai == 1 ? 'Done' : 'Lihat';
                 $btn = '<button onclick="modalAction(\'' . url('/histori_kompen/' . $kompen->id_kompen . '/show_ajax') . '\')" class="btn btn-info btn-sm">' . $buttonText . '</button> ';
                 return $btn;
             })
@@ -141,7 +141,24 @@ class HistoryKompenController extends Controller
     
             // Validasi input
             if (!$idKompen) {
-                return redirect()->back()->withErrors('ID Kompen tidak valid')->withInput();
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'ID Kompen tidak valid'
+                ], 400);
+            }
+    
+            // Cek apakah ada detail kompen dengan status pending
+            $pendingDetails = KompenDetailModel::where('id_kompen', $idKompen)
+                ->where('status', 'pending')
+                ->count();
+    
+            // Jika masih ada detail kompen yang pending, kembalikan error
+            if ($pendingDetails > 0) {
+                return response()->json([
+                    'status' => 'pending_exists',
+                    'message' => 'Tidak dapat menyelesaikan kompen. Masih terdapat pengajuan dengan status pending.',
+                    'pending_count' => $pendingDetails
+                ], 422);
             }
     
             // Cari dan update data
@@ -149,9 +166,15 @@ class HistoryKompenController extends Controller
             $kompen->is_selesai = 1;
             $kompen->save();
     
-            return redirect()->back()->with('success', 'Kompen berhasil diselesaikan.');
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Kompen berhasil diselesaikan.'
+            ]);
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors('Gagal menyelesaikan kompen: ' . $e->getMessage());
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Gagal menyelesaikan kompen: ' . $e->getMessage()
+            ], 500);
         }
     }
 }

@@ -31,24 +31,20 @@
 
     <div class="card card-outline" id="card-outline-id">
         <div class="card-body" id="card-body-id">
-            <table class="table table-striped table-hover table-sm mt-3 no-border" id="table_user">
+            <table class="table table-bordered table-striped table-hover table-sm" id="table_user">
                 <thead>
                     <tr>
-                        {{-- <th>No</th> --}}
-                        {{-- <th>Nama Mahasiswa</th> --}}
-                        <th>Alpha</th>
-                        <th>Total Kompensasi</th>
-                        <th>Total Kompensasi Selesai</th>
+                        <th class="text-center">Alpha</th>
+                        <th class="text-center">Total Kompensasi</th>
+                        <th class="text-center">Total Kompensasi Selesai</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($kompensasiData as $index => $data)
                     <tr>
-                        {{-- <td>{{ $index + 1 }}</td> --}}
-                        {{-- <td>{{ $data->nama }}</td> --}}
-                        <td>{{ $data->jam_alpha }}</td>
-                        <td>{{ $data->jam_kompen }}</td>
-                        <td>{{ $data->jam_kompen_selesai }}</td>
+                        <td class="text-center">{{ $data->jam_alpha }}</td>
+                        <td class="text-center">{{ $data->jam_kompen }}</td>
+                        <td class="text-center">{{ $data->jam_kompen_selesai }}</td>
                     </tr>
                     @endforeach
                 </tbody>

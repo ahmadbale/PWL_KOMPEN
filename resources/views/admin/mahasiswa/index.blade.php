@@ -21,6 +21,7 @@
     </button> 
     <button onclick="modalAction('{{ url('/mahasiswa/import') }}')" class="btn btn-success"> Import Data</button> 
     <a href="{{ url('/mahasiswa/export_excel') }}" class="btn btn-success"> <i class="fa fa-file-excel"></i> Export Data</a>
+    <a href="{{ url('/mahasiswa/export_pdf') }}" class="btn btn-success"><i class="fa fa-file-pdf"></i> Export Data</a> 
 </div>
 <br>
 <div class="card card-outline card">

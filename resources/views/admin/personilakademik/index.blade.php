@@ -21,6 +21,8 @@
         <div class="card-tools">
             <button onclick="modalAction('{{ url('personilakademik/create_ajax') }}')" class="btn btn-success"><i class="fas fa-plus-circle"></i> Tambah Data</button>
             <button onclick="modalAction('{{ url('/personilakademik/import') }}')" class="btn btn-success"> Import Data</button> 
+            <a href="{{ url('/personilakademik/export_excel') }}" class="btn btn-success"> <i class="fa fa-file-excel"></i> Export Data</a>
+            <a href="{{ url('/personilakademik/export_pdf') }}" class="btn btn-success"><i class="fa fa-file-pdf"></i> Export Data</a> 
         </div>
 <br>
 <div class="card card-outline ">

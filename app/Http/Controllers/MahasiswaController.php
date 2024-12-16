@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class MahasiswaController extends Controller
 {
@@ -322,6 +323,21 @@ class MahasiswaController extends Controller
 
         $writer->save('php://output');
         exit;
+    }
+
+    public function export_pdf()
+    {
+        $mahasiswa = MahasiswaModel::select('nomor_induk', 'nama', 'periode_tahun', 'password', 'jam_alpha','jam_kompen','jam_kompen_selesai','id_prodi')
+        ->with(['prodi']) // Pastikan relasi yang ada di model
+        ->orderBy('id_prodi')
+        ->get();
+        
+        $pdf = Pdf::loadView('admin.mahasiswa.export_pdf', ['mahasiswa'=> $mahasiswa]);
+        $pdf->setPaper('a4', 'landscape');
+        $pdf->setOption("isRemoteEnabled", true);
+        $pdf->render();
+
+        return $pdf->stream('Data Mahasiswa '.date('Y-m-d H:i:s').'.pdf');
     }
     
 

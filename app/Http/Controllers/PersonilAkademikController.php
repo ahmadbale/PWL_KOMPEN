@@ -248,7 +248,7 @@ class PersonilAkademikController extends Controller
                          'nomor_induk' => $value['A'],
                          'username' => $value['B'],
                          'nama' => $value['C'], 
-                         'password' => $value['D'], 
+                         'password' => bcrypt($value['D']), 
                          'nomor_telp' => $value['E'], 
                          'id_level' => $value['F'],
                          'created_at' => now(),

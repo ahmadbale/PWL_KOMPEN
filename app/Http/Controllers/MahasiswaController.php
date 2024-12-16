@@ -144,7 +144,7 @@ class MahasiswaController extends Controller
         // Cek apakah request berasal dari AJAX atau JSON
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
-                'nomor_induk' => 'required',
+                'nomor_induk' => 'required|max:10|unique:mahasiswa,nomor_induk',
                 'username' => 'required',
                 'nama' => 'required',
                 'periode_tahun' => 'required',
@@ -245,7 +245,7 @@ class MahasiswaController extends Controller
                          'username' => $value['B'],
                          'nama' => $value['C'], 
                          'periode_tahun' => $value['D'], 
-                         'password' => $value['E'], 
+                         'password' => bcrypt($value['E']), 
                          'jam_alpha' => $value['F'], 
                          'id_prodi' => $value['G'],
                          'created_at' => now(),

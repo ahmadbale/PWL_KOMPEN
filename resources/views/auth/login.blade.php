@@ -16,6 +16,9 @@
             min-height: 100vh;
             margin: 0;
             background-color: #f3f5fc;
+            background-image: url('bg.svg'); /* Tambahkan URL ke file SVG */
+            background-repeat: no-repeat;
+            background-size: cover;
             font-family: 'DM Sans', sans-serif;
         }
 

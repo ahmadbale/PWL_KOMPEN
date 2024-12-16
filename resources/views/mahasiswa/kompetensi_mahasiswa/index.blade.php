@@ -33,7 +33,6 @@
             <thead>
                 <tr>
                     <th width="5%">No</th>
-                    <th>Nama Mahasiswa</th>
                     <th>Nama Kompetensi</th>
                     <th>Deskripsi Kompetensi</th>
                     <th width="15%">Aksi</th>
@@ -100,11 +99,6 @@
                 className: "text-center",
                 orderable: false,
                 searchable: false
-            }, {
-                data: "nama_mahasiswa",
-                className: "",
-                orderable: true,
-                searchable: true
             }, {
                 data: "nama_kompetensi",
                 className: "",

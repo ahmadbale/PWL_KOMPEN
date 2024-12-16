@@ -14,23 +14,23 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
-class HistoryKompenMahasiswaSelesaiController extends Controller
+class HistoryKompenMahasiswaTolakController extends Controller
 {
     public function index()
     {
         $breadcrumb = (object) [
             'title' => 'Histori Kompen',
-            'list' => ['Home', 'Histori Kompen']
+            'list' => ['Home', 'Histori Ditolak']
         ];
 
         $page = (object) [
-            'title' => 'Daftar Histori Kompen Jurusan Teknologi Informasi'
+            'title' => 'Daftar Histori Kompen Ditolak Jurusan Teknologi Informasi'
         ];
 
         $activeMenu = 'kompen';
         $jeniskompen = JenisKompenModel::all();
         $kompens = KompenModel::all();
-        return view('mahasiswa.histori_mahasiswa_selesai.index', [
+        return view('mahasiswa.histori_mahasiswa_tolak.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'kompens' => $kompens,
@@ -42,25 +42,29 @@ class HistoryKompenMahasiswaSelesaiController extends Controller
     public function list_kompen(Request $request)
     {
         $id = auth()->user()->id_mahasiswa;
-        $kompens = KompenModel::with(['personil:id_personil,nama,username', 'jeniskompen:id_jenis_kompen,nama_jenis', 'detailkompen:id_kompen_detail,progres_1,progres_2'])
-            ->select(
-                'id_kompen',
-                'nomor_kompen',
-                'nama',
-                'deskripsi',
-                'id_personil',
-                'id_jenis_kompen',
-                'kuota',
-                'jam_kompen',
-                'status',
-                'is_selesai',
-                'tanggal_mulai',
-                'tanggal_selesai'
-            )->whereHas('detailkompen', function ($query) use ($id) {
-                $query->where('id_mahasiswa', $id)
-                      ->where('status', 'acc'); // Tambahkan kondisi status acc
-            })
-            ->where('is_selesai', 1);
+        $kompens = KompenModel::with(['personil:id_personil,nama,username', 'jeniskompen:id_jenis_kompen,nama_jenis', 'detailkompen' => function($query) use ($id) {
+            $query->where('id_mahasiswa', $id)
+                  ->where('status', 'reject');
+        }])
+        ->select(
+            'id_kompen',
+            'nomor_kompen',
+            'nama',
+            'deskripsi',
+            'id_personil',
+            'id_jenis_kompen',
+            'kuota',
+            'jam_kompen',
+            'status',
+            'is_selesai',
+            'tanggal_mulai',
+            'tanggal_selesai'
+        )
+        ->whereHas('detailkompen', function ($query) use ($id) {
+            $query->where('id_mahasiswa', $id)
+                  ->where('status', 'reject');
+        })
+        ->where('is_selesai', 1);
     
         if ($request->id_jenis_kompen) {
             $kompens->where('id_jenis_kompen', $request->id_jenis_kompen);
@@ -70,29 +74,14 @@ class HistoryKompenMahasiswaSelesaiController extends Controller
         ->addIndexColumn()
         ->addColumn('aksi', function ($kompen) {
             $today = now()->toDateString();
+            $detailKompen = $kompen->detailkompen->first();
     
-            // Cek jika kompen sudah selesai
-            if ($kompen->is_selesai == 1) {
-                return '<span class="badge bg-success">Kompen Telah Selesai</span>';
+            // Cek jika detail kompen ada dan direject
+            if ($detailKompen && $detailKompen->status === 'reject') {
+                return '<span class="badge bg-danger">Ditolak</span>';
             }
     
-            // Cek apakah tanggal selesai sudah terlewat
-            if ($today > $kompen->tanggal_selesai) {
-                return '<span class="badge bg-danger">Waktu Sudah Habis</span>';
-            }
-    
-            // Jika masih dalam rentang waktu, tampilkan tombol upload progress
-            return '<button onclick="modalAction(\'' . url('/histori_mahasiswa_selesai/' . $kompen->id_kompen . '/show_ajax') . '\')" class="btn btn-info btn-sm">Upload Progress</button>';
-        })
-        ->addColumn('cetak', function ($kompen) {
-            $today = now()->toDateString();
-        
-            // Cek jika kompen sudah selesai
-            if ($kompen->is_selesai == 1 || $today > $kompen->tanggal_selesai) {
-                return '<a href="' . url('/histori_mahasiswa_selesai/' . $kompen->id_kompen . '/export_pdf') . '" class="btn btn-info btn-sm">Cetak</a>';
-            }
-        
-            return ''; // Tidak menampilkan tombol cetak jika belum memenuhi kondisi
+            return '<span class="badge bg-warning">Status Tidak Diketahui</span>';
         })
         ->rawColumns(['aksi', 'cetak'])
         ->make(true);

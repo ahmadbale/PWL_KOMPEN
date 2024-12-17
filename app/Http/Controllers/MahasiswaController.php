@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Http\Controllers\DB;
 
 class MahasiswaController extends Controller
 {
@@ -216,53 +217,111 @@ class MahasiswaController extends Controller
     
     public function import_ajax(Request $request)
     {
-        if ($request->ajax() || $request->wantsJson()) {
-            $rules = [                 // validasi file harus xls atau xlsx, max 1MB                
-                'file_mahasiswa' => ['required', 'mimes:xlsx', 'max:1024']
-            ];
-
-            $validator = Validator::make($request->all(), $rules);
-            if ($validator->fails()) {
-                return response()->json(['status' => false, 'message' => 'Validasi Gagal', 'msgField' => $validator->errors()]);
-            }
-
-            $file = $request->file('file_mahasiswa');  // ambil file dari request 
-
-            $reader = IOFactory::createReader('Xlsx');  // load reader file excel             
-            $reader->setReadDataOnly(true);             // hanya membaca data            
-            $spreadsheet = $reader->load($file->getRealPath()); // load file excel             
-            $sheet = $spreadsheet->getActiveSheet();    // ambil sheet yang aktif 
-
-            $data = $sheet->toArray(null, false, true, true);   // ambil data excel 
-
-            $insert = [];
-            if (count($data) > 1) { // jika data lebih dari 1 baris                 
-                foreach ($data as $baris => $value) {
-                    if ($baris > 1) { // baris ke 1 adalah header, maka lewati                         
-                        $insert[] = 
-                        [
-                         'nomor_induk' => $value['A'],
-                         'username' => $value['B'],
-                         'nama' => $value['C'], 
-                         'periode_tahun' => $value['D'],
-                         'password' => bcrypt($value['E']), 
-                         'jam_alpha' => $value['F'], 
-                         'id_prodi' => $value['G'],
-                         'created_at' => now(),
-                        ];
+        try {
+            if ($request->ajax() || $request->wantsJson()) {
+                $rules = [                 
+                    'file_mahasiswa' => ['required', 'mimes:xlsx', 'max:1024']
+                ];
+    
+                $validator = Validator::make($request->all(), $rules);
+                if ($validator->fails()) {
+                    return response()->json([
+                        'status' => false, 
+                        'message' => 'Validasi Gagal', 
+                        'msgField' => $validator->errors()
+                    ]);
+                }
+    
+                $file = $request->file('file_mahasiswa');  
+    
+                // Add more detailed logging
+                \Log::info('Import file details:', [
+                    'filename' => $file->getClientOriginalName(),
+                    'size' => $file->getSize(),
+                    'mime' => $file->getMimeType()
+                ]);
+    
+                $reader = IOFactory::createReader('Xlsx');  
+                $reader->setReadDataOnly(true);             
+                $spreadsheet = $reader->load($file->getRealPath()); 
+                $sheet = $spreadsheet->getActiveSheet();    
+    
+                $data = $sheet->toArray(null, false, true, true);   
+    
+                // Debug: Log raw data
+                \Log::info('Raw Excel Data:', $data);
+    
+                $insert = [];
+                if (count($data) > 1) {
+                    foreach ($data as $baris => $value) {
+                        if ($baris > 1) { 
+                            // Add validation for each row
+                            if (
+                                empty($value['A']) || 
+                                empty($value['B']) || 
+                                empty($value['C'])
+                            ) {
+                                \Log::warning('Skipping row due to missing critical data', $value);
+                                continue;
+                            }
+    
+                            $insert[] = [
+                                'nomor_induk' => trim($value['A']),
+                                'username' => trim($value['B']),
+                                'nama' => trim($value['C']), 
+                                'periode_tahun' => trim($value['D'] ?? null), 
+                                'password' => bcrypt(trim($value['E'])), 
+                                'jam_alpha' => trim($value['F'] ?? 0), 
+                                'id_prodi' => trim($value['G'] ?? null),
+                                'created_at' => now(),
+                            ];
+                        }
                     }
+    
+                    if (count($insert) > 0) {
+                        // Use DB transaction for better error handling
+                        DB::beginTransaction();
+                        try {
+                            $inserted = MahasiswaModel::insertOrIgnore($insert);
+                            
+                            // Log number of inserted records
+                            \Log::info('Records inserted: ' . $inserted);
+    
+                            DB::commit();
+                            return response()->json([
+                                'status' => true, 
+                                'message' => 'Data berhasil diimport (' . count($insert) . ' records)'
+                            ]);
+                        } catch (\Exception $e) {
+                            DB::rollBack();
+                            \Log::error('Import Error: ' . $e->getMessage());
+                            return response()->json([
+                                'status' => false, 
+                                'message' => 'Gagal menyimpan data: ' . $e->getMessage()
+                            ]);
+                        }
+                    } else {
+                        return response()->json([
+                            'status' => false, 
+                            'message' => 'Tidak ada data valid untuk diimport'
+                        ]);
+                    }
+                } else {
+                    return response()->json([
+                        'status' => false, 
+                        'message' => 'Template excel kosong atau tidak sesuai'
+                    ]);
                 }
-
-                if (count($insert) > 0) {                     // insert data ke database, jika data sudah ada, maka diabaikan                     
-                    MahasiswaModel::insertOrIgnore($insert);
-                }
-
-                return response()->json(['status' => true, 'message' => 'Data berhasil diimport']);
-            } else {
-                return response()->json(['status' => false, 'message' => 'Tidak ada data yang diimport']);
             }
+            return redirect('/');
+        } catch (\Exception $e) {
+            // Catch any unexpected errors
+            \Log::error('Unexpected Import Error: ' . $e->getMessage());
+            return response()->json([
+                'status' => false, 
+                'message' => 'Terjadi kesalahan tidak terduga: ' . $e->getMessage()
+            ]);
         }
-        return redirect('/');
     }
 
    

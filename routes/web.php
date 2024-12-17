@@ -30,7 +30,7 @@ Route::middleware(['auth:personil,mahasiswa'])->group(function() {
 Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/dashboard-admin', [WelcomeController::class, 'index_admin']);
 
-Route::group(['prefix' =>'personilakademik'],function(){
+Route::group(['prefix' =>'personilakademik', 'middleware'=>'authorize:ADM'],function(){
     Route::get('/',[PersonilAkademikController::class,'index']);
     Route::post('/list',[PersonilAkademikController::class, 'list']);
     Route::get('/create_ajax', [PersonilAkademikController::class, 'create_ajax']); // Menampilkan halaman form tambah level Ajax
@@ -42,7 +42,7 @@ Route::group(['prefix' =>'personilakademik'],function(){
     Route::delete('/{id}/delete_ajax', [PersonilAkademikController::class, 'delete_ajax']); // Untuk hapus data level Ajax
 });
 
-Route::group(['prefix' =>'level'],function(){
+Route::group(['prefix' =>'level', 'middleware'=>'authorize:ADM'],function(){
     Route::get('/',[LevelController::class,'index']);
     Route::post('/list',[LevelController::class, 'list']);
     Route::post('/ajax', [LevelController::class, 'store_ajax']); // Menampilkan data level baru Ajax
@@ -52,7 +52,7 @@ Route::group(['prefix' =>'level'],function(){
     Route::delete('/{id}/delete_ajax', [LevelController::class, 'delete_ajax']); // Untuk hapus data level Ajax
 });
 
-Route::group(['prefix' => 'mahasiswa'], function () {
+Route::group(['prefix' => 'mahasiswa', 'middleware'=>'authorize:ADM'], function () {
     Route::get('/', [MahasiswaController::class, 'index']);
     Route::post('/list', [MahasiswaController::class, 'list']);
     Route::get('/create_ajax', [MahasiswaController::class, 'create_ajax']);
@@ -67,7 +67,7 @@ Route::group(['prefix' => 'mahasiswa'], function () {
     Route::get('/export_excel',[MahasiswaController::class,'export_excel']);
 });
 
-Route::group(['prefix' => 'prodi'], function(){
+Route::group(['prefix' => 'prodi', 'middleware'=>'authorize:ADM'], function(){
     Route::get('/', [ProdiController::class, 'index']);
     Route::post('/list', [ProdiController::class, 'list']);
     Route::get('/create_ajax', [ProdiController::class, 'create_ajax']);
@@ -78,7 +78,7 @@ Route::group(['prefix' => 'prodi'], function(){
     Route::delete('/{id}/delete_ajax', [ProdiController::class, 'delete_ajax']);
 });
 
-Route::group(['prefix' => 'kompetensi'], function(){
+Route::group(['prefix' => 'kompetensi', 'middleware'=>'authorize:ADM'], function(){
     Route::get('/', [KompetensiController::class, 'index']);
     Route::post('/list', [KompetensiController::class, 'list']);
     Route::get('/create_ajax', [KompetensiController::class, 'create_ajax']);
@@ -89,7 +89,7 @@ Route::group(['prefix' => 'kompetensi'], function(){
     Route::delete('/{id}/delete_ajax', [KompetensiController::class, 'delete_ajax']);
 });
 
-Route::group(['prefix' => 'jeniskompen'], function(){
+Route::group(['prefix' => 'jeniskompen', 'middleware'=>'authorize:ADM'], function(){
     Route::get('/', [JenisController::class, 'index']);
     Route::post('/list', [JenisController::class, 'list']);
     Route::get('/create_ajax', [JenisController::class, 'create_ajax']);
@@ -100,7 +100,7 @@ Route::group(['prefix' => 'jeniskompen'], function(){
     Route::delete('/{id}/delete_ajax', [JenisController::class, 'delete_ajax']);
 });
 
-Route::group(['prefix' => 'kompen'], function(){
+Route::group(['prefix' => 'kompen', 'middleware'=>'authorize:ADM,DSN,TDK'], function(){
     Route::get('/', [BuatKompenController::class, 'index']);
     Route::post('/list', [BuatKompenController::class, 'list']);
     Route::get('/create_ajax', [BuatKompenController::class, 'create_ajax']);
@@ -109,7 +109,7 @@ Route::group(['prefix' => 'kompen'], function(){
     Route::post('/update-status', [BuatKompenController::class, 'updateStatus'])->name('kompen.updateStatus');
 });
 
-Route::group(['prefix' => 'pengajuankompen'], function(){
+Route::group(['prefix' => 'pengajuankompen', 'middleware'=>'authorize:ADM,DSN,TDK'], function(){
     Route::get('/', [PengajuanKompenController::class, 'index']);
     Route::post('/list', [PengajuanKompenController::class, 'list']);//list Pengajuan
     Route::post('/list_kompen',[PengajuanKompenController::class, 'list_kompen']);//link
@@ -118,7 +118,7 @@ Route::group(['prefix' => 'pengajuankompen'], function(){
     Route::post('/update-status', [PengajuanKompenController::class, 'updateStatus'])->name('pengajuankompen.updateStatus');
 });
 
-Route::group(['prefix' => 'cari_kompen'],function():void{
+Route::group(['prefix' => 'cari_kompen', 'middleware'=>'authorize:MHS'],function():void{
     Route::get('/',[CariKompenController::class,'index']);
     Route::post('/list',[CariKompenController::class, 'list']);
     Route::post('/ajukan_ajax', [CariKompenController::class, 'ajukankompen']);
@@ -126,14 +126,14 @@ Route::group(['prefix' => 'cari_kompen'],function():void{
     Route::post('/ajukan_kompen', [CariKompenController::class, 'store_pengajuan'])->name('ajukan.kompen');
 });
 
-Route::group(['prefix' => 'tolak_kompen'],function():void{
+Route::group(['prefix' => 'tolak_kompen', 'middleware'=>'authorize:ADM,DSN,TDK'],function():void{
     Route::get('/',[TolakKompenController::class,'index']);
     Route::post('/list',[TolakKompenController::class, 'list']);
     Route::get('/{id}/show_ajax', [TolakKompenController::class, 'show_ajax']); 
 });
 
 //History Dosen
-Route::group(['prefix' => 'histori_kompen'], function(){
+Route::group(['prefix' => 'histori_kompen', 'middleware'=>'authorize:ADM,DSN,TDK'], function(){
     Route::get('/', [HistoryKompenController::class, 'index']);
     Route::post('/list_kompen', [HistoryKompenController::class, 'list_kompen']);
     Route::post('/list', [HistoryKompenController::class, 'list']);
@@ -144,7 +144,7 @@ Route::group(['prefix' => 'histori_kompen'], function(){
 });
 
 //History Mahasiswa
-Route::group(['prefix' => 'histori_mahasiswa'], function(){
+Route::group(['prefix' => 'histori_mahasiswa', 'middleware'=>'authorize:MHS'], function(){
     Route::get('/', [HistoryKompenMahasiswaController::class, 'index'])->name('histori_mahasiswa.index');
     Route::post('/list_kompen', [HistoryKompenMahasiswaController::class, 'list_kompen']);
     Route::post('/list', [HistoryKompenMahasiswaController::class, 'list']);
@@ -153,7 +153,7 @@ Route::group(['prefix' => 'histori_mahasiswa'], function(){
     Route::put('/{id}/updateProgres', [HistoryKompenMahasiswaController::class, 'updateProgres'])->name('histori_mahasiswa.updateProgres');
 });
 
-Route::group(['prefix' => 'histori_mahasiswa_selesai'], function(){
+Route::group(['prefix' => 'histori_mahasiswa_selesai', 'middleware'=>'authorize:MHS'], function(){
     Route::get('/', [HistoryKompenMahasiswaSelesaiController::class, 'index'])->name('histori_mahasiswa.index');
     Route::post('/list_kompen', [HistoryKompenMahasiswaSelesaiController::class, 'list_kompen']);
     Route::post('/list', [HistoryKompenMahasiswaSelesaiController::class, 'list']);
@@ -162,7 +162,7 @@ Route::group(['prefix' => 'histori_mahasiswa_selesai'], function(){
     Route::get('/{id}/export_pdf', [HistoryKompenMahasiswaSelesaiController::class, 'export_pdf']);    
 });
 
-Route::group(['prefix' => 'histori_mahasiswa_tolak'], function(){
+Route::group(['prefix' => 'histori_mahasiswa_tolak', 'middleware'=>'authorize:MHS'], function(){
     Route::get('/', [HistoryKompenMahasiswaTolakController::class, 'index'])->name('histori_mahasiswa.index');
     Route::post('/list_kompen', [HistoryKompenMahasiswaTolakController::class, 'list_kompen']);
     Route::post('/list', [HistoryKompenMahasiswaTolakController::class, 'list']);
@@ -170,7 +170,7 @@ Route::group(['prefix' => 'histori_mahasiswa_tolak'], function(){
     Route::put('/{id}/updateProgres', [HistoryKompenMahasiswaTolakController::class, 'updateProgres'])->name('histori_mahasiswa.updateProgres');
 });
 
-Route::group(['prefix' => 'histori_selesai'], function(){
+Route::group(['prefix' => 'histori_selesai', 'middleware'=>'authorize:ADM,DSN,TDK'], function(){
     Route::get('/', [HistoryKompenSelesaiController::class, 'index']);
     Route::post('/list_kompen', [HistoryKompenSelesaiController::class, 'list_kompen']);
     Route::post('/list', [HistoryKompenSelesaiController::class, 'list']);
@@ -186,16 +186,16 @@ Route::group(['prefix' => 'kompetensi_mahasiswa'], function(){
     Route::delete('/{id}/delete_ajax', [KompetensiMahasiswaController::class, 'delete_ajax']);
 });
 
-
-Route::get('/profile-pa', [ProfilePersonilController::class, 'index']);
-Route::post('/profile-pa/update_profile/{id}', [ProfilePersonilController::class, 'update_profile']);
-Route::post('/profile-pa/update_password/{id}', [ProfilePersonilController::class, 'update_password']);
-Route::post('/profile-pa/update_picture/{id}', [ProfilePersonilController::class, 'update_picture']);
-
-
-Route::get('/profile-mhs', [ProfileMahasiswaController::class, 'index']);
-Route::post('/profile-mhs/update_profile/{id}', [ProfileMahasiswaController::class, 'update_profile']);
-Route::post('/profile-mhs/update_password/{id}', [ProfileMahasiswaController::class, 'update_password']);
-Route::post('/profile-mhs/update_picture/{id}', [ProfileMahasiswaController::class, 'update_picture']);
-
+Route::group(['middleware'=>'authorize:ADM,DSN,TDK'], function(){
+    Route::get('/profile-pa', [ProfilePersonilController::class, 'index']);
+    Route::post('/profile-pa/update_profile/{id}', [ProfilePersonilController::class, 'update_profile']);
+    Route::post('/profile-pa/update_password/{id}', [ProfilePersonilController::class, 'update_password']);
+    Route::post('/profile-pa/update_picture/{id}', [ProfilePersonilController::class, 'update_picture']);
+});
+Route::group(['middleware'=>'authorize:MHS'], function(){
+    Route::get('/profile-mhs', [ProfileMahasiswaController::class, 'index']);
+    Route::post('/profile-mhs/update_profile/{id}', [ProfileMahasiswaController::class, 'update_profile']);
+    Route::post('/profile-mhs/update_password/{id}', [ProfileMahasiswaController::class, 'update_password']);
+    Route::post('/profile-mhs/update_picture/{id}', [ProfileMahasiswaController::class, 'update_picture']);
+});
 });

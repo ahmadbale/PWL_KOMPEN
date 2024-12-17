@@ -67,7 +67,6 @@
                         maxlength: 255
                     },
                     progres_2: {
-                        required: true,
                         maxlength: 255
                     }
                 },
@@ -77,7 +76,6 @@
                         maxlength: "Progres 1 maksimal 255 karakter"
                     },
                     progres_2: {
-                        required: "Progres 2 harus diisi",
                         maxlength: "Progres 2 maksimal 255 karakter"
                     }
                 },

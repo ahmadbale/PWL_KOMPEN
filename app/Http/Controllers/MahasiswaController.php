@@ -214,117 +214,57 @@ class MahasiswaController extends Controller
         return view('admin.mahasiswa.import');
     }
    
-    // public function import_ajax(Request $request)
-    // {
-    //     if ($request->ajax() || $request->wantsJson()) {
-    //         $rules = [                 // validasi file harus xls atau xlsx, max 1MB                
-    //             'file_mahasiswa' => ['required', 'mimes:xlsx', 'max:1024']
-    //         ];
-
-    //         $validator = Validator::make($request->all(), $rules);
-    //         if ($validator->fails()) {
-    //             return response()->json(['status' => false, 'message' => 'Validasi Gagal', 'msgField' => $validator->errors()]);
-    //         }
-
-    //         $file = $request->file('file_mahasiswa');  // ambil file dari request 
-
-    //         $reader = IOFactory::createReader('Xlsx');  // load reader file excel             
-    //         $reader->setReadDataOnly(true);             // hanya membaca data            
-    //         $spreadsheet = $reader->load($file->getRealPath()); // load file excel             
-    //         $sheet = $spreadsheet->getActiveSheet();    // ambil sheet yang aktif 
-
-    //         $data = $sheet->toArray(null, false, true, true);   // ambil data excel 
-
-    //         $insert = [];
-    //         if (count($data) > 1) { // jika data lebih dari 1 baris                 
-    //             foreach ($data as $baris => $value) {
-    //                 if ($baris > 1) { // baris ke 1 adalah header, maka lewati                         
-    //                     $insert[] = 
-    //                     [
-    //                      'nomor_induk' => $value['A'],
-    //                      'username' => $value['B'],
-    //                      'nama' => $value['C'], 
-    //                      'periode_tahun' => $value['D'], 
-    //                      'password' => bcrypt($value['E']), 
-    //                      'jam_alpha' => $value['F'], 
-    //                      'id_prodi' => $value['G'],
-    //                      'created_at' => now(),
-    //                     ];
-    //                 }
-    //             }
-
-    //             if (count($insert) > 0) {                     // insert data ke database, jika data sudah ada, maka diabaikan                     
-    //                 MahasiswaModel::insertOrIgnore($insert);
-    //             }
-
-    //             return response()->json(['status' => true, 'message' => 'Data berhasil diimport']);
-    //         } else {
-    //             return response()->json(['status' => false, 'message' => 'Tidak ada data yang diimport']);
-    //         }
-    //     }
-    //     return redirect('/');
-    // }
-
-    public function import_ajax(Request $request){
+    public function import_ajax(Request $request)
+    {
         if ($request->ajax() || $request->wantsJson()) {
-            $rules = [
-                // validasi file harus xls atau xlsx, max 1MB
+            $rules = [                 // validasi file harus xls atau xlsx, max 1MB                
                 'file_mahasiswa' => ['required', 'mimes:xlsx', 'max:1024']
             ];
+
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Validasi Gagal',
-                    'msgField' => $validator->errors()
-                ]);
+                return response()->json(['status' => false, 'message' => 'Validasi Gagal', 'msgField' => $validator->errors()]);
             }
-            $file = $request->file('file_mahasiswa'); // ambil file dari request
-            $reader = IOFactory::createReader('Xlsx'); // load reader file excel
-            $reader->setReadDataOnly(true); // hanya membaca data
-            $spreadsheet = $reader->load($file->getRealPath()); // load file excel
-            $sheet = $spreadsheet->getActiveSheet(); // ambil sheet yang aktif
-            $data = $sheet->toArray(null, false, true, true); // ambil data excel
+
+            $file = $request->file('file_mahasiswa');  // ambil file dari request 
+
+            $reader = IOFactory::createReader('Xlsx');  // load reader file excel             
+            $reader->setReadDataOnly(true);             // hanya membaca data            
+            $spreadsheet = $reader->load($file->getRealPath()); // load file excel             
+            $sheet = $spreadsheet->getActiveSheet();    // ambil sheet yang aktif 
+
+            $data = $sheet->toArray(null, false, true, true);   // ambil data excel 
+
             $insert = [];
-            if (count($data) > 1) { // jika data lebih dari 1 baris
+            if (count($data) > 1) { // jika data lebih dari 1 baris                 
                 foreach ($data as $baris => $value) {
-                    if ($baris > 1) { // baris ke 1 adalah header, maka lewati
-                        if($value['G'] == "TI"){
-                            $id_prodi = 2;
-                        } elseif ($value['G'] == "SIB") {
-                            $id_prodi = 3;
-                        } elseif ($value['G'] == "PPLS") {
-                            $id_prodi = 4;
-                        }
-                        $insert[] = [
-                            'nomor_induk' => $value['A'],
-                                                'username' => $value['B'],
-                                                 'nama' => $value['C'], 
-                                                 'periode_tahun' => $value['D'], 
-                                                 'password' => bcrypt($value['E']), 
-                                                 'jam_alpha' => $value['F'], 
-                                                 'id_prodi' => $value['G'],
-                                                 'created_at' => now(),
+                    if ($baris > 1) { // baris ke 1 adalah header, maka lewati                         
+                        $insert[] = 
+                        [
+                         'nomor_induk' => $value['A'],
+                         'username' => $value['B'],
+                         'nama' => $value['C'], 
+                         'periode_tahun' => $value['D'], 
+                         'password' => bcrypt($value['E']), 
+                         'jam_alpha' => $value['F'], 
+                         'id_prodi' => $value['G'],
+                         'created_at' => now(),
                         ];
                     }
                 }
-                if (count($insert) > 0) {
-                    // insert data ke database, jika data sudah ada, maka diabaikan
+
+                if (count($insert) > 0) {                     // insert data ke database, jika data sudah ada, maka diabaikan                     
                     MahasiswaModel::insertOrIgnore($insert);
                 }
-                return response()->json([
-                    'status' => true,
-                    'message' => 'Data berhasil diimport'
-                ]);
+
+                return response()->json(['status' => true, 'message' => 'Data berhasil diimport']);
             } else {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Tidak ada data yang diimport'
-                ]);
+                return response()->json(['status' => false, 'message' => 'Tidak ada data yang diimport']);
             }
         }
-        return redirect('/mahasiswa');
+        return redirect('/');
     }
+
     
     public function export_excel()
     {

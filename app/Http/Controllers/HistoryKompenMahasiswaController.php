@@ -167,9 +167,7 @@ class HistoryKompenMahasiswaController extends Controller
         // Validasi input dengan aturan tambahan
         $request->validate([
             'progres_1' => 'required|string|max:255',
-            'progres_2' => 'string|max:255',
-        ], [
-            'progres_1.required' => 'Progres 1 harus diisi terlebih dahulu.',
+            'progres_2' => 'max:255',
         ]);
     
         try {
@@ -186,14 +184,6 @@ class HistoryKompenMahasiswaController extends Controller
                 return response()->json([
                     'status' => false,
                     'message' => 'Hayolo kamu sudah lewat tenggat uploud kompen!!!',
-                ], 400);
-            }
-    
-            // Cek apakah progres_1 sudah ada sebelum mengizinkan update progres_2
-            if ($detailKompen->progres_1 === null) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Progres 1 harus diisi terlebih dahulu sebelum mengisi Progres 2.',
                 ], 400);
             }
     

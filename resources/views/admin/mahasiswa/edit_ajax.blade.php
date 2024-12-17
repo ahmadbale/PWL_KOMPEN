@@ -29,12 +29,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label>Nomo Induk</label>
-                        <input value="{{ $mahasiswa->nomor_induk }}" type="number" name="nomor_induk" id="nomor_induk"
-                            class="form-control" required>
-                        <small id="error-nomor_induk" class="error-text form-text text-danger"></small>
-                    </div>
+                    <div class="row">
+                        <!-- Bagian Kiri -->
+                        <div class="col-md-6">
                     <div class="form-group">
                         <label>Username</label>
                         <input value="{{ $mahasiswa->username }}" type="text" name="username" id="username" class="form-control"
@@ -60,6 +57,9 @@
                             password</small>
                         <small id="error-password" class="error-text form-text text-danger"></small>
                     </div>
+                </div>
+                         <!-- Bagian Kanan -->
+                         <div class="col-md-6">
                     <div class="form-group">
                         <label>Jam Alpha</label>
                         <input value="{{ $mahasiswa->jam_alpha }}" type="number" name="jam_alpha" id="jam_alpha" class="form-control"
@@ -89,6 +89,8 @@
                         </select>
                         <small id="error-id_prodi" class="error-text form-text text-danger"></small>
                     </div>
+                </div>
+            </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>

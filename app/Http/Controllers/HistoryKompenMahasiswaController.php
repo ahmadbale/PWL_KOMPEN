@@ -167,10 +167,9 @@ class HistoryKompenMahasiswaController extends Controller
         // Validasi input dengan aturan tambahan
         $request->validate([
             'progres_1' => 'required|string|max:255',
-            'progres_2' => 'required|string|max:255',
+            'progres_2' => 'string|max:255',
         ], [
             'progres_1.required' => 'Progres 1 harus diisi terlebih dahulu.',
-            'progres_2.required' => 'Progres 2 harus diisi setelah Progres 1.'
         ]);
     
         try {

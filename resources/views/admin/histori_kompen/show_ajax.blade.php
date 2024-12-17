@@ -84,8 +84,15 @@
                                     @endif
                                 </td>
                                 @if($kompen->is_selesai != 1)
-                                <td class="text-center">
+                                {{-- <td class="text-center">
                                     <span class="badge badge-info status-badge-{{ $item->id_kompen_detail }}" style="padding: 0.25rem 0.5rem; font-size: 0.875rem; border-radius: 0.25rem;">{{ $item->status }}</span>
+                                </td> --}}
+                                <td class="text-center">
+                                    <span class="badge badge-info status-badge-{{ $item->id_kompen_detail }} 
+                                        {{ $item->status == 'pending' ? 'status-badge-pending' : '' }}" 
+                                        style="padding: 0.25rem 0.5rem; font-size: 0.875rem; border-radius: 0.25rem;">
+                                        {{ $item->status }}
+                                    </span>
                                 </td>
                                 <td class="text-center">
                                     <form id="updateForm-{{ $item->id_kompen_detail }}" class="update-form" action="{{ url('/histori_kompen/update-status') }}" method="POST">
@@ -160,29 +167,44 @@
 
 {{-- Include SweetAlert2 --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{{-- Modify the existing script section --}}
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const formSelesaikanKompen = document.getElementById('form-update-kompen-selesai');
-
-    if (formSelesaikanKompen) {
-        formSelesaikanKompen.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            Swal.fire({
-                title: 'Konfirmasi',
-                text: 'Apakah Anda yakin ingin menyelesaikan kompen ini?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, Selesaikan!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    this.submit();
+    document.addEventListener('DOMContentLoaded', function() {
+        const formSelesaikanKompen = document.getElementById('form-update-kompen-selesai');
+    
+        if (formSelesaikanKompen) {
+            formSelesaikanKompen.addEventListener('submit', function(e) {
+                e.preventDefault();
+    
+                // Count pending status items
+                const pendingItems = document.querySelectorAll('.status-badge-pending').length;
+    
+                if (pendingItems > 0) {
+                    // Show error if there are pending items
+                    Swal.fire({
+                        title: 'Error',
+                        text: `Tidak dapat menyelesaikan kompen. Masih terdapat ${pendingItems} pengajuan dengan status pending.`,
+                        icon: 'error',
+                        confirmButtonText: 'Tutup'
+                    });
+                } else {
+                    // Proceed with confirmation if no pending items
+                    Swal.fire({
+                        title: 'Konfirmasi',
+                        text: 'Apakah Anda yakin ingin menyelesaikan kompen ini?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Ya, Selesaikan!',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            this.submit();
+                        }
+                    });
                 }
             });
-        });
-    }
-});
-</script>
+        }
+    });
+    </script>

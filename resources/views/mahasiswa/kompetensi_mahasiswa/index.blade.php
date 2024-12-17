@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="col-12 text-left mb-3" id="text">
-        <h2><b>Daftar Kompen Ditolak</b></h2>
+        <h2><b>Daftar Kompetensi Mahasiswa</b></h2>
     </div>
 
     <div class="card-tools">

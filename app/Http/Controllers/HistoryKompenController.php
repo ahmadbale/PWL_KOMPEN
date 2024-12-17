@@ -134,7 +134,7 @@ class HistoryKompenController extends Controller
     }
 
     public function updateKompenSelesai(Request $request)
-{
+    {
     try {
         $idKompen = $request->input('id_kompen');
 

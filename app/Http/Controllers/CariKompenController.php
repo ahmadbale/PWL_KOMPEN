@@ -54,6 +54,7 @@ class CariKompenController extends Controller
             'kompen.status'
         )
         ->where('status', 'setuju')
+        ->where('is_selesai', 0)
         ->whereRaw('(SELECT COUNT(*) FROM pengajuan_kompen WHERE pengajuan_kompen.id_kompen = kompen.id_kompen AND pengajuan_kompen.status != "ditolak") < kompen.kuota');
         
         if ($request->id_jenis_kompen) {

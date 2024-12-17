@@ -185,10 +185,12 @@ class HistoryKompenMahasiswaSelesaiController extends Controller
         }
     }
 
-    public function export_pdf()
+    public function export_pdf($id)
     {
-        $kompen = KompenDetailModel::select('id_kompen', 'id_mahasiswa')
+
+        $kompen = KompenDetailModel::select('id_kompen_detail','id_kompen', 'id_mahasiswa')
             ->where('id_mahasiswa', auth()->user()->id_mahasiswa)
+            ->where('id_kompen', $id)
             ->with('kompen', 'mahasiswa','kompen.personil')
             ->first();
         

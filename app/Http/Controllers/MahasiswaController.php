@@ -213,7 +213,7 @@ class MahasiswaController extends Controller
     {
         return view('admin.mahasiswa.import');
     }
-   
+    
     public function import_ajax(Request $request)
     {
         if ($request->ajax() || $request->wantsJson()) {
@@ -244,7 +244,7 @@ class MahasiswaController extends Controller
                          'nomor_induk' => $value['A'],
                          'username' => $value['B'],
                          'nama' => $value['C'], 
-                         'periode_tahun' => $value['D'], 
+                         'periode_tahun' => $value['D'],
                          'password' => bcrypt($value['E']), 
                          'jam_alpha' => $value['F'], 
                          'id_prodi' => $value['G'],
@@ -265,6 +265,7 @@ class MahasiswaController extends Controller
         return redirect('/');
     }
 
+   
     public function export_excel()
     {
         $mahasiswa = MahasiswaModel::select('nomor_induk','nama','username','periode_tahun','jam_alpha','jam_kompen','jam_kompen_selesai','id_prodi')

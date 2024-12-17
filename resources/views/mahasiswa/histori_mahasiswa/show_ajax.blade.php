@@ -30,14 +30,13 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Progres 1 <span class="text-danger">*</span></label>
+                        <label>Progres 1 (75%) <span class="text-danger">*</span></label>
                         <input value="{{ $detailKompen->progres_1 }}" type="text" name="progres_1" id="progres_1" class="form-control" required>
                         <small id="error-progres_1" class="error-text form-text text-danger"></small>
                     </div>
                     <div class="form-group">
-                        <label>Progres 2 <span class="text-danger">*</span></label>
-                        <input value="{{ $detailKompen->progres_2 }}" type="text" name="progres_2" id="progres_2" class="form-control" {{ $detailKompen->progres_1 ? '' : 'disabled' }}>
-                        <small id="error-progres_2" class="error-text form-text text-danger"></small>
+                        <label>Progres 2 (100%) <span class="text-danger">*</span></label>
+                        <input value="{{ $detailKompen->progres_2 }}" type="text" name="progres_2" id="progres_2" class="form-control">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -54,9 +53,6 @@
                 // Aktifkan input progres_2 jika progres_1 memiliki nilai
                 if ($(this).val().trim() !== '') {
                     $('#progres_2').prop('disabled', false);
-                } else {
-                    // Nonaktifkan dan kosongkan progres_2 jika progres_1 kosong
-                    $('#progres_2').prop('disabled', true).val('');
                 }
             });
 

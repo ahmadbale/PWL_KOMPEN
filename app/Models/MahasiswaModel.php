@@ -58,4 +58,10 @@ class MahasiswaModel extends Authenticatable implements JWTSubject
     {
         return $this->level->kode_level;
     }
+
+
+    public function kompetensi_mahasiswa()
+    {
+        return $this->hasMany(KompetensiMahasiswaModel::class, 'id_mahasiswa', 'id_mahasiswa');
+    }
 }

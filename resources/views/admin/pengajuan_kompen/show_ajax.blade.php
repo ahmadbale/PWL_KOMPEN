@@ -49,7 +49,6 @@
                 </div>
             
                 <table class="table table-bordered table-hover table-sm mt-4">
-                       <h2 class="text-center">Data Mahasiswa</h2>
                     <thead style="background: #6a11cb; color: white; text-align: center;">
                         <tr>
                             <th width="5%">No</th>  
@@ -62,39 +61,45 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($pengajuankompen as $item)
+                        @forelse ($pengajuankompen as $item)
                         <tr>
                             <td class="text-center">{{ $loop->iteration }}</td>
-                            <td class="text-center">{{ $item->mahasiswa->nama }}</td>
+                            <td class="text-center">{{ $item->mahasiswa->nama ?? '-' }}</td>
                             <td class="text-center">{{ $item->mahasiswa->prodi->nama_prodi ?? '-' }}</td>
-                            <td class="text-center">{{ $item->mahasiswa->jam_kompen}}</td>
+                            <td class="text-center">{{ $item->mahasiswa->jam_kompen ?? '0' }}</td>
                             <td class="text-center">
-                                @if ($item->mahasiswa->kompetensi_mahasiswa)
-                                    @foreach ($item->mahasiswa->kompetensi_mahasiswa as $kompetensi)
-                                        <span class="badge badge-primary" style="margin-right: 5px;">{{ $kompetensi->nama_kompetensi }}</span>
-                                    @endforeach
+                                @isset($item->mahasiswa->kompetensi_mahasiswa)
+                                    @forelse ($item->mahasiswa->kompetensi_mahasiswa as $kompetensi)
+                                        <span class="badge badge-primary">{{ $kompetensi->kompetensi->nama_kompetensi ?? '-' }}</span>
+                                    @empty
+                                        -
+                                    @endforelse
                                 @else
                                     -
-                                @endif
+                                @endisset
                             </td>
                             <td class="text-center">
-                                <span class="badge badge-info status-badge-{{ $item->id_pengajuan_kompen }}" style="padding: 0.25rem 0.5rem; font-size: 0.875rem; border-radius: 0.25rem;">{{ $item->status }}</span>
+                                <span class="badge badge-info status-badge-{{ $item->id_pengajuan_kompen }}">
+                                    {{ $item->status ?? '-' }}
+                                </span>
                             </td>
-                            <td class="text-center">
+                            <td>
                                 <form id="updateForm-{{ $item->id_pengajuan_kompen }}" class="update-form" action="{{ url('/pengajuankompen/update-status') }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="id_pengajuan_kompen" value="{{ $item->id_pengajuan_kompen }}">
-                                    <select name="status" id="status-{{ $item->id_pengajuan_kompen }}" class="form-control form-control-sm" style="margin-bottom: 0.5rem;">
+                                    <select name="status" class="form-control form-control-sm mb-1">
                                         <option value="acc" {{ $item->status == 'acc' ? 'selected' : '' }}>Diterima</option>
                                         <option value="reject" {{ $item->status == 'reject' ? 'selected' : '' }}>Ditolak</option>
                                     </select>
                                     <button type="submit" class="btn btn-primary btn-sm btn-block">Update</button>
-                                    <input type="text" name="id_kompen" value="{{$item->id_kompen}}" hidden>
-                                    <input type="text" name="id_mahasiswa" value="{{$item->id_mahasiswa}}" hidden>
                                 </form>
                             </td>
                         </tr>
-                        @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="7" class="text-center">Data tidak tersedia</td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
@@ -151,8 +156,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const formData = new FormData(this);
             const url = this.action;
             const idPengajuanKompen = this.querySelector('input[name="id_pengajuan_kompen"]').value;
-            const statusSelect = this.querySelector(`#status-${idPengajuanKompen}`);
-            const statusBadge = document.querySelector(`.status-badge-${idPengajuanKompen}`);
+            const statusSelect = this.querySelector(#status-${idPengajuanKompen});
+            const statusBadge = document.querySelector(.status-badge-${idPengajuanKompen});
             
             fetch(url, {
                 method: 'POST',

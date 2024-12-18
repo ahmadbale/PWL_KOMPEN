@@ -7,6 +7,7 @@ use App\Models\PersonilAkademikModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class KompenModel extends Model
 {

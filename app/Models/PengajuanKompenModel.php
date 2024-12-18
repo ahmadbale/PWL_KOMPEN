@@ -36,6 +36,9 @@ class PengajuanKompenModel extends Model
         return $this->belongsTo(KompenModel::class, 'id_kompen', 'id_kompen');
     }
     
+    public function kompetensi(){
+        return $this->belongsTo(KompetensiModel::class,  'id_kompetesi','id_kompetensi');
+    }
 
     public function getMahasiswaName(): string
     {

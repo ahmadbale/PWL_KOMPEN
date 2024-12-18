@@ -154,7 +154,7 @@
             @endif
             @if (auth()->user()->level->kode_level == 'MHS')
             <li class="nav-item">
-                <a href="{{ url('/kompetensi_mahasiswa') }}" class="nav-link">
+                <a href="{{ url('/kompetensi_mahasiswa') }}" class="nav-link {{ ($activeMenu == 'kompetensi_mahasiswa') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-tag"></i>
                     <p>Pilih Kompetensi</p>
                 </a>
@@ -167,8 +167,8 @@
             </li>
             <li class="nav-item">
                 <a href="{{ url('/histori_mahasiswa') }}" class="nav-link {{ ($activeMenu == 'histori_mahasiswa') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-history"></i>
-                    <p>Histori Kompen</p>
+                    <i class="nav-icon fas fa-tasks"></i>
+                    <p>Upload Tugas</p>
                 </a>
             </li>
             <li class="nav-item">

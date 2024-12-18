@@ -52,7 +52,7 @@
                 </div>
             </div>
         </div>
-        <table class="table table-striped table-hover table-sm border" id="table_tolak_kompen">
+        <table class="table table-striped table-hover table-sm border table-responsive" id="table_tolak_kompen">
             <thead>
                 <tr>
                     <th>No</th>

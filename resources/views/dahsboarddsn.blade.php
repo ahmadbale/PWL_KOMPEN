@@ -12,10 +12,10 @@
     <!-- Chart Section -->
     <div class="row my-4">
         <div class="col-md-6">
-            <canvas id="jumlahDitolakChart"></canvas>
+            <canvas id="jumlahDitolakChart" style="max-width: 300px; max-height: 300px;"></canvas>
         </div>
         <div class="col-md-6">
-            <canvas id="totalJamChart"></canvas>
+            <canvas id="totalJamChart" style="max-width: 300px; max-height: 300px;"></canvas>
         </div>
     </div>
 
@@ -57,7 +57,7 @@
     // Prepare data
     const statusData = @json($statusData);
    
-    // Jumlah Kompensasi Ditolak Chart
+    // Jumlah Kompensasi Ditolak Pie Chart
     const ctxJumlah = document.getElementById('jumlahDitolakChart').getContext('2d');
     
     // Pisahkan data ditolak dan disetujui
@@ -71,7 +71,7 @@
     ];
 
     new Chart(ctxJumlah, {
-        type: 'bar',
+        type: 'pie',
         data: {
             labels: labels,
             datasets: [{
@@ -85,25 +85,25 @@
             plugins: {
                 title: {
                     display: true,
-                    text: 'Jumlah Kompensasi per Status'
+                    text: 'Jumlah Kompensasi per Status',
+                    font: {
+                        size: 18
+                    }
                 },
                 legend: {
-                    display: false
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Jumlah Kompensasi'
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        font: {
+                            size: 14
+                        }
                     }
                 }
             }
         }
     });
 
-    // Total Jam Chart
+    // Total Jam Pie Chart
     const ctxJam = document.getElementById('totalJamChart').getContext('2d');
     const jamValues = [
         ditolakData ? ditolakData.total_jam : 0, 
@@ -111,7 +111,7 @@
     ];
 
     new Chart(ctxJam, {
-        type: 'bar',
+        type: 'pie',
         data: {
             labels: labels,
             datasets: [{
@@ -125,18 +125,18 @@
             plugins: {
                 title: {
                     display: true,
-                    text: 'Total Jam Kompensasi per Status'
+                    text: 'Total Jam Kompensasi per Status',
+                    font: {
+                        size: 18
+                    }
                 },
                 legend: {
-                    display: false
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Jumlah Jam'
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        font: {
+                            size: 14
+                        }
                     }
                 }
             }

@@ -23,7 +23,7 @@
         <div id="modal-master" class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Kompen Detail</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Upload Progres</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -37,6 +37,9 @@
                     <div class="form-group">
                         <label>Progres 2 (100%) <span class="text-danger">*</span></label>
                         <input value="{{ $detailKompen->progres_2 }}" type="text" name="progres_2" id="progres_2" class="form-control">
+                    </div>
+                    <div>
+                        <label><span class="text-danger">*</span> Upload progres dalam bentuk Link (Google Drive, Docs, Spreadsheet, dst.)</label>
                     </div>
                 </div>
                 <div class="modal-footer">

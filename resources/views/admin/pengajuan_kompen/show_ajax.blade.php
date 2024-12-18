@@ -47,14 +47,15 @@
                         </tr>
                     </table>
                 </div>
-
+            
                 <table class="table table-bordered table-hover table-sm mt-4">
+                       <h2 class="text-center">Data Mahasiswa</h2>
                     <thead style="background: #6a11cb; color: white; text-align: center;">
                         <tr>
                             <th width="5%">No</th>  
                             <th>Mahasiswa</th>
                             <th>Prodi</th>
-                            <th>Jam Kompen</th>
+                            <th>Total Kompen</th>
                             <th>Kompetensi</th>
                             <th>Status</th>
                             <th width="15%">Aksi</th>
@@ -65,7 +66,7 @@
                         <tr>
                             <td class="text-center">{{ $loop->iteration }}</td>
                             <td class="text-center">{{ $item->mahasiswa->nama }}</td>
-                            <td class="text-center">{{ $item->mahasiswa->prodi->nama_prodi ?? '-' }}</td>\
+                            <td class="text-center">{{ $item->mahasiswa->prodi->nama_prodi ?? '-' }}</td>
                             <td class="text-center">{{ $item->mahasiswa->jam_kompen}}</td>
                             <td class="text-center">
                                 @if ($item->mahasiswa->kompetensi_mahasiswa)
@@ -101,7 +102,7 @@
 
         <!-- Footer -->
         <div class="modal-footer" style="background: #f9f9f9; border-top: none;">
-            <button type="button" data-dismiss="modal" class="btn btn-secondary">Kembali</button>
+            <button type="button" data-dismiss="modal" class="btn btn-warning">Kembali</button>
         </div>
     </div>
 </div>

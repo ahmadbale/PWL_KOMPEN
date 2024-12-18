@@ -45,7 +45,7 @@
             <div class="alert alert-danger">{{ session('error') }}</div>
         @endif
        
-        <table class="table table-striped table-hover table-sm mt-3 no-border" id="table_mahasiswa">
+        <table class="table table-striped table-hover table-sm mt-3 no-border table-responsive" id="table_mahasiswa">
             <thead>
                 <tr>
                     <th>No</th>

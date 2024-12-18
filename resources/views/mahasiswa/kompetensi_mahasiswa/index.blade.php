@@ -32,7 +32,7 @@
             </div>
         @endif
 
-        <table class="table table-bordered table-striped table-hover table-sm" id="table_kompetensi_mahasiswa">
+        <table class="table table-bordered table-striped table-hover table-sm " id="table_kompetensi_mahasiswa">
             <thead>
                 <tr>
                     <th width="5%">No</th>

@@ -52,14 +52,14 @@
 
                 <!-- Tanggal Mulai -->
                 <div class="form-group">
-                    <label for="tanggal_mulai">Tanggal Mulai</label>
+                    <label for="tanggal_mulai">Tanggal & Waktu Mulai</label>
                     <input type="datetime-local" name="tanggal_mulai" id="tanggal_mulai" class="form-control" required>
                     <small id="error-tanggal_mulai" class="error-text form-text text-danger"></small>
                 </div>
 
                 <!-- Tanggal Selesai -->
                 <div class="form-group">
-                    <label for="tanggal_selesai">Tanggal Selesai</label>
+                    <label for="tanggal_selesai">Tanggal & Waktu Selesai</label>
                     <input type="datetime-local" name="tanggal_selesai" id="tanggal_selesai" class="form-control" required>
                     <small id="error-tanggal_selesai" class="error-text form-text text-danger"></small>
                 </div>

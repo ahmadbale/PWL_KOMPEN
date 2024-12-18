@@ -48,12 +48,13 @@
                 </table>
 
                 <table class="table table-bordered table-hover table-sm mt-4">
+                    <h2 class="text-center">Data Mahasiswa</h2>
                     <thead style="background: #6a11cb; color: white; text-align: center;">
                         <tr>
                             <th width="5%">No</th>
                             <th>Mahasiswa</th>
                             <th>Prodi</th>
-                            <th>Jam Kompen</th>
+                            <th>Jam Kompen Mahasiswa</th>
                             <th>Progres Pertama (75%)</th>
                             <th>Progres Kedua (100%)</th>
                             @if($kompen->is_selesai != 1)

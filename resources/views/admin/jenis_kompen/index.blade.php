@@ -40,7 +40,7 @@
             </div>
         @endif
 
-        <table class="table table-bordered table-striped table-hover table-sm" id="table_jenis_kompen">
+        <table class="table table-bordered table-striped table-hover table-sm " id="table_jenis_kompen">
             <thead>
                 <tr>
                     <th width="5%">No</th>

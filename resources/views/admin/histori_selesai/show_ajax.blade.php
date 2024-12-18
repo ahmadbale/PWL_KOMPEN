@@ -50,6 +50,7 @@
                 </div>
 
                 <table class="table table-bordered table-hover table-sm mt-4">
+                    <h2 class="text-center">Data Mahasiswa</h2>
                     <thead style="background: #6a11cb; color: white; text-align: center;">
                         <tr>
                             <th width="5%">No</th>

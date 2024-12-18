@@ -40,7 +40,7 @@
                     </div>
                 </div>
             </div>
-            <table class="table table-bordered table-striped table-hover table-sm" id="table_kompen">
+            <table class="table table-bordered table-striped table-hover table-sm table-responsive" id="table_kompen">
                 <thead>
                     <tr>
                         <th width="5%">No</th>

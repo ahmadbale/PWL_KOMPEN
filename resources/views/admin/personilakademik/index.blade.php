@@ -55,7 +55,7 @@
                 </div>
             </div>
         </div>
-        <table class="table table-bordered table-striped table-hover table-sm border" id="table_personilakademik">
+        <table class="table table-bordered table-striped table-hover table-sm border " id="table_personilakademik">
             <thead>
                 <tr>
                     <th>ID</th>

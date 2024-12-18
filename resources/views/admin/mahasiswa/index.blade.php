@@ -48,7 +48,7 @@
                 </div>
             </div>
         </div>
-        <table class="table table-striped table-hover table-sm border" id="table_mahasiswa">
+        <table class="table table-striped table-hover table-sm border table-responsive" id="table_mahasiswa">
             <thead>
                 <tr>
                     <th>No</th>

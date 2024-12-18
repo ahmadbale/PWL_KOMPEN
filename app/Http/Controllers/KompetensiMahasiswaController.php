@@ -21,7 +21,7 @@ class KompetensiMahasiswaController extends Controller
             'title' => 'Daftar Kopetensi yang Terdaftar dalam Sistem'
         ];
 
-        $activeMenu = 'Kompetensi_mahasiswa';
+        $activeMenu = 'kompetensi_mahasiswa';
         $Kompetensi_mahasiswa = KompetensiMahasiswaModel::all();
         return view('mahasiswa.kompetensi_mahasiswa.index', compact('breadcrumb', 'page', 'Kompetensi_mahasiswa', 'activeMenu'));
     }

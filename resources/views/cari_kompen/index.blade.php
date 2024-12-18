@@ -50,7 +50,7 @@
             <div class="alert alert-danger">{{ session('error') }}</div>
         @endif
 
-        <table class="table table-striped table-hover table-sm border" id="table_cari_kompen">
+        <table class="table table-striped table-hover table-sm border table-responsive" id="table_cari_kompen">
             <thead>
                 <tr>
                     <th>No</th>

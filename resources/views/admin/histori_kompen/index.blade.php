@@ -45,10 +45,10 @@
                                 @endforeach
                             </select>
                         </div> --}}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <table class="table table-bordered table-striped table-hover table-sm" id="table_kompen">
+            <table class="table table-bordered table-striped table-hover table-sm table-responsive" id="table_kompen">
                 <thead>
                     <tr>
                         <th width="5%">No</th>
@@ -63,7 +63,7 @@
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Selesai</th>
                         <th>Status</th>
-                        <th width="15%">Pekerja Kompen</th>
+                        <th width="15%">Aksi</th>
                     </tr>
                 </thead>
                 <tbody></tbody>

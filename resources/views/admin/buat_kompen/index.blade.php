@@ -9,11 +9,14 @@
         <div class="col-12 text-left mb-3">
             <h2><b>Daftar Kompen Jurusan Teknologi Informasi<b></h2>
         </div>
-            <div class="card-tools" id="button-tambah" >
-                <button type="button" onclick="modalAction('{{ url('/kompen/create_ajax') }}')" class="btn btn-success"><i class="fas fa-plus-circle"></i> 
-                    Tambah Data
-                </button>
-            </div>
+        @if (auth()->user()->level->kode_level == 'DSN')
+        <div class="card-tools" id="button-tambah" >
+            <button type="button" onclick="modalAction('{{ url('/kompen/create_ajax') }}')" class="btn btn-success"><i class="fas fa-plus-circle"></i> 
+                Tambah Data
+            </button>
+        </div>
+    @endif
+           
         <br>
         <div class="card card-outline card">
         <div class="card-body">
@@ -50,7 +53,7 @@
                     </div>
                 </div>
             </div>
-            <table class="table table-bordered table-striped table-hover table-sm" id="table_kompen">
+            <table class="table table-bordered table-striped table-hover table-sm table-responsive" id="table_kompen">
                 <thead>
                     <tr>
                         <th width="5%">No</th>

@@ -37,18 +37,10 @@
                             </select>
                             <small class="form-text text-muted">Jenis Kompen</small>
                         </div>
-                        {{-- <div class="col-3 position-relative">
-                            <select class="form-control custom-select" name="id_jenis_kompen" id="id_jenis_kompen" required>
-                                <option value="">Status Pengerjaan</option>
-                                @foreach ($kompens as $item)
-                                    <option value="{{ $item->id_kompen }}">{{ $item->is_selesai}}</option>
-                                @endforeach
-                            </select>
-                        </div> --}}
                     </div>
                 </div>
             </div>
-            <table class="table table-bordered table-striped table-hover table-sm" id="table_kompen">
+            <table class="table table-bordered table-striped table-hover table-sm table-responsive" id="table_kompen">
                 <thead>
                     <tr>
                         <th width="5%">No</th>

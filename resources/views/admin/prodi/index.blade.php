@@ -18,9 +18,9 @@
         <div class="col-12 text-left mb-3" id="text">
             <h2><b>Daftar Prodi</b></h2>
         </div>
-        <div class="card-tools">
+        {{-- <div class="card-tools">
             <button onclick="modalAction('{{ url('prodi/create_ajax') }}')" class="btn btn-success"><i class="fas fa-plus-circle"></i> Tambah Prodi</button>
-        </div>
+        </div> --}}
     <br>
     <div class="card card-outline card">
     <div class="card-body">
@@ -50,7 +50,7 @@
                 </div>
             </div>
         </div> --}}
-        <table class="table table-bordered table-striped table-hover table-sm" id="table_prodi">
+        <table class="table table-bordered table-striped table-hover table-sm " id="table_prodi">
             <thead>
                 <tr>
                     <th>ID</th>

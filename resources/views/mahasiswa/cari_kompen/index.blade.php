@@ -11,11 +11,31 @@
         font-family: 'DM Sans', sans-serif;
     }
 
+    .no-border td, .no-border th {
+        border: none !important;
+    }
 
     .position-relative {
     position: relative;
     }
 
+    .custom-select {
+    background-image: none;
+    padding-right: 30px; /* Ruang untuk ikon */
+    border-radius: 30px;
+    background-color: rgba(217, 217, 217, 0.3);
+    }
+
+    .select-icon {
+    position: absolute;
+    right: 10px; /* Sesuaikan posisi ikon */
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* Agar ikon tidak mengganggu klik */
+    font-size: 16px; /* Ukuran ikon sesuai kebutuhan */
+    color: #555; /* Sesuaikan warna ikon */
+    padding-right: 15px;
+    }
     
 </style>
 <body>
@@ -24,7 +44,39 @@
             <h2><b>Silahkan Cari Tugas Kompen yang tersedia</b></h2>
         </div>
         <br>
-<div class="card card-outline card">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <div class="col-3 position-relative">
+                        <select class="form-control custom-select" name="id_jenis_kompen" id="id_jenis_kompen" required>
+                            <option value="">Pilih Jenis Kompen</option>
+                            @foreach ($jeniskompen as $item )
+                            <option value="{{$item->id_jenis_kompen}}">{{ $item->nama_jenis}}</option>
+                            @endforeach
+                        </select>
+                        <i class="right fas fa-angle-down select-icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- <div class="row">
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <div class="col-3 position-relative">
+                        <select class="form-control custom-select" name="id_jenis_kompen" id="id_jenis_kompen" required>
+                            <option value="">Pilih Personill</option>
+                            @foreach ($personil as $item )
+                            <option value="{{$item->id_personil}}">{{ $item->nama}}</option>
+                            @endforeach
+                        </select>
+                        <i class="right fas fa-angle-down select-icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div> --}}
+
+        
+<div class="card card-outline ">
     <div class="card-body">
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
@@ -32,23 +84,8 @@
         @if (session('error'))
             <div class="alert alert-danger">{{ session('error') }}</div>
         @endif
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group row">
-                    <label class="col-1 control-label col-form-label">Filter:</label>
-                    <div class="col-3 position-relative">
-                        <select class="form-control custom-select" name="id_jenis_kompen" id="id_jenis_kompen" required>
-                            <option value="">- Semua -</option>
-                            @foreach ($jeniskompen as $item )
-                            <option value="{{$item->id_jenis_kompen}}">{{ $item->nama_jenis}}</option>
-                            @endforeach
-                        </select>
-                        <small class="form-text text-muted">Jenis Kompen</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <table class="table table-striped table-hover table-sm border table-responsive" id="table_cari_kompen">
+
+        <table class="table table-striped table-hover table-sm mt-3 no-border" id="table_cari_kompen">
             <thead>
                 <tr>
                     <th>No</th>
@@ -193,11 +230,11 @@
             order: [[1, 'asc']],
             language: {
                 processing: "Memuat data...",
-                lengthMenu: "Tampilkan _MENU_ data per halaman",
+                lengthMenu: "Tampilkan MENU data per halaman",
                 zeroRecords: "Data tidak ditemukan",
-                info: "Menampilkan halaman _PAGE_ dari _PAGES_",
+                info: "Menampilkan halaman PAGE dari PAGES",
                 infoEmpty: "Tidak ada data yang tersedia",
-                infoFiltered: "(difilter dari total _MAX_ data)",
+                infoFiltered: "(difilter dari total MAX data)",
                 search: "Cari:",
                 paginate: {
                     first: "Pertama",

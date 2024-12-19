@@ -86,6 +86,8 @@
                             <td>
                                 <form id="updateForm-{{ $item->id_pengajuan_kompen }}" class="update-form" action="{{ url('/pengajuankompen/update-status') }}" method="POST">
                                     @csrf
+                                    <input type="text" name="id_kompen" id="id_kompen" value="{{ $item->id_kompen}}" hidden>
+                                    <input type="text" name="id_mahasiswa" id="id_mahasiswa" value="{{$item->id_mahasiswa}}" hidden>
                                     <input type="hidden" name="id_pengajuan_kompen" value="{{ $item->id_pengajuan_kompen }}">
                                     <select name="status" class="form-control form-control-sm mb-1">
                                         <option value="acc" {{ $item->status == 'acc' ? 'selected' : '' }}>Diterima</option>

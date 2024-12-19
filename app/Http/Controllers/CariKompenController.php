@@ -39,28 +39,36 @@ class CariKompenController extends Controller
         ]);
     }
 
-    public function list(Request $request )
+    public function list(Request $request)
     {
         $kompens = KompenModel::with(['personil:id_personil,nama,username', 'jeniskompen:id_jenis_kompen,nama_jenis'])
-        ->select(
-            'kompen.id_kompen',
-            'kompen.id_personil',
-            'kompen.nama',
-            'kompen.id_jenis_kompen',
-            'kompen.kuota',
-            'kompen.tanggal_mulai',
-            'kompen.tanggal_selesai',
-            'kompen.jam_kompen',
-            'kompen.status'
-        )
-        ->where('status', 'setuju')
-        ->where('is_selesai', 0)
-        ->whereRaw('(SELECT COUNT(*) FROM pengajuan_kompen WHERE pengajuan_kompen.id_kompen = kompen.id_kompen AND pengajuan_kompen.status != "ditolak") < kompen.kuota');
+            ->select(
+                'kompen.id_kompen',
+                'kompen.id_personil',
+                'kompen.nama',
+                'kompen.id_jenis_kompen',
+                'kompen.kuota',
+                'kompen.tanggal_mulai',
+                'kompen.tanggal_selesai',
+                'kompen.jam_kompen',
+                'kompen.status'
+            )
+            ->selectRaw('(
+                kompen.kuota - (
+                    SELECT COUNT(*) 
+                    FROM pengajuan_kompen 
+                    WHERE pengajuan_kompen.id_kompen = kompen.id_kompen 
+                    AND pengajuan_kompen.status != "ditolak"
+                )
+            ) as sisa_kuota')
+            ->where('status', 'setuju')
+            ->where('is_selesai', 0)
+            ->whereRaw('(SELECT COUNT(*) FROM pengajuan_kompen WHERE pengajuan_kompen.id_kompen = kompen.id_kompen AND pengajuan_kompen.status != "ditolak") < kompen.kuota');
         
         if ($request->id_jenis_kompen) {
             $kompens->where('id_jenis_kompen', $request->id_jenis_kompen);
-        }elseif ($request->id_personil) {
-            $kompens->where('id_personil',$request->id_personil);
+        } elseif ($request->id_personil) {
+            $kompens->where('id_personil', $request->id_personil);
         }
         
         return DataTables::of($kompens)
@@ -68,6 +76,9 @@ class CariKompenController extends Controller
             ->addColumn('aksi', function ($cari_kompen) {
                 $btn = '<button onclick="modalAction(\'' . url('/cari_kompen/' . $cari_kompen->id_kompen . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
                 return $btn;
+            })
+            ->addColumn('sisa_kuota_display', function ($cari_kompen) {
+                return $cari_kompen->sisa_kuota . ' dari ' . $cari_kompen->kuota;
             })
             ->rawColumns(['aksi'])
             ->make(true);

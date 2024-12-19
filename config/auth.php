@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'mahasiswa',
+        'guard' => 'web',
         'passwords' => 'users',
     ],
 
@@ -36,26 +36,12 @@ return [
     */
 
     'guards' => [
-        'mahasiswa' => [
+        'web' => [
             'driver' => 'session',
-            'provider' => 'mahasiswa',
-        ],
-
-        'personil' => [
-            'driver' => 'session',
-            'provider' => 'personil_akademik',
-        ],
-
-        'api_mahasiswa' => [
-            'driver' => 'jwt', // Gunakan JWT jika Anda menginginkan otentikasi berbasis token
-            'provider' => 'mahasiswa',
-        ],
-    
-        'api_personil' => [
-            'driver' => 'jwt',
-            'provider' => 'personil_akademik',
+            'provider' => 'users',
         ],
     ],
+
     /*
     |--------------------------------------------------------------------------
     | User Providers
@@ -74,15 +60,15 @@ return [
     */
 
     'providers' => [
-        'mahasiswa' => [
+        'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\MahasiswaModel::class,
+            'model' => App\Models\User::class,
         ],
-  
-        'personil_akademik' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\PersonilAkademikModel::class,
-        ],
+
+        // 'users' => [
+        //     'driver' => 'database',
+        //     'table' => 'users',
+        // ],
     ],
 
     /*

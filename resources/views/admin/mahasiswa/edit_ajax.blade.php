@@ -35,13 +35,13 @@
                     <div class="form-group">
                         <label>Username</label>
                         <input value="{{ $mahasiswa->username }}" type="text" name="username" id="username" class="form-control"
-                            required>
+                            readonly>
                         <small id="error-username" class="error-text form-text text-danger"></small>
                     </div>
                     <div class="form-group">
                         <label>Nama</label>
                         <input value="{{ $mahasiswa->nama }}" type="text" name="nama" id="nama" class="form-control"
-                            required>
+                            readonly>
                         <small id="error-nama" class="error-text form-text text-danger"></small>
                     </div>
                     <div class="form-group">
@@ -63,7 +63,7 @@
                     <div class="form-group">
                         <label>Jam Alpha</label>
                         <input value="{{ $mahasiswa->jam_alpha }}" type="number" name="jam_alpha" id="jam_alpha" class="form-control"
-                            required>
+                            reeuired>
                         <small id="error-jam_alpha" class="error-text form-text text-danger"></small>
                     </div>
                     <div class="form-group">
@@ -80,7 +80,7 @@
                     </div>
                     <div class="form-group">
                         <label>Prodi</label>
-                        <select name="id_prodi" id="id_prodi" class="form-control" required>
+                        <select name="id_prodi" id="id_prodi" class="form-control" readonly>
                             <option value="">- Pilih Prodi -</option>
                             @foreach ($prodi as $p)
                                 <option {{ $p->id_prodi == $mahasiswa->id_prodi ? 'selected' : '' }} value="{{ $p->id_prodi }}">
@@ -103,24 +103,17 @@
         $(document).ready(function() {
             $("#form-edit").validate({
                 rules: {
-                    nomor_induk: {
-                    required: true,
-                    number: true,
-                    minlength:10,
-                    maxlength:10
-                },
                 username: {
-                    required: true,
                     minlength: 3,
                     maxlength: 20
                 },
                 nama: {
-                    required: true,
+                    required: false,
                     minlength: 3,
                     maxlength: 100
                 },
                 periode_tahun: {
-                    required: true,
+                    required: false,
                     number: true
                 },
                 password: {
@@ -129,23 +122,23 @@
                     maxlength: 20
                 },
                 jam_alpha: {
-                    required: true,
+                    required: false,
                     number: true
                 },
                 jam_kompen: {
-                    required: true,
+                    required: false,
                     number: true
                 },
                 jam_kompen_selesai: {
-                    required: true,
+                    required: false,
                     number: true
                 },
                 id_prodi: {
-                    required: true,
+                    required: false,
                     number: true
                 },
                 id_level: {
-                    required: true,
+                    required: false,
                     number: true
                 }
                 },

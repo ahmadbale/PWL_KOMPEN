@@ -13,7 +13,7 @@
                 <input name='id_personil' id="id_personil" type="text" value="{{ auth()->user()->id_personil}}" hidden>
                 <!-- Nama -->
                 <div class="form-group">
-                    <label for="nama">Nama</label>
+                    <label for="nama">Judul Kompen</label>
                     <input type="text" name="nama" id="nama" class="form-control" required>
                     <small id="error-nama" class="error-text form-text text-danger"></small>
                 </div>

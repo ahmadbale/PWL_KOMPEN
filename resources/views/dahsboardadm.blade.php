@@ -19,7 +19,7 @@
                 Info lebih lanjut <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Box 2 -->
     <div class="col-lg-3 col-6">
@@ -28,15 +28,15 @@
                 <div class="icon" style="top: 50%; transform: translateY(-50%); right: 20px;">
                     <i class="fas fa-users fa-3x text-white"></i>
                 </div>
-                <h3 style="font-size: 2.5rem;">{{ $totalMahasiswa }}</h3>
-                <p style="font-weight: bold; color:#ffffff">Total Mahasiswa</p>
+                <h3 style="font-size: 2.5rem;">{{ $totalJenisKompen }}</h3>
+                <p style="font-weight: bold; color:#ffffff">Total Jenis Kompen</p>
             </div>
            
-            <a href="{{ url('/mahasiswa') }}" class="small-box-footer" style="background: rgba(255,255,255,0.1); padding: 10px; font-weight: bold;">
+            <a href="{{ url('/jeniskompen') }}" class="small-box-footer" style="background: rgba(255,255,255,0.1); padding: 10px; font-weight: bold;">
                 Info lebih lanjut <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
-    </div> --}}
+    </div>
 
     <!-- Box 3 -->
     <div class="col-lg-3 col-6">

@@ -7,6 +7,7 @@ use App\Models\KompenModel;
 use Illuminate\Http\Request;
 use App\Models\PersonilAkademikModel;
 use App\Models\KompetensiModel;
+use App\Models\JenisKompenModel;
 class WelcomeController extends Controller
 {
     public function index() {
@@ -19,9 +20,10 @@ class WelcomeController extends Controller
         $totalMahasiswa = MahasiswaModel::count();
         $totalKompen = KompenModel::count();
         $totalKompetensi = KompetensiModel::count();
+        $totalJenisKompen = JenisKompenModel::count();
 
         $activeMenu = 'dahsboardadm';
-        return view('dahsboardadm', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu,'totalPersonil' => $totalPersonil,'totalMahasiswa' => $totalMahasiswa,'totalKompen' => $totalKompen,'totalKompetensi' => $totalKompetensi]);
+        return view('dahsboardadm', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu,'totalPersonil' => $totalPersonil,'totalMahasiswa' => $totalMahasiswa,'totalKompen' => $totalKompen,'totalKompetensi' => $totalKompetensi,'totalJenisKompen' => $totalJenisKompen]);
     }
 
-}
+}   

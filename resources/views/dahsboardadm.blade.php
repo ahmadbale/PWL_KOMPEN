@@ -5,7 +5,7 @@
 <!-- Statistik Section -->
 <div class="row mt-4">
     <!-- Box 1 -->
-    <div class="col-lg-3 col-6">
+    {{-- <div class="col-lg-3 col-6">
         <div class="small-box bg-info position-relative shadow-sm" style="border: 2px solid #ffffff; border-radius: 10px; transition: transform 0.3s, box-shadow 0.3s;">
             <div class="inner">
                 <div class="icon" style="top: 50%; transform: translateY(-50%); right: 20px;">
@@ -36,7 +36,7 @@
                 Info lebih lanjut <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Box 3 -->
     <div class="col-lg-3 col-6">

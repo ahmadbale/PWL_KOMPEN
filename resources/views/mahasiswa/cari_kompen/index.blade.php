@@ -92,7 +92,7 @@
                     <th>Pemberi Tugas</th>
                     <th>Tugas</th>
                     <th>Jenis Kompen</th>
-                    <th>Kuota</th>
+                    <th>Sisa Kuota</th>
                     <th>Tanggal Mulai</th>
                     <th>Tanggal Selesai</th>
                     <th>Konversi Jam Kompen</th>
@@ -187,10 +187,8 @@
                     searchable: true, 
                 },
                 {
-                    data: "kuota",
-                    className: "text-center",
-                    orderable: true,
-                    searchable: true
+                    data: 'sisa_kuota_display',
+                    name: 'sisa_kuota_display'
                 },
                 {
                     data: "tanggal_mulai",

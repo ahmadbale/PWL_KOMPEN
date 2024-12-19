@@ -93,8 +93,8 @@
                                     
                                     <input type="hidden" name="id_pengajuan_kompen" value="{{ $item->id_pengajuan_kompen }}">
                                     <select name="status" class="form-control form-control-sm mb-1">
-                                        <option value="acc" {{ $item->status == 'acc' ? 'selected' : '' }}>Diterima</option>
-                                        <option value="reject" {{ $item->status == 'reject' ? 'selected' : '' }}>Ditolak</option>
+                                        <option value="acc" {{ $item->status == 'acc' ? 'selected' : '' }}>Di terima</option>
+                                        <option value="reject" {{ $item->status == 'reject' ? 'selected' : '' }}>Di tolak</option>
                                     </select>
                                     <button type="submit" class="btn btn-primary btn-sm btn-block">Update</button>
                                 </form>
